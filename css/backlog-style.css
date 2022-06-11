@@ -1,0 +1,47 @@
+body {
+    margin: 0;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+}
+
+main {
+    padding: 1.5em;
+    width: 100%;
+}
+
+.table-head {
+    display: flex;
+    
+}
+
+.margin-auto {
+    margin: 0 auto;
+}
+
+.table-head p {
+    font-weight: 500;
+    font-size: 1.5em;
+}
+
+.title-width {
+    width: 150px;
+}
+
+.category-width {
+    width: 150px;
+}
+
+.details-width {
+    width: 200px;
+    word-wrap: break-word;
+}
+
+.task-container {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    background: rgb(241, 242, 246);
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 4px;
+}

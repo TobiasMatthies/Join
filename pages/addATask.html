@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Join</title>
+  <link rel="icon" href="../joinlogo.ico">
+  <link rel="stylesheet" href="../css/addATask-style.css">
+  <link rel="stylesheet" href="../css/nav-style.css">
+  <script src="../js/include.js"></script>
+  <script src="../js/addATask.js"></script>
+  <script src="../js/nav.js"></script>
+</head>
+
+<body onload="initAddATask()">
+  <nav w3-include-html="nav.html"></nav>
+
+  <main>
+    <div id="content_add_a_task">
+      <h1>Add Task</h1>
+
+      <h3>Learnig Managment System Project</h3>
+
+      <!--Card-->
+      <div onclick="closeOptions()" id="card">
+        <!--upper left box-->
+        <div class="box left">
+          <h2>TITLE</h2>
+
+          <input class="input" id="title"></input>
+
+          <h2>CATEGORY</h2>
+
+          <div class="input">
+            <input placeholder="type in or select..." class="input_select_option" id="category">
+
+            <img onclick="setStatus(0, 'categories')" class="chevron pointer" src="../img/chevron.svg">
+
+            <datalist class="d-none" id="categories">
+              <option onclick="setValue('category', 'MANAGMENT'); setStatus(0, 'categories')"
+                class="pointer border_bottom">MANAGMENT</option>
+              <option onclick="setValue('category', 'FRONTEND'); setStatus(0, 'categories')"
+                class="pointer border_bottom">FRONTEND</option>
+              <option onclick="setValue('category', 'BACKEND'); setStatus(0, 'categories')" class="pointer">BACKEND
+              </option>
+            </datalist>
+          </div>
+        </div>
+
+        <!--upper right box-->
+        <div class="box right">
+          <h2>DUE DATE</h2>
+
+          <input type="date" class="input" id="date">
+
+          <h2>URGENCY</h2>
+
+          <div class="input">
+            <input class="input_select_option" placeholder="type in or select..." id="urgency">
+
+            <img onclick="setStatus(1, 'urgency_list')" class="chevron pointer" src="../img/chevron.svg">
+
+            <datalist class="d-none" id="urgency_list">
+              <option onclick="setValue('urgency', 'HIGH'); setStatus(1, 'urgency_list')" class="pointer border_bottom">
+                HIGH</option>
+              <option onclick="setValue('urgency', 'MEDIUM'); setStatus(1, 'urgency_list')"
+                class="pointer border_bottom">MEDIUM</option>
+              <option onclick="setValue('urgency', 'LOW'); setStatus(1, 'urgency_list')" class="pointer">LOW
+              </option>
+            </datalist>
+          </div>
+        </div>
+
+        <!--lower left box-->
+        <div class="box left align_top">
+          <h2>DESCRIPTION</h2>
+
+          <textarea class="input" id="description"></textarea>
+        </div>
+
+        <!--lower right box-->
+        <div class="box right align_top">
+          <h2>ASSIGNED TO</h2>
+
+          <div id="select_user">
+            <label for="assigned_to">
+              <img aria-hidden="true" class="pointer" id="select_button" src="../img/icon plus.png">
+              <input onchange="readURL(this)" type="file" accept="image" id="assigned_to" style="display:none">
+            </label>
+
+            <img class="user_image" id="selected_image" src="../img/profile.png">
+          </div>
+
+          <div id="button_container">
+            <button onclick="resetValues()">CANCEL</button>
+            <button onclick="createTask()" type="submit" id="create_task">CREATE TASK</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="snackbar d-none" id="warning">
+        <span>Please fill out the required fields! (title, category, urgency)</span>
+      </div>
+
+      <div class="snackbar d-none" id="succes">
+        <span>Task created and moved to the backlog</span>
+      </div>
+    </div>
+  </main>
+</body>
+
+</html>
