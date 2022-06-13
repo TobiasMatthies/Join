@@ -1,3 +1,5 @@
+
+
 let dropDownStatus = [false, false];
 let ids = ['categories', 'urgency_list'];
 let tasks = [];
@@ -8,7 +10,7 @@ let tasks = [];
  * initializing the page
  */
 async function initAddATask() {
-    await includeHTML();
+    await Promise.all([includeHTML()]);
     loadTasks();
     getCurrentDate();
     setCurrentLink(3);
@@ -24,6 +26,8 @@ function loadTasks() {
 
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
+    } else {
+        tasks = [];
     }
 }
 

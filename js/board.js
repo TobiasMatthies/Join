@@ -1,3 +1,5 @@
+
+
 let currentDraggedElement;
 
 let tasks = [{
@@ -16,7 +18,7 @@ let tasks = [{
 
 
 async function initBoard() {
-    await includeHTML();
+    await Promise.all([includeHTML(), downloadFromServer()]);
     setCurrentLink(1);
     updateHTML();
 }
