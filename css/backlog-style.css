@@ -20,7 +20,9 @@ main {
 
 .table-head p {
     font-weight: 500;
-    font-size: 1.5em;
+    font-size: 1.7em;
+    margin-bottom: 24px;
+    color: #2E35C3;
 }
 
 .title-width {
@@ -57,3 +59,27 @@ main {
     border-radius: 4px 0px 0px 4px;
 }
 
+.icons {
+    background-color:#d3d3d3;
+    border-radius: 4px;
+    height: 24px;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.icons:hover {
+    background-color:#c6c6c6;
+}
+
+.board {
+    position: absolute;
+    right: 38px;
+    top: 8px;
+    
+}
+
+.trash {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+}

@@ -86,7 +86,8 @@ function taskTemplate(title, category, description, date, urgency, image) {
         'description': description,
         'date': date,
         'urgency': urgency,
-        'image': image
+        'image': image,
+        'status': 'backlog'    
     }
 }
 
