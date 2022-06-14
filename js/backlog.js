@@ -26,9 +26,9 @@ function tasksInBacklogHTML(i) {
     return `
     <div class="task-container">
         <div  id="${i}" class="urgency-marker"></div>
-        <p class="title-width margin-auto">${storedTasks[i]['title']}</p>
-        <p class="category-width margin-auto">${storedTasks[i]['category']}</p>
-        <p class="details-width margin-auto">${storedTasks[i]['description']}</p>
+        <p class="display"><b>Title:</b></p><p class="title-width margin-auto">${storedTasks[i]['title']}</p>
+        <p class="display"><b>Category:</b></p><p class="category-width margin-auto">${storedTasks[i]['category']}</p>
+        <p class="display"><b>Details:</b></p><p class="details-width margin-auto">${storedTasks[i]['description']}</p>
         <img title="Pin the task to the board!" onclick="pinToBoard(${i})" class="icons board" src="/img/board.svg">
         <img title="Put the task in the trash!" onclick="pushToTrash(${i})" class="icons trash" src="/img/trash.svg">
     </div>`;

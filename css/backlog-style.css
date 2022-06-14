@@ -9,6 +9,10 @@ main {
     width: 100%;
 }
 
+.display {
+    display: none;
+}
+
 .table-head {
     display: flex;
     
@@ -83,3 +87,31 @@ main {
     right: 8px;
     top: 8px;
 }
+
+@media screen and (max-width: 720px) {
+
+    .table-head {
+        display: none;
+    }
+
+    .display {
+        display: block;
+    }
+
+    .task-container {
+        max-width: 100%;
+        display: block;
+    }
+
+    .margin-auto {
+        margin:inherit;
+        margin-top: 0;
+        margin-bottom: 0
+    }
+
+    .task-container p {
+        margin-left: 32px;
+        margin-top: 8px !important;
+        margin-bottom: 8px !important;
+    }
+  }
