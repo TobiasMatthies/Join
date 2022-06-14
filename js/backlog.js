@@ -29,8 +29,8 @@ function tasksInBacklogHTML(i) {
         <p class="title-width margin-auto">${storedTasks[i]['title']}</p>
         <p class="category-width margin-auto">${storedTasks[i]['category']}</p>
         <p class="details-width margin-auto">${storedTasks[i]['description']}</p>
-        <img onclick="pinToBoard(${i})" class="icons board" src="/img/board.svg">
-        <img onclick="pushToTrash(${i})" class="icons trash" src="/img/trash.svg">
+        <img title="Pin the task to the board!" onclick="pinToBoard(${i})" class="icons board" src="/img/board.svg">
+        <img title="Put the task in the trash!" onclick="pushToTrash(${i})" class="icons trash" src="/img/trash.svg">
     </div>`;
 }
 
@@ -66,31 +66,6 @@ function pushToTrash(i) {
 function setItem(key, value) {
     localStorage.setItem(key, JSON.stringify(value));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function loadTasks() {
     let savedTasks = localStorage.getItem('tasks');

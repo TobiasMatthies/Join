@@ -24,8 +24,8 @@ function tasksInTrashHTML(i) {
         <p class="title-width margin-auto">${storedTasks[i]['title']}</p>
         <p class="category-width margin-auto">${storedTasks[i]['category']}</p>
         <p class="details-width margin-auto">${storedTasks[i]['description']}</p>
-        <img onclick="pushToBacklog(${i})" class="icons board" src="/img/backlog.svg">
-        <img onclick="deleteForEver(${i})" class="icons trash" src="/img/delete-forever.svg">
+        <img title="Push the task to the backlog!" onclick="pushToBacklog(${i})" class="icons board" src="/img/backlog.svg">
+        <img title="Delete the task forever!" onclick="deleteForEver(${i})" class="icons trash" src="/img/delete-forever.svg">
     </div>`;
 }
 
