@@ -102,7 +102,3 @@ function loadTasks() {
     }
 }
 
-function setItem(key, value) {
-    backend.setItem(key, JSON.stringify(value));
-}
-
