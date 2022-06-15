@@ -16,20 +16,40 @@
 </head>
 
 <body onload="initBoard()">
+    <div onclick="leaveFullscreen()" class="d-none" id="fullscreen_background"></div>
+
     <nav w3-include-html="nav.html"></nav>
 
     <main>
-        <div class="drag-area" id="ToDo" ondrop="moveToBox('ToDo'); removeHoverEffect('ToDo')"
-            ondragleave="removeHoverEffect('ToDo')" ondragover="allowDrop(event); addHoverEffect('ToDo')"></div>
+        <div class="board_column">
+            <h2>To Do</h2>
 
-        <div class="drag-area" id="InProgress" ondrop="moveToBox('InProgress'); removeHoverEffect('InProgress')"
-            ondragleave="removeHoverEffect('InProgress')" ondragover="allowDrop(event); addHoverEffect('InProgress')"></div>
+            <div class="drag-area" id="ToDo" ondrop="moveToBox('ToDo'); removeHoverEffect('ToDo')"
+                ondragleave="removeHoverEffect('ToDo')" ondragover="allowDrop(event); addHoverEffect('ToDo')"></div>
+        </div>
 
-        <div class="drag-area" id="Testing" ondrop="moveToBox('Testing'); removeHoverEffect('Testing')"
-            ondragleave="removeHoverEffect('Testing')" ondragover="allowDrop(event); addHoverEffect('Testing')"></div>
+        <div class="board_column">
+            <h2>In Progress</h2>
 
-        <div class="drag-area" id="Done" ondrop="moveToBox('Done'); removeHoverEffect('Done')"
-            ondragleave="removeHoverEffect('Done')" ondragover="allowDrop(event); addHoverEffect('Done')"></div>
+            <div class="drag-area" id="InProgress" ondrop="moveToBox('InProgress'); removeHoverEffect('InProgress')"
+                ondragleave="removeHoverEffect('InProgress')"
+                ondragover="allowDrop(event); addHoverEffect('InProgress')"></div>
+        </div>
+
+        <div class="board_column">
+            <h2>Testing</h2>
+
+            <div class="drag-area" id="Testing" ondrop="moveToBox('Testing'); removeHoverEffect('Testing')"
+                ondragleave="removeHoverEffect('Testing')" ondragover="allowDrop(event); addHoverEffect('Testing')">
+            </div>
+        </div>
+
+        <div class="board_column">
+            <h2>Done</h2>
+
+            <div class="drag-area" id="Done" ondrop="moveToBox('Done'); removeHoverEffect('Done')"
+                ondragleave="removeHoverEffect('Done')" ondragover="allowDrop(event); addHoverEffect('Done')"></div>
+        </div>
     </main>
 </body>
 

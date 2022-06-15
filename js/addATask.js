@@ -10,7 +10,7 @@ let tasks = [];
  * initializing the page
  */
 async function initAddATask() {
-    await Promise.all([includeHTML()]);
+    await includeHTML();
     loadTasks();
     getCurrentDate();
     setCurrentLink(3);
@@ -91,7 +91,9 @@ function taskTemplate(title, category, description, date, urgency, image) {
         'date': date,
         'urgency': urgency,
         'image': image,
-        'status': 'backlog'    
+        'status': 'backlog',
+        'boardStatus': 'ToDo',
+        'id': ''    
     }
 }
 
