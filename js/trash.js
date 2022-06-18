@@ -1,7 +1,12 @@
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
+
 let storedTasks = [];
 
+
+
 async function initTrash() {
-    await Promise.all([includeHTML()]);
+    await includeHTML();
+    await downloadFromServer();
     loadTasks();
     console.log(storedTasks);
     showTasksInTrash();

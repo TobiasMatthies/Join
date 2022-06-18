@@ -1,4 +1,4 @@
-
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
 
 let storedTasks = [];
 
@@ -6,12 +6,15 @@ let storedTasks = [];
 
 
 async function initBacklog() {
-    await Promise.all([includeHTML()]);
+    await includeHTML();
+    await downloadFromServer();
     loadTasks();
     console.log(storedTasks);
     showTasksInBacklog();
     setCurrentLink(2);
 }
+
+
 
 function showTasksInBacklog() {
     document.getElementById('backlog-container').innerHTML = '';
@@ -64,11 +67,11 @@ function pushToTrash(i) {
 }
 
 function setItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    backend.setItem(key, JSON.stringify(value));
 }
 
 function loadTasks() {
-    let savedTasks = localStorage.getItem('tasks');
+    let savedTasks = backend.getItem('tasks');
 
     if (savedTasks) {
         storedTasks = JSON.parse(savedTasks);

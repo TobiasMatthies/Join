@@ -1,4 +1,4 @@
-
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
 
 let dropDownStatus = [false, false];
 let ids = ['categories', 'urgency_list'];
@@ -22,7 +22,7 @@ async function initAddATask() {
  * loading the saved tasks
  */
 function loadTasks() {
-    let savedTasks = localStorage.getItem('tasks');
+    let savedTasks = backend.getItem('tasks');
 
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
@@ -39,7 +39,7 @@ function loadTasks() {
  * @param {object} value 
  */
 function setItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    backend.setItem(key, JSON.stringify(value));
 }
 
 

@@ -1,4 +1,6 @@
-let currentDraggedElement;
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');let currentDraggedElement;
+
+
 
 let tasks = [];
 
@@ -10,7 +12,8 @@ let openedTask;
  * initializing the board
  */
 async function initBoard() {
-    await Promise.all([includeHTML()]);
+    await includeHTML();
+    await downloadFromServer();
     setCurrentLink(1);
     filterTasks();
     addId();
@@ -36,7 +39,7 @@ function updateHTML() {
  * getting all tasks with the status "board"
  */
 function filterTasks() {
-    let allTasksAsString = localStorage.getItem('tasks');
+    let allTasksAsString = backend.getItem('tasks');
     let allTasks = JSON.parse(allTasksAsString);
     tasks = allTasks.filter(t => t['status'] == 'board');
 }
@@ -143,7 +146,7 @@ function removeHoverEffect(id) {
 
 
 function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    backend.setItem('tasks', JSON.stringify(tasks));
 }
 
 
