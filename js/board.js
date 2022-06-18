@@ -151,7 +151,7 @@ function saveTasks() {
 
 
 function showMore(id) {
-    if (!openedTask) {
+    if (openedTask == undefined) {
         openedTask = id;
         document.getElementById('fullscreen_background').classList.remove('d-none');
         document.getElementById('task' + id).classList.add('fullscreen');
