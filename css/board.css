@@ -32,6 +32,7 @@ main {
 .fullscreen {
     padding: 20px;
     min-height: 30vh;
+    height: auto !important;
     width: 50vw !important;
     gap: 60px;
     flex-direction: column;
