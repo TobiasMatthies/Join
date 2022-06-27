@@ -1,4 +1,5 @@
-setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');let currentDraggedElement;
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
+let currentDraggedElement;
 
 
 
@@ -15,10 +16,13 @@ async function initBoard() {
     await includeHTML();
     await downloadFromServer();
     setCurrentLink(1);
-    filterTasks();
-    addId();
-    saveTasks();
-    updateHTML();
+    getTasks();
+
+    if (tasks) {
+        addId();
+        saveTasks();
+        updateHTML();
+    }
 }
 
 
@@ -27,10 +31,26 @@ async function initBoard() {
  * updating the board
  */
 function updateHTML() {
-    filterCategory('ToDo');
-    filterCategory('InProgress');
-    filterCategory('Testing');
-    filterCategory('Done');
+    document.getElementById('ToDo').innerHTML = '';
+    document.getElementById('InProgress').innerHTML = '';
+    document.getElementById('Testing').innerHTML = '';
+    document.getElementById('Done').innerHTML = '';
+
+    tasks.forEach((task) => {
+        if (task.status == 'board') {
+            document.getElementById(task['boardStatus']).innerHTML += generateTaskHTML(task);
+        }
+    })
+
+    /*let allTasksWithCategory = tasks.filter(t => t['boardStatus'] == category);
+
+    document.getElementById(category).innerHTML = '';
+
+    for (let i = 0; i < allTasksWithCategory.length; i++) {
+        let task = allTasksWithCategory[i];
+
+        document.getElementById(category).innerHTML += generateTaskHTML(task);
+    }*/
 }
 
 
@@ -38,10 +58,9 @@ function updateHTML() {
  * 
  * getting all tasks with the status "board"
  */
-function filterTasks() {
-    let allTasksAsString = backend.getItem('tasks');
-    let allTasks = JSON.parse(allTasksAsString);
-    tasks = allTasks.filter(t => t['status'] == 'board');
+function getTasks() {
+    let tasksAsString = backend.getItem('tasks');
+    tasks = JSON.parse(tasksAsString);
 }
 
 
@@ -52,24 +71,6 @@ function filterTasks() {
 function addId() {
     for (let i = 0; i < tasks.length; i++) {
         tasks[i]['id'] = i;
-    }
-}
-
-
-/**
- * 
- * filtering the tasks for their categories and moving it to the right columns
- * @param {string} category 
- */
-function filterCategory(category) {
-    let allTasksWithCategory = tasks.filter(t => t['boardStatus'] == category);
-
-    document.getElementById(category).innerHTML = '';
-
-    for (let i = 0; i < allTasksWithCategory.length; i++) {
-        let task = allTasksWithCategory[i];
-
-        document.getElementById(category).innerHTML += generateTaskHTML(task);
     }
 }
 

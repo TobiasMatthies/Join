@@ -34,7 +34,7 @@ function loadTasks() {
 
 /**
  * 
- * settting an item in local storage
+ * settting an item in backend
  * @param {string} key 
  * @param {object} value 
  */
