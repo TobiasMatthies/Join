@@ -11,6 +11,7 @@ let tasks = [];
  */
 async function initAddATask() {
     await includeHTML();
+    await downloadFromServer();
     loadTasks();
     getCurrentDate();
     setCurrentLink(3);

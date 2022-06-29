@@ -1,10 +1,4 @@
 setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
-<<<<<<< HEAD
-=======
-let currentDraggedElement;
-
->>>>>>> 40ddbc3aa90dcf07ac28e5874e4dac5ec007afa5
-
 let currentDraggedElement;
 
 let tasks = [];
@@ -44,7 +38,7 @@ function updateHTML() {
         if (task.status == 'board') {
             document.getElementById(task['boardStatus']).innerHTML += generateTaskHTML(task);
         }
-    })
+    });
 
     /*let allTasksWithCategory = tasks.filter(t => t['boardStatus'] == category);
 
