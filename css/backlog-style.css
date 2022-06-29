@@ -88,6 +88,25 @@ main {
     top: 8px;
 }
 
+body {
+    position: relative;
+}
+
+.alert {
+    position: fixed;
+    width: 200px;
+    left: 0;
+    right: 0;
+    bottom: 200px;
+    margin: 0 auto;
+    font-size: 1.5em;
+}
+
+.opacity-zero {
+    transition: all 200ms ease;
+    opacity: 0;
+}
+
 @media screen and (max-width: 720px) {
 
     .table-head {
@@ -115,3 +134,4 @@ main {
         margin-bottom: 8px !important;
     }
   }
+

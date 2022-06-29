@@ -43,27 +43,42 @@ function setMarkerColor(i) {
 
     if(marker && task['urgency'] == 'HIGH') {
         marker.style.backgroundColor = '#d70b04';
-    }
+    } else
 
     if(marker && task['urgency'] == 'MEDIUM') {
         marker.style.backgroundColor = '#cfd53d';
-    }
+    } else
 
     if(marker && task['urgency'] == 'LOW') {
         marker.style.backgroundColor = '#209c05';
+    } else {
+        if(marker) {
+        marker.style.backgroundColor = '#8ca887';
+        }
     }
 }
 
 function pinToBoard(i) {
+    showAlert('board');
     storedTasks[i]['status'] = 'board';
     setItem('tasks', storedTasks);
     showTasksInBacklog();
 }
 
 function pushToTrash(i) {
+    showAlert('trash');
     storedTasks[i]['status'] = 'trash';
     setItem('tasks', storedTasks);
     showTasksInBacklog();
+}
+
+function showAlert(section) {
+    document.getElementById(`alert-${section}`).classList.remove('opacity-zero');
+    setTimeout(
+        function blendOut() {
+        document.getElementById(`alert-${section}`).classList.add('opacity-zero');
+        }
+    , 1000);
 }
 
 function setItem(key, value) {

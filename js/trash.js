@@ -64,7 +64,7 @@ function deleteForEver(i) {
 }
 
 function setItem(key, value) {
-    localStorage.setItem(key, JSON.stringify(value));
+    backend.setItem(key, JSON.stringify(value));
 }
 
 
@@ -93,7 +93,7 @@ function setItem(key, value) {
 
 
 function loadTasks() {
-    let savedTasks = localStorage.getItem('tasks');
+    let savedTasks = backend.getItem('tasks');
 
     if (savedTasks) {
         storedTasks = JSON.parse(savedTasks);

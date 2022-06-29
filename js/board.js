@@ -1,6 +1,6 @@
-setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');let currentDraggedElement;
+setURL('https://gruppe-208.developerakademie.net/Join2/smallest_backend_ever');
 
-
+let currentDraggedElement;
 
 let tasks = [];
 
@@ -54,7 +54,6 @@ function addId() {
         tasks[i]['id'] = i;
     }
 }
-
 
 /**
  * 
