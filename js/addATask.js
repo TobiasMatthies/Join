@@ -27,7 +27,9 @@ function loadTasks() {
 
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
+        console.log(tasks);
     } else {
+        backend.setItem('tasks', '[]');
         tasks = [];
     }
 }

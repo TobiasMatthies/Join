@@ -58,7 +58,13 @@ function updateHTML() {
  */
 function getTasks() {
     let tasksAsString = backend.getItem('tasks');
-    tasks = JSON.parse(tasksAsString);
+    if(tasksAsString) {
+        tasks = JSON.parse(tasksAsString);
+    } else {
+        backend.setItem('tasks', '[]');
+        tasks = [];
+    }
+
 }
 
 

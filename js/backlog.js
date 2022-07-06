@@ -91,6 +91,7 @@ function loadTasks() {
     if (savedTasks) {
         storedTasks = JSON.parse(savedTasks);
     } else {
+        backend.setItem('tasks', '[]');
         storedTasks = [];
     }
 }
