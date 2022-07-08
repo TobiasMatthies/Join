@@ -14,7 +14,7 @@ async function initBoard() {
     await includeHTML();
     await downloadFromServer();
     setCurrentLink(1);
-    getTasks();
+    await getTasks();
 
     if (tasks) {
         addId();

@@ -12,7 +12,7 @@ let tasks = [];
 async function initAddATask() {
     await includeHTML();
     await downloadFromServer();
-    loadTasks();
+    await loadTasks();
     getCurrentDate();
     setCurrentLink(3);
 }
