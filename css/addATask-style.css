@@ -156,19 +156,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     justify-content: flex-start;
 }
 
-.user_image {
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-#select_button {
-    height: 40px;
-    width: 40px;
-    object-fit: contain;
-}
-
 #select_user {
     gap: 14px;
 }
@@ -260,19 +247,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     #card {
         min-height: 66%;
-    }
-
-    .user_image {
-        height: 60px;
-        width: 60px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    #select_button {
-        height: 30px;
-        width: 30px;
-        object-fit: contain;
     }
 }
 
