@@ -8,7 +8,7 @@ let storedTasks = [];
 async function initBacklog() {
     await includeHTML();
     await downloadFromServer();
-    loadTasks();
+    await loadTasks();
     console.log(storedTasks);
     showTasksInBacklog();
     setCurrentLink(2);
@@ -91,6 +91,7 @@ function loadTasks() {
     if (savedTasks) {
         storedTasks = JSON.parse(savedTasks);
     } else {
+        backend.setItem('tasks', '[]');
         storedTasks = [];
     }
 }

@@ -14,7 +14,7 @@ async function initBoard() {
     await includeHTML();
     await downloadFromServer();
     setCurrentLink(1);
-    getTasks();
+    await getTasks();
 
     if (tasks) {
         addId();
@@ -48,7 +48,13 @@ function updateHTML() {
  */
 function getTasks() {
     let tasksAsString = backend.getItem('tasks');
-    tasks = JSON.parse(tasksAsString);
+    if(tasksAsString) {
+        tasks = JSON.parse(tasksAsString);
+    } else {
+        backend.setItem('tasks', '[]');
+        tasks = [];
+    }
+
 }
 
 

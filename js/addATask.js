@@ -12,7 +12,7 @@ let tasks = [];
 async function initAddATask() {
     await includeHTML();
     await downloadFromServer();
-    loadTasks();
+    await loadTasks();
     getCurrentDate();
     setCurrentLink(3);
 }
@@ -27,7 +27,9 @@ function loadTasks() {
 
     if (savedTasks) {
         tasks = JSON.parse(savedTasks);
+        console.log(tasks);
     } else {
+        backend.setItem('tasks', '[]');
         tasks = [];
     }
 }
