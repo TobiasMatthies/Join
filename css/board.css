@@ -96,3 +96,7 @@ main {
     position: absolute;
     right: 0;
 }
+
+.fullscreen_position {
+    top: 0;
+}

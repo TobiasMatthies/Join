@@ -39,16 +39,6 @@ function updateHTML() {
             document.getElementById(task['boardStatus']).innerHTML += generateTaskHTML(task);
         }
     });
-
-    /*let allTasksWithCategory = tasks.filter(t => t['boardStatus'] == category);
-
-    document.getElementById(category).innerHTML = '';
-
-    for (let i = 0; i < allTasksWithCategory.length; i++) {
-        let task = allTasksWithCategory[i];
-
-        document.getElementById(category).innerHTML += generateTaskHTML(task);
-    }*/
 }
 
 
@@ -156,6 +146,7 @@ function showMore(id) {
         document.getElementById('task_heading' + id).classList.add('fullscreen_heading');
         document.getElementById('fullscreen_info' + id).classList.remove('d-none');
         document.getElementById('show_more' + id).src = '../img/close.svg';
+        document.getElementById('show_more' + id).classList.add('fullscreen_position');
     } else {
         leaveFullscreen();
     }
@@ -168,5 +159,6 @@ function leaveFullscreen() {
     document.getElementById('fullscreen_background').classList.add('d-none');
     document.getElementById('fullscreen_info' + openedTask).classList.add('d-none');
     document.getElementById('show_more' + openedTask).src = '../img/showMore.svg';
+    document.getElementById('show_more' + id).classList.remove('fullscreen_position');
     openedTask = undefined;
 }

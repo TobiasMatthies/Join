@@ -53,7 +53,7 @@ function setItem(key, value) {
  * -showing succes;
  * -else showing the warning;
  */
-function createTask() {
+async function createTask() {
     let title = document.getElementById('title').value;
     let category = document.getElementById('category').value;
     let description = document.getElementById('description').value;
@@ -64,7 +64,7 @@ function createTask() {
     if (title.length > 0 && category.length > 0 && urgency.length > 0) {
         tasks.push(taskTemplate(title, category, description, date, urgency, image));
         console.log(tasks);
-        setItem('tasks', tasks);
+        await setItem('tasks', tasks);
         showInfo('succes');
         resetValues();
     } else {
