@@ -61,10 +61,10 @@ function createTask() {
     let description = document.getElementById('description').value;
     let date = document.getElementById('date').value;
     let urgency = document.getElementById('urgency').value;
-    let image = document.getElementById('selected_image').src;
+    let assignedTo = document.getElementById('assigned_to').value;
 
     if (title.length > 0 && category.length > 0 && urgency.length > 0) {
-        tasks.push(taskTemplate(title, category, description, date, urgency, image));
+        tasks.push(taskTemplate(title, category, description, date, urgency, assignedTo));
         console.log(tasks);
         setItem('tasks', tasks);
         showInfo('succes');
@@ -83,17 +83,17 @@ function createTask() {
  * @param {string} description 
  * @param {string} date 
  * @param {string} urgency 
- * @param {string} image 
+ * @param {string} assignedTo 
  * @returns 
  */
-function taskTemplate(title, category, description, date, urgency, image) {
+function taskTemplate(title, category, description, date, urgency, assignedTo) {
     return {
         'title': title,
         'category': category,
         'description': description,
         'date': date,
         'urgency': urgency,
-        'image': image,
+        'image': assignedTo,
         'status': 'backlog',
         'boardStatus': 'ToDo',
         'id': ''    
@@ -111,6 +111,7 @@ function resetValues() {
     document.getElementById('description').value = '';
     document.getElementById('date').value = '';
     document.getElementById('urgency').value = '';
+    document.getElementById('assigned_to').value = '';
 
     getCurrentDate();
     closeOptions();
