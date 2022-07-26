@@ -16,9 +16,11 @@
 </head>
 
 <body onload="initBoard()">
+    <img onclick="toggleMenu()" class="responsive-menu" src="../img/menu.svg">
+
     <div onclick="leaveFullscreen()" class="d-none" id="fullscreen_background"></div>
 
-    <nav w3-include-html="nav.html"></nav>
+    <nav id="nav" w3-include-html="nav.html"></nav>
 
     <main>
         <div class="board_column">

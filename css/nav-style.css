@@ -65,6 +65,19 @@ nav a:hover {
     display: none !important;
 }
 
+.display {
+    display: unset !important;
+}
+
+.responsive-menu {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: none;
+    cursor: pointer;
+    z-index: 2;
+}
+
 @media(max-height: 1200px) {
     #nav_link_container {
         height: 30%;
@@ -85,5 +98,28 @@ nav a:hover {
 
     #nav_logo {
         top: 20px;
+    }
+}
+
+@media (max-width: 1000px) {
+    nav {
+        display: none;
+        position: fixed;
+        left: 0;
+        z-index: 1;
+    }
+
+    .responsive-menu {
+        display: unset;
+    }
+
+    #nav_logo {
+        left: 70px;
+    }
+}
+
+@media (max-width: 450px) {
+    nav {
+        width: 100%;
     }
 }

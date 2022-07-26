@@ -107,6 +107,13 @@ body {
     opacity: 0;
 }
 
+
+@media (max-width: 1000px) {
+    h1 {
+        margin-left: 52px;
+    }
+}
+
 @media screen and (max-width: 720px) {
 
     .table-head {

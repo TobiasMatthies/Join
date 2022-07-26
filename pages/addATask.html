@@ -16,9 +16,11 @@
 </head>
 
 <body onload="initAddATask()">
-  <nav w3-include-html="nav.html"></nav>
+  <nav id="nav" w3-include-html="nav.html"></nav>
 
   <main>
+    <img onclick="toggleMenu()" class="responsive-menu" src="../img/menu.svg">
+
     <div id="content_add_a_task">
       <h1>Add Task</h1>
 
@@ -85,9 +87,7 @@
         <div class="box right align_top">
           <h2>ASSIGNED TO</h2>
 
-          <div id="select_user">
-            <input class="input" id="assigned_to">
-          </div>
+          <input class="input" id="assigned_to">
 
           <div id="button_container">
             <button onclick="resetValues()">CANCEL</button>

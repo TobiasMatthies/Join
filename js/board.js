@@ -154,12 +154,12 @@ function showMore(id) {
         document.getElementById('show_more' + id).src = '../img/close.svg';
         document.getElementById('show_more' + id).classList.add('fullscreen_position');
     } else {
-        leaveFullscreen();
+        leaveFullscreen(id);
     }
 }
 
 
-function leaveFullscreen() {
+function leaveFullscreen(id) {
     document.getElementById('task' + openedTask).classList.remove('fullscreen');
     document.getElementById('task_heading' + openedTask).classList.remove('fullscreen_heading');
     document.getElementById('fullscreen_background').classList.add('d-none');
