@@ -1,0 +1,76 @@
+<app-layout>
+  <div
+    class="flex h-full flex-col items-center justify-center gap-20 px-32 font-light"
+  >
+    <h1 class="text-4xl">
+      Good morning, <b class="text-5xl text-custom-blue">User</b>
+    </h1>
+
+    <div class="flex flex-col gap-10">
+      <div class="flex gap-10">
+        <div
+          class="group flex h-44 cursor-pointer gap-10 rounded-3xl bg-custom-blue py-5 px-20 text-white shadow-custom-info-fields transition-all shrin hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue"
+        >
+          <div class="flex flex-col items-center gap-2 py-5">
+            <div class="flex items-center gap-5">
+              <img
+                class="h-16 w-16"
+                src="assets/img/icon + circle.svg"
+                alt="Tasks urgent"
+              />
+              <span class="text-4xl font-semibold">{{
+                urgentTasksInfo.amount
+              }}</span>
+            </div>
+            <h3 class="text-xl">Tasks Urgent</h3>
+          </div>
+
+          <div
+            class="h-full rounded-full bg-white group-hover:bg-custom-blue"
+            style="width: 3px"
+          ></div>
+
+          <div class="flex flex-col justify-center gap-2 py-5">
+            <h2 class="text-3xl font-semibold">
+              {{ urgentTasksInfo.deadline }}
+            </h2>
+            <span class="text-xl">Upcoming Deadline</span>
+          </div>
+        </div>
+
+        <div
+          class="flex h-44 cursor-pointer flex-col items-center rounded-3xl bg-custom-blue-active p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white"
+        >
+          <div class="flex items-center gap-5">
+            <img
+              class="h-16 w-16"
+              src="assets/img/to do 1.svg"
+              alt="Tasks Todo"
+            />
+            <span class="text-4xl font-semibold">{{
+              tasksInfoService.tasksTodoInfo.amount
+            }}</span>
+          </div>
+          <span class="text-xl text-custom-blue">{{
+            tasksInfoService.tasksTodoInfo.name
+          }}</span>
+        </div>
+      </div>
+
+      <div class="flex w-full gap-10">
+        <div
+          *ngFor="let info of generalInfoFields"
+          class="flex w-44 cursor-pointer flex-col items-center rounded-3xl p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark group hover:text-white"
+        >
+          <div class="flex items-center gap-5">
+            <img class="h-16 w-16" [src]="info.image" alt="Tasks Todo" />
+            <span class="text-4xl font-semibold">{{ info.amount }}</span>
+          </div>
+          <span class="text-center text-xl text-custom-blue group-hover:text-white">{{
+            info.name
+          }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>

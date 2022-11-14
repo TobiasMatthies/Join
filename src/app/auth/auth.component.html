@@ -1,0 +1,132 @@
+<div
+  class="flex h-screen items-center justify-center transition-all"
+  [ngClass]="
+    authMode == 'signup' || authMode == 'forgotPassword' ? 'bg-custom-blue' : ''
+  "
+>
+  <div
+    class="absolute top-10 left-10 right-10 flex items-start justify-between"
+  >
+    <img
+      *ngIf="authMode == 'login'"
+      class="h-24 w-24"
+      src="assets/img/icon_blue.svg"
+      alt="join logo"
+    />
+
+    <img
+      *ngIf="authMode == 'signup' || authMode == 'forgotPassword'"
+      class="h-24 w-24"
+      src="assets/img/icon_white.svg"
+      alt="join logo"
+    />
+
+    <div *ngIf="authMode == 'login'" class="flex items-center gap-5 text-lg">
+      <span>Not a Join user?</span>
+      <app-button-primary (click)="switchAuthMode('signup')"
+        >Sign up</app-button-primary
+      >
+    </div>
+  </div>
+
+  <!--Card-->
+  <div
+    class="relative flex w-2/5 flex-col items-center justify-between rounded-3xl bg-white p-6"
+    [ngClass]="authMode == 'login' ? 'shadow-custom-card' : ''"
+  >
+  
+    <img
+      *ngIf="authMode == 'signup' || authMode == 'forgotPassword'"
+      class="absolute left-6 top-8 cursor-pointer"
+      src="assets/img/arrow.svg"
+      alt="go back"
+      (click)="switchAuthMode('login')"
+    />
+
+    <!--Heading Section-->
+    <div class="flex flex-col items-center gap-5 mb-5">
+      <h1 class="text-4xl font-semibold">
+        {{ authMode == "login" ? "Log In" : authMode == 'signup' ? 'Sign up' : 'I forgot my password' }}
+      </h1>
+      <img src="assets/img/Vector 5.svg" alt="border" />
+    </div>
+
+    <!--Forgot Password Texg Section-->
+    <span *ngIf="authMode == 'forgotPassword'" class="mb-5 text-center">
+      Don't worry! We will send you an email with the <br>
+      instructions to reset your password.
+    </span>
+
+    <!--Input Section-->
+    <form
+      class="flex w-2/3 flex-col gap-5"
+      (ngSubmit)="onSubmit()"
+      #form="ngForm"
+    >
+      <div
+        *ngIf="authMode == 'signup'"
+        class="flex justify-between border-b p-2"
+      >
+        <input
+          class="bg-transparent"
+          placeholder="Name"
+          type="text"
+          name="name"
+          ngModel
+        />
+        <img src="assets/img/Vector-4.svg" alt="name" />
+      </div>
+
+      <div class="flex justify-between border-b p-2">
+        <input
+          class="bg-transparent"
+          placeholder="Email"
+          type="text"
+          name="email"
+          ngModel
+        />
+        <img src="assets/img/Vector-5.svg" alt="email" />
+      </div>
+
+      <div *ngIf="authMode == 'login' || authMode == 'signup'" class="flex justify-between border-b p-2">
+        <input
+          class="bg-transparent"
+          placeholder="Password"
+          type="text"
+          name="password"
+          ngModel
+        />
+        <img src="assets/img/Vector-7.svg" alt="password" />
+      </div>
+
+      <!--Login Options Section-->
+      <div *ngIf="authMode == 'login'" class="flex justify-between p-2">
+        <div class="flex gap-5">
+          <input class="cursor-pointer accent-custom-blue" type="checkbox" />
+          <span>Remember me</span>
+        </div>
+        <span
+          class="cursor-pointer text-custom-blue-dark"
+          (click)="switchAuthMode('forgotPassword')"
+          >Forgot my password</span
+        >
+      </div>
+
+      <!--Auth Actions Section-->
+      <div class="flex justify-evenly">
+        <app-button-primary>
+          <span class="px-6">{{
+            authMode == "login" ? "Log In" : authMode == 'signup' ? 'Sign up' : 'Send me the email'
+          }}</span>
+        </app-button-primary>
+
+        <button
+          *ngIf="authMode == 'login'"
+          class="rounded-lg border py-2 px-6 transition-all hover:shadow-md"
+        >
+          Guest log in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
