@@ -7,6 +7,11 @@ module.exports = {
         "custom-blue": "rgb(69, 136, 255)",
         "custom-blue-dark": "rgb(0,93,255)",
         "custom-blue-active": "rgb(209,227,255)",
+        "custom-placeholder-gray": "rgb(209,209,209)",
+        "custom-title-gray": "rgb(65,82,110)",
+        "custom-red-urgent": "rgb(255,61,0)",
+        "custom-orange-medium": "rgb(255,168,0)",
+        "custom-green-low": "rgb(122,226,40)",
       },
       boxShadow: {
         "custom-card": "0px 0px 5px 3px rgba(204,204,204,0.3)",

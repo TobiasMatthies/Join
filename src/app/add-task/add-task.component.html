@@ -1,1 +1,158 @@
-<app-layout></app-layout>
+<app-layout>
+  <form class="flex h-fit w-full font-light">
+    <div class="flex w-1/2 items-center justify-center overflow-y-scroll">
+      <div class="flex flex-col gap-5">
+        <div class="flex justify-between border-b py-2 px-4">
+          <input
+            class="text-4xl placeholder-custom-placeholder-gray placeholder:font-light"
+            id="title"
+            type="text"
+            name="title"
+            placeholder="Enter a title"
+            required
+            ngModel
+          />
+        </div>
+
+        <div class="flex cursor-pointer justify-between border-b py-2 px-4">
+          <span>Select contacts to assign</span>
+          <img src="assets/img/Vector 2.svg" alt="select" />
+        </div>
+
+        <div class="mb-4 flex flex-col gap-2">
+          <label class="font-bold text-custom-title-gray" for="date"
+            >Due date</label
+          >
+          <input
+            class="flex justify-between border-b py-2 px-4 invalid:text-custom-placeholder-gray"
+            id="date"
+            name="date"
+            type="date"
+            pattern="\d{1,2}/\d{1,2}/\d{4}"
+            required
+            ngModel
+          />
+          <!--same gap as top with label-->
+        </div>
+
+        <div class="mb-4 flex flex-col gap-2">
+          <label class="font-bold text-custom-title-gray" for="category"
+            >Category</label
+          >
+          <div class="flex justify-between border-b py-2 px-4">
+            <span>Select task category</span>
+            <img src="assets/img/Vector 2.svg" alt="select" />
+          </div>
+          <!--same gap as top with label-->
+        </div>
+
+        <!--radio buttons-->
+        <div class="flex gap-2">
+          <label class="w-1/3" for="urgent">
+            <input
+              class="hidden"
+              name="urgency"
+              id="urgent"
+              type="radio"
+              value="urgent"
+              ngModel
+              required
+            />
+            <div
+              class="flex cursor-pointer justify-center gap-2 rounded-lg p-2 shadow-custom-info-fields hover:border-b-2 hover:border-custom-red-urgent"
+            >
+              Urgent
+              <img class="h-6 w-5" src="assets/img/urgent1.svg" alt="urgent" />
+            </div>
+          </label>
+          <label class="w-1/3" for="medium">
+            <input
+              class="hidden"
+              name="urgency"
+              id="medium"
+              type="radio"
+              value="medium"
+              ngModel
+              required
+            />
+            <div
+              class="flex cursor-pointer justify-center gap-2 rounded-lg p-2 shadow-custom-info-fields hover:border-b-2 hover:border-custom-orange-medium"
+            >
+              Medium
+              <img class="h-6 w-5" src="assets/img/medium.svg" alt="medium" />
+            </div>
+          </label>
+          <label class="w-1/3" for="low">
+            <input
+              class="hidden"
+              name="urgency"
+              id="low"
+              type="radio"
+              value="low"
+              ngModel
+              required
+            />
+            <div
+              class="flex cursor-pointer justify-center gap-2 rounded-lg p-2 shadow-custom-info-fields hover:border-b-2 hover:border-custom-green-low"
+            >
+              Low
+              <img class="h-6 w-5" src="assets/img/low.svg" alt="low" />
+            </div>
+          </label>
+        </div>
+        <!--radio buttons end-->
+
+        <div class="mb-4 flex flex-col gap-2">
+          <label class="font-bold text-custom-title-gray" for="description"
+            >Description</label
+          >
+
+          <textarea
+            class="rounded-r-lg rounded-bl-lg border p-4 placeholder-custom-placeholder-gray"
+            name="description"
+            id="description"
+            placeholder="Enter a description"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <label class="font-bold text-custom-title-gray" for="subtask"
+            >Subtasks</label
+          >
+
+          <div class="flex cursor-pointer justify-between border-b py-2 px-4">
+            <input
+              class="placeholder-custom-placeholder-gray"
+              id="subtask"
+              placeholder="Add new subtask"
+              type="text"
+            />
+            <img src="assets/img/Vector-2.svg" alt="add subtask" />
+          </div>
+
+          <div *ngFor="let subtask of subtasks" class="flex gap-4">
+            <input class="accent-custom-blue" type="checkbox" />
+            <span>{{ subtask }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex w-1/2 items-end justify-center gap-4">
+      <button class="flex gap-4 rounded-lg py-3 px-4 transition-all hover:shadow-md outline outline-1 outline-gray-500 text-xl box-border hover:outline-2 hover:outline-custom-blue group">
+        <span class="text-gray-500 group-hover:text-custom-blue">Clear</span>
+        <span class="text-gray-500 group-hover:text-custom-blue">x</span>
+      </button>
+      <app-button-primary>
+        <div class="flex gap-4 p-1 text-xl">
+          <span>Create Task</span>
+          <img
+            class="brightness-0 invert"
+            src="assets/img/Vector-3.svg"
+            alt="create"
+          />
+        </div>
+      </app-button-primary>
+    </div>
+  </form>
+</app-layout>

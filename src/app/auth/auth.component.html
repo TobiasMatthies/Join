@@ -65,7 +65,7 @@
     >
       <div
         *ngIf="authMode == 'signup'"
-        class="flex justify-between border-b p-2"
+        class="flex justify-between border-b py-2 px-4"
       >
         <input
           class="bg-transparent"
@@ -77,7 +77,7 @@
         <img src="assets/img/Vector-4.svg" alt="name" />
       </div>
 
-      <div class="flex justify-between border-b p-2">
+      <div class="flex justify-between border-b py-2 px-4">
         <input
           class="bg-transparent"
           placeholder="Email"
@@ -88,7 +88,7 @@
         <img src="assets/img/Vector-5.svg" alt="email" />
       </div>
 
-      <div *ngIf="authMode == 'login' || authMode == 'signup'" class="flex justify-between border-b p-2">
+      <div *ngIf="authMode == 'login' || authMode == 'signup'" class="flex justify-between border-b py-2 px-4">
         <input
           class="bg-transparent"
           placeholder="Password"
@@ -100,7 +100,7 @@
       </div>
 
       <!--Login Options Section-->
-      <div *ngIf="authMode == 'login'" class="flex justify-between p-2">
+      <div *ngIf="authMode == 'login'" class="flex justify-between py-2 px-4">
         <div class="flex gap-5">
           <input class="cursor-pointer accent-custom-blue" type="checkbox" />
           <span>Remember me</span>
