@@ -1,3 +1,9 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
     background-image: url(../../assets/img/Vector-1.svg);
 }
+
+#input_section::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+}
