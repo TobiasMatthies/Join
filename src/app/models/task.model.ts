@@ -1,9 +1,9 @@
 export type Task = {
   title: string;
-  assignedTo: [];
+  assignedTo: any[];
   dueDate: Date;
-  category: string;
+  category: { name: string; color: string };
   urgency: string;
   description: string;
   subtasks: [];
-}
+};

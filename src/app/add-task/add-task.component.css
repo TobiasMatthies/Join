@@ -1,9 +1,37 @@
 input[type="date"]::-webkit-calendar-picker-indicator {
-    background-image: url(../../assets/img/Vector-1.svg);
+  background-image: url(../../assets/img/Vector-1.svg);
 }
 
 #input_section::-webkit-scrollbar {
   display: none;
   -ms-overflow-style: none;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
+
+/*.extend {
+  transform: scaleY(1);
+  animation: extend 225ms ease-in-out;
+}
+
+.reduce {
+  transform: scaleY(0);
+  animation: reduce 225ms ease-in-out
+}
+
+@keyframes extend {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes reduce {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(0);
+  }
+}*/
