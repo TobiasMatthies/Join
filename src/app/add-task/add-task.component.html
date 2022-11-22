@@ -1,8 +1,8 @@
 <app-layout>
   <form
     class="flex h-[80vh] w-full font-light"
+    [formGroup]="form"
     (ngSubmit)="createTask()"
-    #form="ngForm"
   >
     <div
       class="flex w-1/2 items-center justify-center overflow-y-scroll"
@@ -17,12 +17,11 @@
             name="title"
             placeholder="Enter a title"
             required
-            ngModel
-            #title="ngModel"
+            formControlName="title"
           />
         </div>
         <span
-          *ngIf="title.invalid && title.touched"
+          *ngIf="form.get('title').invalid && form.get('title').touched"
           class="text-xs text-custom-red-urgent"
           >Please enter a title</span
         >
@@ -37,26 +36,27 @@
             />
           </div>
 
-          <ng-container *ngIf="showContacts">
-            <ul class="py-2 px-4 flex flex-col gap-5">
+          <div *ngIf="showContacts" formGroupName="contacts">
+            <ul class="flex flex-col gap-5 py-2 px-4">
               <li
-                *ngFor="let contact of demoContacts"
+                *ngFor="let contact of demoContacts; let i = index"
                 class="flex justify-between"
               >
                 <span>{{ contact }}</span>
                 <input
                   class="cursor-pointer accent-custom-blue"
                   type="checkbox"
-                  (click)="onAssignContact(contact)"
+                  name="contacts"
+                  [value]="contact"
+                  [formControlName]="contact"
                 />
-                <!--Work with hidden inputs and therefore have form validation?-->
               </li>
               <li class="flex justify-between">
                 <span>Invite new contact</span>
-                <img src="assets/img/Vector.svg" alt="invite contact">
+                <img src="assets/img/Vector.svg" alt="invite contact" />
               </li>
             </ul>
-          </ng-container>
+          </div>
         </div>
 
         <div class="mb-4 flex flex-col gap-2">
@@ -65,17 +65,13 @@
           >
           <input
             class="flex justify-between border-b py-2 px-4 invalid:text-custom-placeholder-gray"
-            [ngModel]="date"
             id="date"
             name="date"
             type="date"
-            pattern="\d{1,2}/\d{1,2}/\d{4}"
-            required
-            ngModel
-            #dueDate="ngModel"
+            formControlName="dueDate"
           />
           <span
-            *ngIf="dueDate.invalid && dueDate.touched"
+            *ngIf="form.get('dueDate').invalid && form.get('dueDate').touched"
             class="text-xs text-custom-red-urgent"
             >Please enter a date</span
           >
@@ -87,22 +83,33 @@
           >
           <div class="flex justify-between border-b py-2 px-4">
             <span>Select task category</span>
-            <img class="cursor-pointer" src="assets/img/Vector 2.svg" alt="select" (click)="toggleCategories()"/>
+            <img
+              class="cursor-pointer"
+              src="assets/img/Vector 2.svg"
+              alt="select"
+              (click)="toggleCategories()"
+            />
           </div>
 
-          <ng-container *ngIf="showCategories">
+          <div *ngIf="showCategories">
             <ul class="flex flex-col gap-5">
               <li>New Category</li>
-              <li *ngFor="let category of demoCategories" class="flex gap-5 items-center" (click)="onSelectCategory(category)">
+              <li
+                *ngFor="let category of demoCategories"
+                class="flex items-center gap-5"
+              >
                 <span>{{ category.name }}</span>
-                <div
-                  [ngStyle]="{ backgroundColor: category.color }"
+                <input
+                  type="radio"
+                  [value]="category.name"
+                  formControlName="category"
+                  [ngStyle]="{ 'background-color': category.color }"
                   class="h-4 w-4 rounded-full"
-                ></div>
+                />
                 <!--Work with hidden inputs and therefore have form validation?-->
               </li>
             </ul>
-          </ng-container>
+          </div>
         </div>
 
         <!--radio buttons-->
@@ -110,12 +117,10 @@
           <label class="w-1/3" for="urgent">
             <input
               class="hidden"
-              name="urgency"
               id="urgent"
               type="radio"
               value="urgent"
-              ngModel
-              required
+              formControlName="urgency"
             />
             <div
               [ngClass]="
@@ -136,12 +141,10 @@
           <label class="w-1/3" for="medium">
             <input
               class="hidden"
-              name="urgency"
               id="medium"
               type="radio"
               value="medium"
-              ngModel
-              required
+              formControlName="urgency"
             />
             <div
               [ngClass]="
@@ -164,12 +167,10 @@
           <label class="w-1/3" for="low">
             <input
               class="hidden"
-              name="urgency"
               id="low"
               type="radio"
               value="low"
-              ngModel
-              required
+              formControlName="urgency"
             />
             <div
               [ngClass]="
@@ -201,18 +202,19 @@
             id="description"
             placeholder="Enter a description"
             required
-            ngModel
-            #description="ngModel"
+            formControlName="description"
           ></textarea>
 
           <span
-            *ngIf="description.invalid && description.touched"
+            *ngIf="
+              form.get('description').invalid && form.get('description').touched
+            "
             class="text-xs text-custom-red-urgent"
             >Please enter a description</span
           >
         </div>
 
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-2" formGroupName="subtasks">
           <label class="font-bold text-custom-title-gray" for="subtask"
             >Subtasks</label
           >
@@ -227,8 +229,16 @@
             <img src="assets/img/Vector-2.svg" alt="add subtask" />
           </div>
 
-          <div *ngFor="let subtask of demoSubtasks" class="flex gap-4">
-            <input class="accent-custom-blue" type="checkbox" />
+          <div
+            *ngFor="let subtask of demoSubtasks; let i = index"
+            class="flex gap-4"
+          >
+            <input
+              class="cursor-pointer accent-custom-blue"
+              type="checkbox"
+              [value]="subtask"
+              [formControlName]="subtask"
+            />
             <span>{{ subtask }}</span>
           </div>
         </div>

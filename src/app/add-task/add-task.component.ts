@@ -1,5 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  NgForm,
+  Validators,
+} from '@angular/forms';
 import { Task } from '../models/task.model';
 
 @Component({
@@ -8,8 +14,6 @@ import { Task } from '../models/task.model';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit {
-  @ViewChild('form', { static: true }) form: NgForm;
-
   task: Task;
   selectedContacts: any[] = [];
   selectedCategory: { name: string; color: string };
@@ -34,6 +38,8 @@ export class AddTaskComponent implements OnInit {
   urgency;
   date;
 
+  form: FormGroup;
+
   showContacts: boolean = false;
   showCategories: boolean = false;
 
@@ -41,13 +47,60 @@ export class AddTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.date = new Date().toISOString().split('T')[0];
+    this.initForm();
+    this.fillFormArrays();
   }
 
   chooseUrgency(urgency: string) {
     this.urgency = urgency;
   }
 
+  initForm() {
+    this.form = new FormGroup({
+      title: new FormControl(null, [Validators.required]),
+      contacts: new FormGroup({}, [Validators.required]),
+      dueDate: new FormControl(new Date().toISOString().split('T')[0], [
+        Validators.required,
+      ]),
+      category: new FormControl(null, [Validators.required]),
+      urgency: new FormControl(null, [Validators.required]),
+      description: new FormControl(null, [Validators.required]),
+      subtasks: new FormGroup({}),
+    });
+  }
+
+  fillFormArrays() {
+    this.fillContacts();
+    this.fillSubtasks();
+  }
+
+  fillContacts() {
+    for (let i = 0; i < this.demoContacts.length; i++) {
+      const contact = this.demoContacts[i];
+
+      (<FormGroup>this.form.get('contacts')).addControl(
+        contact,
+        new FormControl()
+      );
+    }
+  }
+
+  fillSubtasks() {
+    for (let i = 0; i < this.demoSubtasks.length; i++) {
+      const subtask = this.demoSubtasks[i];
+
+      (<FormGroup>this.form.get('subtasks')).addControl(
+        subtask,
+        new FormControl()
+      );
+    }
+  }
+
   createTask() {
+    console.log(this.form);
+  }
+
+  /*createTask() {
     this.task = {
       title: this.form.form.value.title,
       assignedTo: this.selectedContacts,
@@ -59,13 +112,14 @@ export class AddTaskComponent implements OnInit {
     };
 
     console.log(this.task);
+    console.log(this.form);
     this.resetForm();
-  }
+  }*/
 
   resetForm() {
     this.form.reset();
     this.urgency = null;
-    this.form.form.controls['date'].setValue(this.date);
+    //this.form.form.controls['date'].setValue(this.date);
   }
 
   toggleContacts() {
@@ -74,17 +128,5 @@ export class AddTaskComponent implements OnInit {
 
   toggleCategories() {
     this.showCategories = !this.showCategories;
-  }
-
-  onAssignContact(contact: string) {
-    if (this.selectedContacts.includes(contact)) {
-      this.selectedContacts.splice(this.selectedContacts.indexOf(contact), 1);
-    } else {
-      this.selectedContacts.push(contact);
-    }
-  }
-
-  onSelectCategory(category: { name: string; color: string }) {
-    this.selectedCategory = category;
   }
 }

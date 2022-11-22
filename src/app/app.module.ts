@@ -7,7 +7,7 @@ import { AuthComponent } from './auth/auth.component';
 import { SummaryComponent } from './summary/summary.component';
 import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonPrimaryComponent } from './customComponents/button-primary/button-primary.component';
 import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -31,6 +31,7 @@ import { LayoutComponent } from './layout/layout.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule
   ],
   providers: [],
