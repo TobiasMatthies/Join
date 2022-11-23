@@ -1,11 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  NgForm,
-  Validators,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { AppStateService } from '../app-state/app-state.service';
 import { Task } from '../models/task.model';
 
 @Component({
@@ -13,7 +9,7 @@ import { Task } from '../models/task.model';
   templateUrl: './add-task.component.html',
   styleUrls: ['./add-task.component.css'],
 })
-export class AddTaskComponent implements OnInit {
+export class AddTaskComponent implements OnInit, OnDestroy {
   task: Task;
   selectedContacts: any[] = [];
   selectedCategory: { name: string; color: string };
@@ -22,18 +18,12 @@ export class AddTaskComponent implements OnInit {
   demoSubtasks: string[] = ['test'];
   demoContacts = ['you', 'friend1', 'friend2'];
   demoCategoryColors: string[] = [
-    'rgb(252,113,255)',
-    'rgb(32,215,192)',
     'rgb(138,164,255)',
     'red',
     'rgb(43,211,2)',
     'rgb(255,138,0)',
     'rgb(225,0,190)',
     'rgb(0,56,255)',
-  ];
-  demoCategories: Array<{ name: string; color: string }> = [
-    { name: 'test1', color: 'rgb(252,113,255)' },
-    { name: 'test2', color: 'rgb(32,215,192)' },
   ];
   urgency;
   date;
@@ -42,13 +32,28 @@ export class AddTaskComponent implements OnInit {
 
   showContacts: boolean = false;
   showCategories: boolean = false;
+  showInviteNewContact: boolean = false;
+  showCreateNewCategory: boolean = false;
 
-  constructor() {}
+  categoryName: string;
+  selectedColor: string;
+  colors;
+  formSubscription: Subscription;
+
+  constructor(public appState: AppStateService) {}
 
   ngOnInit(): void {
     this.date = new Date().toISOString().split('T')[0];
     this.initForm();
     this.fillFormArrays();
+
+    this.formSubscription = this.form.controls['category'].valueChanges.subscribe(() => {
+      this.toggleCategories();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.formSubscription.unsubscribe();
   }
 
   chooseUrgency(urgency: string) {
@@ -100,6 +105,41 @@ export class AddTaskComponent implements OnInit {
     console.log(this.form);
   }
 
+  onCreateNewTaskCategory() {
+    this.categoryName = document.getElementById('categoryName')['value'];
+    this.colors = document.getElementsByName('newCategoryColor');
+
+    this.createNewTaskCategory();
+  }
+
+  selectColor(color: string) {
+    this.selectedColor = color;
+  }
+
+  createNewTaskCategory() {
+    if (this.selectedColor && this.categoryName) {
+      this.appState.categories.push({
+        name: this.categoryName,
+        color: this.selectedColor,
+      });
+      this.demoCategoryColors.splice(
+        this.demoCategoryColors.indexOf(this.selectedColor),
+        1
+      );
+      this.selectCategory();
+    }
+  }
+
+  selectCategory() {
+    this.toggleNewCategory();
+    this.form.patchValue({
+      'category': {
+        name: this.categoryName,
+        color: this.selectedColor
+      }
+    })
+  }
+
   /*createTask() {
     this.task = {
       title: this.form.form.value.title,
@@ -128,5 +168,13 @@ export class AddTaskComponent implements OnInit {
 
   toggleCategories() {
     this.showCategories = !this.showCategories;
+  }
+
+  toggleInviteNewContact() {
+    this.showInviteNewContact = !this.showInviteNewContact;
+  }
+
+  toggleNewCategory() {
+    this.showCreateNewCategory = !this.showCreateNewCategory;
   }
 }

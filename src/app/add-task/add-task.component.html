@@ -27,20 +27,48 @@
         >
 
         <div>
-          <div class="flex cursor-pointer justify-between border-b py-2 px-4">
-            <span>Select contacts to assign</span>
-            <img
-              src="assets/img/Vector 2.svg"
-              alt="select"
-              (click)="toggleContacts()"
-            />
+          <div
+            class="flex cursor-pointer items-center justify-between border-b py-2 px-4"
+          >
+            <ng-container *ngIf="!showInviteNewContact; else inviteNewContact">
+              <span>Select contacts to assign</span>
+              <img
+                src="assets/img/Vector 2.svg"
+                alt="select"
+                (click)="toggleContacts()"
+              />
+            </ng-container>
+            <ng-template #inviteNewContact>
+              <input
+                class="placeholder-custom-placeholder-gray"
+                type="email"
+                placeholder="Contact Email"
+              />
+              <div class="flex gap-2">
+                <img
+                  class="blue-filter w-5 cursor-pointer"
+                  src="assets/img/cancel.svg"
+                  alt="cancel"
+                  (click)="toggleInviteNewContact(); toggleContacts()"
+                />
+                <div class="w-px bg-custom-placeholder-gray"></div>
+                <img
+                  class="w-5 cursor-pointer"
+                  src="assets/img/Vector-3.svg"
+                  alt="invite"
+                />
+              </div>
+            </ng-template>
           </div>
 
-          <div *ngIf="showContacts" formGroupName="contacts">
-            <ul class="flex flex-col gap-5 py-2 px-4">
+          <ng-container
+            *ngIf="showContacts && !showInviteNewContact"
+            formGroupName="contacts"
+          >
+            <ul class="flex flex-col">
               <li
                 *ngFor="let contact of demoContacts; let i = index"
-                class="flex justify-between"
+                class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
               >
                 <span>{{ contact }}</span>
                 <input
@@ -51,12 +79,15 @@
                   [formControlName]="contact"
                 />
               </li>
-              <li class="flex justify-between">
+              <li
+                class="flex cursor-pointer justify-between rounded-b-lg py-3 px-4 hover:bg-custom-blue-active"
+                (click)="toggleInviteNewContact()"
+              >
                 <span>Invite new contact</span>
                 <img src="assets/img/Vector.svg" alt="invite contact" />
               </li>
             </ul>
-          </div>
+          </ng-container>
         </div>
 
         <div class="mb-4 flex flex-col gap-2">
@@ -77,39 +108,117 @@
           >
         </div>
 
-        <div class="mb-4 flex flex-col gap-2">
-          <label class="font-bold text-custom-title-gray" for="category"
-            >Category</label
-          >
-          <div class="flex justify-between border-b py-2 px-4">
-            <span>Select task category</span>
-            <img
-              class="cursor-pointer"
-              src="assets/img/Vector 2.svg"
-              alt="select"
-              (click)="toggleCategories()"
-            />
+        <div class="mb-4 flex flex-col">
+          <div class="flex flex-col gap-2">
+            <label class="font-bold text-custom-title-gray" for="category"
+              >Category</label
+            >
+            <div class="flex justify-between border-b py-2 px-4">
+              <ng-container
+                *ngIf="!showCreateNewCategory; else createNewCategory"
+              >
+                <span *ngIf="!form.controls['category'].value"
+                  >Select task category</span
+                >
+
+                <div
+                  *ngIf="form.controls['category'].value"
+                  class="flex items-center gap-5"
+                >
+                  <span>{{ form.controls["category"].value.name }}</span>
+                  <div
+                    [ngStyle]="{
+                      'background-color': form.controls['category'].value.color
+                    }"
+                    class="h-4 w-4 rounded-full"
+                  ></div>
+                </div>
+                <img
+                  class="cursor-pointer"
+                  src="assets/img/Vector 2.svg"
+                  alt="select"
+                  (click)="toggleCategories()"
+                />
+              </ng-container>
+              <ng-template #createNewCategory>
+                <input
+                  class="placeholder-custom-placeholder-gray"
+                  type="text"
+                  placeholder="New Category Name"
+                  id="categoryName"
+                />
+                <div class="flex gap-2">
+                  <img
+                    class="blue-filter w-5 cursor-pointer"
+                    src="assets/img/cancel.svg"
+                    alt="cancel"
+                    (click)="toggleNewCategory(); toggleCategories()"
+                  />
+                  <div class="w-px bg-custom-placeholder-gray"></div>
+                  <img
+                    class="w-5 cursor-pointer"
+                    src="assets/img/Vector-3.svg"
+                    alt="invite"
+                    (click)="onCreateNewTaskCategory()"
+                  />
+                </div>
+              </ng-template>
+            </div>
           </div>
 
-          <div *ngIf="showCategories">
-            <ul class="flex flex-col gap-5">
-              <li>New Category</li>
+          <ng-container
+            *ngIf="
+              showCategories && !showCreateNewCategory;
+              else categoryColors
+            "
+          >
+            <ul class="flex flex-col">
               <li
-                *ngFor="let category of demoCategories"
-                class="flex items-center gap-5"
+                class="cursor-pointer px-4 py-3 hover:bg-custom-blue-active"
+                (click)="toggleNewCategory()"
               >
-                <span>{{ category.name }}</span>
-                <input
-                  type="radio"
-                  [value]="category.name"
-                  formControlName="category"
-                  [ngStyle]="{ 'background-color': category.color }"
-                  class="h-4 w-4 rounded-full"
-                />
-                <!--Work with hidden inputs and therefore have form validation?-->
+                New Category
+              </li>
+              <li
+                *ngFor="let category of appState.categories"
+                class="cursor-pointer px-4 last:rounded-b-lg hover:bg-custom-blue-active"
+              >
+                <label
+                  class="flex w-full items-center gap-5 py-3"
+                  [htmlFor]="category.name"
+                >
+                  <span>{{ category.name }}</span>
+                  <div
+                    [ngStyle]="{ 'background-color': category.color }"
+                    class="h-4 w-4 rounded-full"
+                  ></div>
+                  <input
+                    [id]="category.name"
+                    type="radio"
+                    [value]="{ name: category.name, color: category.color }"
+                    formControlName="category"
+                    class="hidden"
+                  />
+                </label>
               </li>
             </ul>
-          </div>
+          </ng-container>
+
+          <ng-template #categoryColors>
+            <ng-container *ngIf="showCreateNewCategory">
+              <div class="mt-5 flex gap-5 px-4">
+                <div
+                  *ngFor="let color of demoCategoryColors"
+                  [ngClass]="
+                    selectedColor == color ? 'shadow-custom-category-color' : ''
+                  "
+                  [ngStyle]="{ 'background-color': color }"
+                  class="h-4 w-4 cursor-pointer rounded-full border-2 border-white"
+                  (click)="selectColor(color)"
+                ></div>
+              </div>
+            </ng-container>
+          </ng-template>
         </div>
 
         <!--radio buttons-->
@@ -219,14 +328,18 @@
             >Subtasks</label
           >
 
-          <div class="flex cursor-pointer justify-between border-b py-2 px-4">
+          <div class="flex justify-between border-b py-2 px-4">
             <input
               class="placeholder-custom-placeholder-gray"
               id="subtask"
               placeholder="Add new subtask"
               type="text"
             />
-            <img src="assets/img/Vector-2.svg" alt="add subtask" />
+            <img
+              class="cursor-pointer"
+              src="assets/img/Vector-2.svg"
+              alt="add subtask"
+            />
           </div>
 
           <div
