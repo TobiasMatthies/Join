@@ -7,7 +7,6 @@ import { Task } from "../models/task.model";
 })
 export class AppStateService {
   tasks: Task[] = [];
-  subtasks: string[] = [];
   contacts: Contact[] = [];
   categories: Array<{ name: string; color: string }> = [
     { name: 'Sales', color: 'rgb(252,113,255)' },

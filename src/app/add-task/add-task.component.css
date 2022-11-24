@@ -11,31 +11,3 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .blue-filter {
   filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
 }
-
-/*.extend {
-  transform: scaleY(1);
-  animation: extend 225ms ease-in-out;
-}
-
-.reduce {
-  transform: scaleY(0);
-  animation: reduce 225ms ease-in-out
-}
-
-@keyframes extend {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
-}
-
-@keyframes reduce {
-  from {
-    transform: scaleY(1);
-  }
-  to {
-    transform: scaleY(0);
-  }
-}*/

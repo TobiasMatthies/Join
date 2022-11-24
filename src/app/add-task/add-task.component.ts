@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppStateService } from '../app-state/app-state.service';
 import { Task } from '../models/task.model';
+import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 @Component({
   selector: 'app-add-task',
@@ -10,14 +11,10 @@ import { Task } from '../models/task.model';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
-  task: Task;
-  selectedContacts: any[] = [];
-  selectedCategory: { name: string; color: string };
-  selectedSubtasks: string[] = [];
+  subtasks: string[] = [];
 
-  demoSubtasks: string[] = ['test'];
   demoContacts = ['you', 'friend1', 'friend2'];
-  demoCategoryColors: string[] = [
+  categoryColors: string[] = [
     'rgb(138,164,255)',
     'red',
     'rgb(43,211,2)',
@@ -38,7 +35,9 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   categoryName: string;
   selectedColor: string;
   colors;
-  formSubscription: Subscription;
+  categorySubscription: Subscription;
+  formValueSubscription: Subscription;
+  submitted: boolean = false;
 
   constructor(public appState: AppStateService) {}
 
@@ -47,13 +46,16 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     this.initForm();
     this.fillFormArrays();
 
-    this.formSubscription = this.form.controls['category'].valueChanges.subscribe(() => {
+    this.categorySubscription = this.form.controls[
+      'category'
+    ].valueChanges.subscribe(() => {
       this.toggleCategories();
     });
   }
 
   ngOnDestroy(): void {
-    this.formSubscription.unsubscribe();
+    this.categorySubscription.unsubscribe();
+    this.formValueSubscription.unsubscribe();
   }
 
   chooseUrgency(urgency: string) {
@@ -63,7 +65,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   initForm() {
     this.form = new FormGroup({
       title: new FormControl(null, [Validators.required]),
-      contacts: new FormGroup({}, [Validators.required]),
+      contacts: new FormGroup({}, [atLeastOneCheckboxCheckedValidator()]),
       dueDate: new FormControl(new Date().toISOString().split('T')[0], [
         Validators.required,
       ]),
@@ -91,8 +93,8 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   }
 
   fillSubtasks() {
-    for (let i = 0; i < this.demoSubtasks.length; i++) {
-      const subtask = this.demoSubtasks[i];
+    for (let i = 0; i < this.subtasks.length; i++) {
+      const subtask = this.subtasks[i];
 
       (<FormGroup>this.form.get('subtasks')).addControl(
         subtask,
@@ -101,8 +103,31 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     }
   }
 
+  onCreateTask() {
+    this.submitted = true;
+    if (this.form.valid) {
+      let task: Task = this.createTask();
+      this.appState.tasks.push(task);
+
+      console.log(task);
+      console.log(this.appState.tasks);
+      this.resetForm();
+      this.submitted = false;
+    } else {
+      this.resetSubmission();
+    }
+  }
+
   createTask() {
-    console.log(this.form);
+    return {
+      title: this.form.controls['title'].value,
+      assignedTo: this.form.controls['contacts'].value,
+      dueDate: this.form.controls['dueDate'].value,
+      category: this.form.controls['category'].value,
+      urgency: this.form.controls['urgency'].value,
+      description: this.form.controls['description'].value,
+      subtasks: this.form.controls['subtasks'].value,
+    };
   }
 
   onCreateNewTaskCategory() {
@@ -110,6 +135,13 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     this.colors = document.getElementsByName('newCategoryColor');
 
     this.createNewTaskCategory();
+  }
+
+  resetSubmission() {
+    this.formValueSubscription = this.form.valueChanges.subscribe(() => {
+      this.submitted = false;
+      this.formValueSubscription.unsubscribe();
+    });
   }
 
   selectColor(color: string) {
@@ -122,8 +154,8 @@ export class AddTaskComponent implements OnInit, OnDestroy {
         name: this.categoryName,
         color: this.selectedColor,
       });
-      this.demoCategoryColors.splice(
-        this.demoCategoryColors.indexOf(this.selectedColor),
+      this.categoryColors.splice(
+        this.categoryColors.indexOf(this.selectedColor),
         1
       );
       this.selectCategory();
@@ -133,33 +165,60 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   selectCategory() {
     this.toggleNewCategory();
     this.form.patchValue({
-      'category': {
+      category: {
         name: this.categoryName,
-        color: this.selectedColor
-      }
-    })
+        color: this.selectedColor,
+      },
+    });
   }
 
-  /*createTask() {
-    this.task = {
-      title: this.form.form.value.title,
-      assignedTo: this.selectedContacts,
-      dueDate: this.form.form.value.date,
-      category: this.selectedCategory,
-      urgency: this.form.form.value.urgency,
-      description: this.form.form.value.description,
-      subtasks: [],
-    };
+  onCreateNewSubtask() {
+    let subtask = document.getElementById('subtask')['value'];
 
-    console.log(this.task);
-    console.log(this.form);
-    this.resetForm();
-  }*/
+    if (subtask) {
+      (<FormGroup>this.form.get('subtasks')).addControl(
+        subtask,
+        new FormControl()
+      );
+      this.subtasks.push(subtask);
+      document.getElementById('subtask')['value'] = '';
+    }
+  }
 
+  /**
+   * resets form
+   *
+   * toggleContacts closes contact dropdown that is opening because the value of contacts got changed
+   * and therefore triggerst the subscribtion with "valueChanges"
+   *
+   * urgency gets resetted
+   * date gets set
+   */
   resetForm() {
     this.form.reset();
+    this.toggleDropdowns();
     this.urgency = null;
-    //this.form.form.controls['date'].setValue(this.date);
+    this.form.patchValue({
+      dueDate: this.date,
+    });
+  }
+
+  toggleDropdowns() {
+    if (this.showContacts) {
+      this.toggleContacts();
+    }
+
+    if (this.showInviteNewContact) {
+      this.toggleInviteNewContact();
+    }
+
+    if (this.showCategories) {
+      this.toggleCategories();
+    }
+
+    if (this.showCreateNewCategory) {
+      this.toggleNewCategory();
+    }
   }
 
   toggleContacts() {
