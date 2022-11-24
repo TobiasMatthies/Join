@@ -93,6 +93,11 @@
             class="text-xs text-custom-red-urgent"
             >This field is required</span
           >
+          <div class="flex gap-2" *ngIf="selectedContacts.length > 0">
+            <span *ngFor="let contact of selectedContacts">
+              {{ contact }}
+            </span>
+          </div>
           <div>
 
           </div>

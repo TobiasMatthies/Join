@@ -36,7 +36,9 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   selectedColor: string;
   colors;
   categorySubscription: Subscription;
+  contactSubscription: Subscription;
   formValueSubscription: Subscription;
+  selectedContacts = [];
   submitted: boolean = false;
 
   constructor(public appState: AppStateService) {}
@@ -45,21 +47,27 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     this.date = new Date().toISOString().split('T')[0];
     this.initForm();
     this.fillFormArrays();
+    this.subscribeToFormValues();
+  }
 
+  subscribeToFormValues() {
     this.categorySubscription = this.form.controls[
       'category'
     ].valueChanges.subscribe(() => {
       this.toggleCategories();
+    });
+
+    this.contactSubscription = this.form.controls[
+      'contacts'
+    ].valueChanges.subscribe(() => {
+      this.getOnlySelectedContacts();
     });
   }
 
   ngOnDestroy(): void {
     this.categorySubscription.unsubscribe();
     this.formValueSubscription.unsubscribe();
-  }
-
-  chooseUrgency(urgency: string) {
-    this.urgency = urgency;
+    this.contactSubscription.unsubscribe();
   }
 
   initForm() {
@@ -108,6 +116,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     if (this.form.valid) {
       let task: Task = this.createTask();
       this.appState.tasks.push(task);
+      this.getOnlySelectedContacts();
 
       console.log(task);
       console.log(this.appState.tasks);
@@ -116,6 +125,21 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     } else {
       this.resetSubmission();
     }
+  }
+
+  getOnlySelectedContacts() {
+    let contactsObject = this.form.controls['contacts'].value;
+    this.selectedContacts = [];
+
+    for (let i = 0; i < Object.keys(contactsObject).length; i++) {
+      const contact = Object.keys(contactsObject)[i];
+
+      if (Object.entries(contactsObject)[i][1]) {
+        this.selectedContacts.push(contact);
+      }
+    }
+
+    console.log(this.selectedContacts);
   }
 
   createTask() {
@@ -128,6 +152,10 @@ export class AddTaskComponent implements OnInit, OnDestroy {
       description: this.form.controls['description'].value,
       subtasks: this.form.controls['subtasks'].value,
     };
+  }
+
+  chooseUrgency(urgency: string) {
+    this.urgency = urgency;
   }
 
   onCreateNewTaskCategory() {
@@ -144,10 +172,6 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectColor(color: string) {
-    this.selectedColor = color;
-  }
-
   createNewTaskCategory() {
     if (this.selectedColor && this.categoryName) {
       this.appState.categories.push({
@@ -160,6 +184,10 @@ export class AddTaskComponent implements OnInit, OnDestroy {
       );
       this.selectCategory();
     }
+  }
+
+  selectColor(color: string) {
+    this.selectedColor = color;
   }
 
   selectCategory() {
@@ -196,14 +224,14 @@ export class AddTaskComponent implements OnInit, OnDestroy {
    */
   resetForm() {
     this.form.reset();
-    this.toggleDropdowns();
+    this.hideDropdowns();
     this.urgency = null;
     this.form.patchValue({
       dueDate: this.date,
     });
   }
 
-  toggleDropdowns() {
+  hideDropdowns() {
     if (this.showContacts) {
       this.toggleContacts();
     }
