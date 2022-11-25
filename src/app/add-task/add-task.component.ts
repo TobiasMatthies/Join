@@ -66,8 +66,11 @@ export class AddTaskComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.categorySubscription.unsubscribe();
-    this.formValueSubscription.unsubscribe();
     this.contactSubscription.unsubscribe();
+
+    if (this.formValueSubscription) {
+      this.formValueSubscription.unsubscribe();
+    }
   }
 
   initForm() {
@@ -127,6 +130,20 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     }
   }
 
+  createTask() {
+    return {
+      title: this.form.controls['title'].value,
+      assignedTo: this.selectedContacts,
+      dueDate: this.form.controls['dueDate'].value,
+      category: this.form.controls['category'].value,
+      urgency: this.form.controls['urgency'].value,
+      description: this.form.controls['description'].value,
+      subtasks: this.form.controls['subtasks'].value,
+      status: 'toDo',
+      id: new Date().getTime()
+    };
+  }
+
   getOnlySelectedContacts() {
     let contactsObject = this.form.controls['contacts'].value;
     this.selectedContacts = [];
@@ -140,18 +157,6 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     }
 
     console.log(this.selectedContacts);
-  }
-
-  createTask() {
-    return {
-      title: this.form.controls['title'].value,
-      assignedTo: this.form.controls['contacts'].value,
-      dueDate: this.form.controls['dueDate'].value,
-      category: this.form.controls['category'].value,
-      urgency: this.form.controls['urgency'].value,
-      description: this.form.controls['description'].value,
-      subtasks: this.form.controls['subtasks'].value,
-    };
   }
 
   chooseUrgency(urgency: string) {

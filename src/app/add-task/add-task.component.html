@@ -1,12 +1,12 @@
 <app-layout>
   <form
-    class="flex h-[80vh] w-full font-light"
+    class="flex h-[80vh] w-full font-light px-[5%] pt-12"
     id="form"
     [formGroup]="form"
     (ngSubmit)="onCreateTask()"
   >
     <div
-      class="flex w-1/2 items-center justify-center overflow-y-scroll"
+      class="flex w-1/2 items-center overflow-y-scroll"
       id="input_section"
     >
       <div class="flex h-full flex-col gap-5">
@@ -213,7 +213,7 @@
                   <input
                     [id]="category.name"
                     type="radio"
-                    [value]="{ name: category.name, color: category.color }"
+                    [value]="category"
                     formControlName="category"
                     class="hidden"
                   />
@@ -247,7 +247,7 @@
                 class="hidden"
                 id="urgent"
                 type="radio"
-                value="urgent"
+                [value]="{name: 'urgent', image: 'assets/img/urgent1.svg'}"
                 formControlName="urgency"
               />
               <div
@@ -271,7 +271,7 @@
                 class="hidden"
                 id="medium"
                 type="radio"
-                value="medium"
+                [value]="{name: 'medium', image: 'assets/img/medium.svg'}"
                 formControlName="urgency"
               />
               <div
@@ -297,7 +297,7 @@
                 class="hidden"
                 id="low"
                 type="radio"
-                value="low"
+                [value]="{name: 'low', image: 'assets/img/low.svg'}"
                 formControlName="urgency"
               />
               <div
@@ -381,12 +381,12 @@
 
     <div class="flex w-1/2 items-end justify-center gap-4">
       <button
-        class="group box-border flex gap-4 rounded-lg py-3 px-4 text-xl outline outline-1 outline-gray-500 transition-all hover:shadow-md hover:outline-2 hover:outline-custom-blue"
+        class="group box-border flex gap-4 rounded-lg py-3 px-4 text-xl outline outline-1 outline-gray-400 transition-all hover:shadow-md hover:outline-2 hover:outline-custom-blue"
         type="button"
         (click)="resetForm()"
       >
-        <span class="text-gray-500 group-hover:text-custom-blue">Clear</span>
-        <span class="text-gray-500 group-hover:text-custom-blue">x</span>
+        <span class="text-gray-400 group-hover:text-custom-blue">Clear</span>
+        <span class="text-gray-400 group-hover:text-custom-blue">x</span>
       </button>
       <app-button-primary>
         <div class="flex gap-4 p-1 text-xl">

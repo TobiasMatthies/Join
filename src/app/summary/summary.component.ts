@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { generalTasksInfo, urgentTasksInfo } from './task-info.models';
 import { TasksInfoService } from './tasks-info.service';
 
@@ -12,7 +13,7 @@ export class SummaryComponent implements OnInit {
 
   generalInfoFields: generalTasksInfo[] = null;
 
-  constructor(public tasksInfoService: TasksInfoService) {}
+  constructor(public tasksInfoService: TasksInfoService, private router: Router) {}
 
   ngOnInit(): void {
     this.urgentTasksInfo = {
@@ -38,5 +39,9 @@ export class SummaryComponent implements OnInit {
       this.tasksInfoService.tasksAwaitingFeedbackInfo,
       this.tasksInfoService.tasksDoneInfo,
     ];
+  }
+
+  navigateToBoard() {
+    this.router.navigate(['/board']);
   }
 }

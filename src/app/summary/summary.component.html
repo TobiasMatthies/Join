@@ -9,7 +9,8 @@
     <div class="flex flex-col gap-10">
       <div class="flex gap-10">
         <div
-          class="group flex h-44 cursor-pointer gap-10 rounded-3xl bg-custom-blue py-5 px-20 text-white shadow-custom-info-fields transition-all shrin hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue"
+          class="shrin group flex h-44 cursor-pointer gap-10 rounded-3xl bg-custom-blue py-5 px-20 text-white shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue"
+          (click)="navigateToBoard()"
         >
           <div class="flex flex-col items-center gap-2 py-5">
             <div class="flex items-center gap-5">
@@ -40,6 +41,7 @@
 
         <div
           class="flex h-44 cursor-pointer flex-col items-center rounded-3xl bg-custom-blue-active p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white"
+          (click)="navigateToBoard()"
         >
           <div class="flex items-center gap-5">
             <img
@@ -60,15 +62,17 @@
       <div class="flex w-full gap-10">
         <div
           *ngFor="let info of generalInfoFields"
-          class="flex w-44 cursor-pointer flex-col items-center rounded-3xl p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark group hover:text-white"
+          class="group flex w-44 cursor-pointer flex-col items-center rounded-3xl p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark hover:text-white"
+          (click)="navigateToBoard()"
         >
           <div class="flex items-center gap-5">
             <img class="h-16 w-16" [src]="info.image" alt="Tasks Todo" />
             <span class="text-4xl font-semibold">{{ info.amount }}</span>
           </div>
-          <span class="text-center text-xl text-custom-blue group-hover:text-white">{{
-            info.name
-          }}</span>
+          <span
+            class="text-center text-xl text-custom-blue group-hover:text-white"
+            >{{ info.name }}</span
+          >
         </div>
       </div>
     </div>

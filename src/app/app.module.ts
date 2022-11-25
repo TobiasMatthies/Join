@@ -13,6 +13,7 @@ import { HeaderComponent } from './header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { LayoutComponent } from './layout/layout.component';
+import { FilterTasksPipe } from './board/filter-tasks.pipe';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { LayoutComponent } from './layout/layout.component';
     HeaderComponent,
     NavbarComponent,
     LayoutComponent,
+    FilterTasksPipe,
   ],
   imports: [
     BrowserModule,

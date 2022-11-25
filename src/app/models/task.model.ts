@@ -3,7 +3,9 @@ export type Task = {
   assignedTo: any[];
   dueDate: Date;
   category: { name: string; color: string };
-  urgency: string;
+  urgency: { name: string; image: string };
   description: string;
-  subtasks: [];
+  subtasks: any[];
+  status: string;
+  id: number;
 };

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppStateService } from '../app-state/app-state.service';
 
 @Component({
   selector: 'app-board',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(public appState: AppStateService) { }
 
   ngOnInit(): void {
   }

@@ -1,1 +1,213 @@
-<app-layout></app-layout>
+<app-layout>
+  <div class="flex h-full w-full flex-col items-center px-[5%]">
+    <div class="flex w-full gap-5 py-12">
+      <div
+        class="flex w-1/5 min-w-fit justify-between rounded-lg border border-gray-400 p-2"
+      >
+        <input
+          class="custom-placeholder-custom-gray text-sm font-light"
+          placeholder="Find Task"
+          type="text"
+        />
+        <img src="assets/img/search.svg" alt="search" />
+      </div>
+
+      <app-button-primary>
+        <div class="flex h-[33px] items-center gap-2">
+          <span class="text-xl font-light">Add Task</span>
+          <img src="assets/img/addWhite.svg" alt="add task" />
+        </div>
+      </app-button-primary>
+    </div>
+
+    <div class="flex h-full w-full justify-between font-light">
+      <div class="flex w-1/5 flex-col gap-5">
+        <h2 class="flex justify-between text-xl">
+          <b class="text-custom-title-gray">To do</b>
+          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+        </h2>
+
+         <div
+          *ngFor="let task of appState.tasks | filterTasks: 'toDo'"
+          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          [id]="task.id"
+        >
+          <span
+            [ngStyle]="{ 'background-color': task.category.color }"
+            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
+          >
+            {{ task.category.name }}
+          </span>
+
+          <section class="flex flex-col gap-1">
+            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
+            <span class="text-gray-400">{{ task.description }}</span>
+          </section>
+
+          <div
+            *ngIf="task.subtasks.length > 0"
+            class="flex w-full items-center gap-5"
+          >
+            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+          </div>
+
+          <div class="flex w-full justify-between">
+            <div>
+              <span *ngFor="let contact of task.assignedTo">
+                {{ contact }}
+              </span>
+            </div>
+
+            <img
+              [src]="task.urgency.image"
+              [alt]="task.urgency.name"
+              class="mr-2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-1/5 flex-col gap-5">
+        <h2 class="flex justify-between text-xl">
+          <b class="text-custom-title-gray">In progress</b>
+          <img src="assets/img/addTaskBoard.svg" alt="add Task" class="mr-2" />
+        </h2>
+
+        <div
+          *ngFor="let task of appState.tasks | filterTasks: 'inProgress'"
+          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          [id]="task.id"
+        >
+          <span
+            [ngStyle]="{ 'background-color': task.category.color }"
+            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
+          >
+            {{ task.category.name }}
+          </span>
+
+          <section class="flex flex-col gap-1">
+            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
+            <span class="text-gray-400">{{ task.description }}</span>
+          </section>
+
+          <div
+            *ngIf="task.subtasks.length > 0"
+            class="flex w-full items-center gap-5"
+          >
+            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+          </div>
+
+          <div class="flex w-full justify-between">
+            <div>
+              <span *ngFor="let contact of task.assignedTo">
+                {{ contact }}
+              </span>
+            </div>
+
+            <img
+              [src]="task.urgency.image"
+              [alt]="task.urgency.name"
+              class="mr-2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-1/5 flex-col gap-5">
+        <h2 class="flex justify-between text-xl">
+          <b class="text-custom-title-gray">Awaiting feedback</b>
+          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+        </h2>
+
+        <div
+          *ngFor="let task of appState.tasks | filterTasks: 'awaitingFeedback'"
+          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          [id]="task.id"
+        >
+          <span
+            [ngStyle]="{ 'background-color': task.category.color }"
+            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
+          >
+            {{ task.category.name }}
+          </span>
+
+          <section class="flex flex-col gap-1">
+            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
+            <span class="text-gray-400">{{ task.description }}</span>
+          </section>
+
+          <div
+            *ngIf="task.subtasks.length > 0"
+            class="flex w-full items-center gap-5"
+          >
+            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+          </div>
+
+          <div class="flex w-full justify-between">
+            <div>
+              <span *ngFor="let contact of task.assignedTo">
+                {{ contact }}
+              </span>
+            </div>
+
+            <img
+              [src]="task.urgency.image"
+              [alt]="task.urgency.name"
+              class="mr-2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex w-1/5 flex-col gap-5">
+        <h2 class="flex justify-between text-xl">
+          <b class="text-custom-title-gray">Done</b>
+          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+        </h2>
+
+        <div
+          *ngFor="let task of appState.tasks | filterTasks: 'done'"
+          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          [id]="task.id"
+        >
+          <span
+            [ngStyle]="{ 'background-color': task.category.color }"
+            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
+          >
+            {{ task.category.name }}
+          </span>
+
+          <section class="flex flex-col gap-1">
+            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
+            <span class="text-gray-400">{{ task.description }}</span>
+          </section>
+
+          <div
+            *ngIf="task.subtasks.length > 0"
+            class="flex w-full items-center gap-5"
+          >
+            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+          </div>
+
+          <div class="flex w-full justify-between">
+            <div>
+              <span *ngFor="let contact of task.assignedTo">
+                {{ contact }}
+              </span>
+            </div>
+
+            <img
+              [src]="task.urgency.image"
+              [alt]="task.urgency.name"
+              class="mr-2"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-layout>
