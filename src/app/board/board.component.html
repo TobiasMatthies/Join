@@ -21,7 +21,18 @@
     </div>
 
     <div class="flex h-full w-full justify-between font-light">
-      <div class="flex w-1/5 flex-col gap-5">
+      <div
+        class="flex w-1/5 flex-col gap-5"
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="appState.tasks"
+        [cdkDropListConnectedTo]="[
+          inProgressList,
+          awaitingFeedbackList,
+          doneList
+        ]"
+        (cdkDropListDropped)="onDrop($event, 'toDo')"
+      >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">To do</b>
           <img src="assets/img/addTaskBoard.svg" alt="add Task" />
@@ -69,7 +80,14 @@
         </div>
       </div>
 
-      <div class="flex w-1/5 flex-col gap-5">
+      <div
+        class="flex w-1/5 flex-col gap-5"
+        cdkDropList
+        #inProgressList="cdkDropList"
+        [cdkDropListData]="appState.tasks"
+        [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]"
+        (cdkDropListDropped)="onDrop($event, 'inProgress')"
+      >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">In progress</b>
           <img src="assets/img/addTaskBoard.svg" alt="add Task" class="mr-2" />
@@ -117,7 +135,14 @@
         </div>
       </div>
 
-      <div class="flex w-1/5 flex-col gap-5">
+      <div
+        class="flex w-1/5 flex-col gap-5"
+        cdkDropList
+        #awaitingFeedbackList="cdkDropList"
+        [cdkDropListData]="appState.tasks"
+        [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]"
+        (cdkDropListDropped)="onDrop($event, 'awaitingFeedback')"
+      >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">Awaiting feedback</b>
           <img src="assets/img/addTaskBoard.svg" alt="add Task" />
@@ -165,7 +190,18 @@
         </div>
       </div>
 
-      <div class="flex w-1/5 flex-col gap-5">
+      <div
+        class="flex w-1/5 flex-col gap-5"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="appState.tasks"
+        [cdkDropListConnectedTo]="[
+          todoList,
+          inProgressList,
+          awaitingFeedbackList
+        ]"
+        (cdkDropListDropped)="onDrop($event, 'done')"
+      >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">Done</b>
           <img src="assets/img/addTaskBoard.svg" alt="add Task" />
