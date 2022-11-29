@@ -27,10 +27,11 @@
           <img src="assets/img/addTaskBoard.svg" alt="add Task" />
         </h2>
 
-         <div
+        <div
           *ngFor="let task of appState.tasks | filterTasks: 'toDo'"
-          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
+          cdkDrag
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -76,8 +77,9 @@
 
         <div
           *ngFor="let task of appState.tasks | filterTasks: 'inProgress'"
-          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
+          cdkDrag
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -123,8 +125,9 @@
 
         <div
           *ngFor="let task of appState.tasks | filterTasks: 'awaitingFeedback'"
-          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
+          cdkDrag
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -170,8 +173,9 @@
 
         <div
           *ngFor="let task of appState.tasks | filterTasks: 'done'"
-          class="flex flex-col gap-5 rounded-3xl p-4 shadow-custom-card cursor-pointer"
+          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
+          cdkDrag
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"

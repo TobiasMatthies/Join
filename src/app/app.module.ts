@@ -14,7 +14,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { LayoutComponent } from './layout/layout.component';
 import { FilterTasksPipe } from './board/filter-tasks.pipe';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -34,9 +34,10 @@ import { FilterTasksPipe } from './board/filter-tasks.pipe';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragDropModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
