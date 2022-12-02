@@ -1,0 +1,11 @@
+.cdk-drag-placeholder {
+    height: 176px;
+    width: 100%;
+    border-radius: 24px;
+    border: 1px dashed rgb(209, 209, 209);
+    box-shadow: none;
+}
+
+.cdk-drag-placeholder > * {
+    display: none !important;
+}

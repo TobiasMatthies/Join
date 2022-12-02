@@ -8,6 +8,8 @@
           class="custom-placeholder-custom-gray text-sm font-light"
           placeholder="Find Task"
           type="text"
+          id="filter"
+          (keyup)="searchTasks()"
         />
         <img src="assets/img/search.svg" alt="search" />
       </div>
@@ -25,7 +27,7 @@
         class="flex w-1/5 flex-col gap-5"
         cdkDropList
         #todoList="cdkDropList"
-        [cdkDropListData]="appState.tasks"
+        [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[
           inProgressList,
           awaitingFeedbackList,
@@ -39,10 +41,12 @@
         </h2>
 
         <div
-          *ngFor="let task of appState.tasks | filterTasks: 'toDo'"
+          *ngFor="let task of filteredTasks | filterTasks: 'toDo'"
           class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
           cdkDrag
+          [cdkDragData]="task.id"
+          (click)="taskDetailService.openTaskDetailView(task)"
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -60,7 +64,7 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
             <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
           </div>
 
@@ -84,7 +88,7 @@
         class="flex w-1/5 flex-col gap-5"
         cdkDropList
         #inProgressList="cdkDropList"
-        [cdkDropListData]="appState.tasks"
+        [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]"
         (cdkDropListDropped)="onDrop($event, 'inProgress')"
       >
@@ -94,10 +98,12 @@
         </h2>
 
         <div
-          *ngFor="let task of appState.tasks | filterTasks: 'inProgress'"
+          *ngFor="let task of filteredTasks | filterTasks: 'inProgress'"
           class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
           cdkDrag
+          [cdkDragData]="task.id"
+          (click)="taskDetailService.openTaskDetailView(task)"
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -115,7 +121,7 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
             <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
           </div>
 
@@ -139,7 +145,7 @@
         class="flex w-1/5 flex-col gap-5"
         cdkDropList
         #awaitingFeedbackList="cdkDropList"
-        [cdkDropListData]="appState.tasks"
+        [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]"
         (cdkDropListDropped)="onDrop($event, 'awaitingFeedback')"
       >
@@ -149,10 +155,12 @@
         </h2>
 
         <div
-          *ngFor="let task of appState.tasks | filterTasks: 'awaitingFeedback'"
+          *ngFor="let task of filteredTasks | filterTasks: 'awaitingFeedback'"
           class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
           cdkDrag
+          [cdkDragData]="task.id"
+          (click)="taskDetailService.openTaskDetailView(task)"
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -170,7 +178,7 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
             <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
           </div>
 
@@ -194,7 +202,7 @@
         class="flex w-1/5 flex-col gap-5"
         cdkDropList
         #doneList="cdkDropList"
-        [cdkDropListData]="appState.tasks"
+        [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[
           todoList,
           inProgressList,
@@ -208,10 +216,12 @@
         </h2>
 
         <div
-          *ngFor="let task of appState.tasks | filterTasks: 'done'"
+          *ngFor="let task of filteredTasks | filterTasks: 'done'"
           class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
           [id]="task.id"
           cdkDrag
+          [cdkDragData]="task.id"
+          (click)="taskDetailService.openTaskDetailView(task)"
         >
           <span
             [ngStyle]="{ 'background-color': task.category.color }"
@@ -229,7 +239,7 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 bg-gray-100"></div>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
             <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
           </div>
 
@@ -251,3 +261,5 @@
     </div>
   </div>
 </app-layout>
+
+<app-task-detail-info *ngIf="taskDetailService.openedTaskDetailView"></app-task-detail-info>

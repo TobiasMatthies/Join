@@ -3,6 +3,8 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { AppStateService } from '../app-state/app-state.service';
+import { Task } from '../models/task.model';
+import { TaskDetailService } from './task-detail.service';
 
 @Component({
   selector: 'app-board',
@@ -10,37 +12,64 @@ import { AppStateService } from '../app-state/app-state.service';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit {
+  filteredTasks: Task[];
 
-  constructor(public appState: AppStateService) {}
+  constructor(
+    public appStateService: AppStateService,
+    public taskDetailService: TaskDetailService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.filteredTasks = this.appStateService.tasks;
+  }
 
   changeStatus(event: CdkDragDrop<any>, status: string) {
     let draggedTask;
-    draggedTask = this.appState.tasks.find(
-      (task) => task.id == +event.item.element.nativeElement.id
+    draggedTask = this.appStateService.tasks.find(
+      (task) => task.id == +event.item.data
     );
 
     draggedTask['status'] = status;
-    console.log('dropped');
   }
 
   onDrop(event: CdkDragDrop<any>, status: string) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+      this.keepItem(event);
     } else {
       this.changeStatus(event, status);
+      this.transferItem(event);
+    }
+  }
 
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
+  keepItem(event: CdkDragDrop<any>) {
+    moveItemInArray(
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  transferItem(event: CdkDragDrop<any>) {
+    transferArrayItem(
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex
+    );
+  }
+
+  searchTasks() {
+    let filter = document.getElementById('filter')['value'];
+
+    if (!filter) {
+      this.filteredTasks = this.appStateService.tasks;
+    } else {
+      this.filteredTasks = [
+        ...this.appStateService.tasks.filter(
+          (task) =>
+            task.title.includes(filter) || task.description.includes(filter)
+        ),
+      ];
     }
   }
 }
