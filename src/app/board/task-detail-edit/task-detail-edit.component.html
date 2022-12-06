@@ -1,0 +1,154 @@
+<form
+  [formGroup]="addTaskService.form"
+  (ngSubmit)="onEditTask()"
+  class="relative flex max-h-[90vh] min-h-[40vh] w-full flex-col items-center gap-5 rounded-3xl bg-white p-8 text-xl font-light shadow-custom-info-fields"
+>
+  <div class="flex w-full justify-end">
+    <img
+      class="cursor-pointer"
+      src="assets/img/cancel.svg"
+      alt="close"
+      (click)="
+        taskDetailService.closeTaskDetailView();
+        taskDetailService.toggleEditMode()
+      "
+    />
+  </div>
+
+  <input
+    formControlName="title"
+    class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray placeholder:font-light"
+    id="title"
+    type="text"
+    name="title"
+    placeholder="Enter a title"
+  />
+
+  <div class="mb-4 flex w-4/5 flex-col gap-2">
+    <label class="font-bold text-custom-title-gray" for="description"
+      >Description</label
+    >
+
+    <textarea
+      formControlName="description"
+      class="rounded-r-lg rounded-bl-lg border p-4 placeholder-custom-placeholder-gray"
+      name="description"
+      id="description"
+      placeholder="Enter a description"
+    ></textarea>
+  </div>
+
+  <div class="mb-4 flex w-4/5 flex-col gap-2">
+    <label class="font-bold text-custom-title-gray" for="date">Due date</label>
+    <input
+      formControlName="dueDate"
+      class="flex justify-between border-b py-2 px-4 invalid:text-custom-placeholder-gray"
+      id="date"
+      name="date"
+      type="date"
+    />
+  </div>
+
+  <app-choose-urgency class="my-5 w-4/5"></app-choose-urgency>
+
+  <div class="flex w-4/5 flex-col gap-2">
+    <span class="font-bold text-custom-title-gray">Assigned to</span>
+
+    <div class="flex items-center justify-between px-4 border-b py-2">
+      <ng-container
+        *ngIf="!addTaskService.showInviteNewContact; else inviteNewContact"
+      >
+        <span>Select contacts to assign</span>
+        <img
+          class="cursor-pointer"
+          src="assets/img/Vector 2.svg"
+          alt="select"
+          (click)="addTaskService.toggleContacts()"
+        />
+      </ng-container>
+      <ng-template #inviteNewContact>
+        <input
+          class="placeholder-custom-placeholder-gray"
+          type="email"
+          placeholder="Contact Email"
+        />
+        <div class="flex gap-2">
+          <img
+            class="blue-filter w-5 cursor-pointer"
+            src="assets/img/cancel.svg"
+            alt="cancel"
+            (click)="
+              addTaskService.toggleInviteNewContact();
+              addTaskService.toggleContacts()
+            "
+          />
+          <div class="w-px bg-custom-placeholder-gray"></div>
+          <img
+            class="w-5 cursor-pointer"
+            src="assets/img/Vector-3.svg"
+            alt="invite"
+          />
+        </div>
+      </ng-template>
+    </div>
+
+    <div
+      [ngClass]="
+        addTaskService.showContacts && !addTaskService.showInviteNewContact
+          ? ''
+          : 'hidden'
+      "
+      class="relative"
+      formGroupName="contacts"
+    >
+      <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-white">
+        <div class="max-h-[78px] overflow-y-scroll">
+          <li
+            *ngFor="let contact of addTaskService.demoContacts"
+            class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
+          >
+            <span>{{ contact }}</span>
+            <input
+              class="cursor-pointer accent-custom-blue"
+              type="checkbox"
+              name="contacts"
+              [value]="contact"
+              [formControlName]="contact"
+            />
+          </li>
+        </div>
+        <li
+          class="flex cursor-pointer justify-between rounded-b-lg py-3 px-4 hover:bg-custom-blue-active"
+          (click)="addTaskService.toggleInviteNewContact()"
+        >
+          <span>Invite new contact</span>
+          <img src="assets/img/Vector.svg" alt="invite contact" />
+        </li>
+      </ul>
+    </div>
+    <span
+      *ngIf="
+        addTaskService.form.get('contacts').invalid && addTaskService.submitted
+      "
+      class="text-xs text-custom-red-urgent"
+      >This field is required</span
+    >
+    <div class="flex gap-2">
+      <span *ngFor="let contact of addTaskService.selectedContacts">
+        {{ contact }}
+      </span>
+    </div>
+  </div>
+
+  <div class="relative h-[52px] w-full"></div>
+  <app-button-primary class="fixed right-8 bottom-8" (click)="(addTaskService)">
+    <div class="flex gap-2 p-1">
+      <span>Ok</span>
+      <img
+        class="brightness-0 invert"
+        src="assets/img/Vector-3.svg"
+        alt="edit"
+      />
+    </div>
+  </app-button-primary>
+</form>

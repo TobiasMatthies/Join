@@ -3,7 +3,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { AppStateService } from '../app-state/app-state.service';
-import { Task } from '../models/task.model';
+import { Task } from '../models/tasks.model';
 import { TaskDetailService } from './task-detail.service';
 
 @Component({

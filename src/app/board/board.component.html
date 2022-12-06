@@ -262,4 +262,19 @@
   </div>
 </app-layout>
 
-<app-task-detail-info *ngIf="taskDetailService.openedTaskDetailView"></app-task-detail-info>
+<!--overlay-->
+<div
+  *ngIf="taskDetailService.openedTaskDetailView"
+  class="absolute top-0 h-full w-full bg-white/50"
+  (click)="taskDetailService.closeTaskDetailView()"
+></div>
+
+<app-task-detail-info
+  *ngIf="taskDetailService.openedTaskDetailView && !taskDetailService.editMode"
+  class="w-2/5 absolute_center"
+></app-task-detail-info>
+
+<app-task-detail-edit
+  *ngIf="taskDetailService.openedTaskDetailView && taskDetailService.editMode"
+  class="w-2/5 absolute_center"
+></app-task-detail-edit>

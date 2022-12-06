@@ -19,6 +19,6 @@ export class AddTaskComponent implements OnInit {
     this.addTaskService.initAddTaskForm();
     this.addTaskService.date = new Date().toISOString().split('T')[0];
     this.addTaskService.fillFormArrays();
-    this.addTaskService.subscribeToFormValues();
+    this.addTaskService.subscribeToAddTaskFormValues();
   }
 }

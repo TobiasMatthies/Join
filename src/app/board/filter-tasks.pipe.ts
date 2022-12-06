@@ -1,12 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Task } from '../models/task.model';
+import { Task } from '../models/tasks.model';
 
 @Pipe({
   name: 'filterTasks',
-  pure: false
+  pure: false,
 })
 export class FilterTasksPipe implements PipeTransform {
   transform(array: Task[], status: string): Task[] {
-    return array.filter(task => task['status'] == status);
+    return array.filter((task) => task['status'] == status);
   }
 }

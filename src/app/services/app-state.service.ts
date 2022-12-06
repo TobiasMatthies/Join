@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { Contact } from "../models/contact.model";
-import { Task } from "../models/task.model";
+import { Injectable } from '@angular/core';
+import { Contact } from '../models/contact.model';
+import { Task } from '../models/tasks.model';
 
 @Injectable({
   providedIn: 'root',

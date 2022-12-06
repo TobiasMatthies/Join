@@ -17,6 +17,7 @@ import { FilterTasksPipe } from './board/filter-tasks.pipe';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskDetailInfoComponent } from './board/task-detail-info/task-detail-info.component';
 import { ChooseUrgencyComponent } from './add-task/choose-urgency/choose-urgency.component';
+import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-edit.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ChooseUrgencyComponent } from './add-task/choose-urgency/choose-urgency
     FilterTasksPipe,
     TaskDetailInfoComponent,
     ChooseUrgencyComponent,
+    TaskDetailEditComponent,
   ],
   imports: [
     BrowserModule,

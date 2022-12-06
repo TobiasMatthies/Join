@@ -2,11 +2,12 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppStateService } from '../app-state/app-state.service';
-import { TaskDetailEditService } from '../board/task-detail-edit.service';
 import { ChooseUrgencyService } from './choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
-import { Task } from '../models/task.model';
+import { EditedTask, Task } from '../models/tasks.model';
+import { TaskDetailService } from '../board/task-detail.service';
+import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Injectable({
   providedIn: 'root',
@@ -44,7 +45,8 @@ export class AddTaskService implements OnDestroy {
 
   constructor(
     private appStateService: AppStateService,
-    private chooseUrgencyService: ChooseUrgencyService
+    private chooseUrgencyService: ChooseUrgencyService,
+    private taskDetailService: TaskDetailService
   ) {}
 
   ngOnDestroy(): void {
@@ -67,6 +69,28 @@ export class AddTaskService implements OnDestroy {
       urgency: new FormControl(null, [Validators.required]),
       description: new FormControl(null, [Validators.required]),
       subtasks: new FormGroup({}),
+    });
+  }
+
+  initEditForm() {
+    this.form = new FormGroup({
+      title: new FormControl(
+        this.taskDetailService.openedTaskDetailView.title,
+        [Validators.required]
+      ),
+      description: new FormControl(
+        this.taskDetailService.openedTaskDetailView.description,
+        [Validators.required]
+      ),
+      dueDate: new FormControl(
+        this.taskDetailService.openedTaskDetailView.dueDate,
+        [Validators.required]
+      ),
+      urgency: new FormControl(
+        this.taskDetailService.openedTaskDetailView.urgency,
+        [Validators.required]
+      ),
+      contacts: new FormGroup({}, [atLeastOneCheckboxCheckedValidator()]),
     });
   }
 
@@ -97,13 +121,35 @@ export class AddTaskService implements OnDestroy {
     }
   }
 
-  subscribeToFormValues() {
+  fillEditedContacts() {
+    let assignees = this.taskDetailService.openedTaskDetailView.assignedTo;
+
+    for (let i = 0; i < this.demoContacts.length; i++) {
+      const contact = this.demoContacts[i];
+      let assigned = assignees.includes(contact);
+      console.log(assigned);
+
+      (<FormGroup>this.form.get('contacts')).addControl(
+        contact,
+        new FormControl(assigned)
+      );
+    }
+  }
+
+  subscribeToAddTaskFormValues() {
+    this.subscribeToCategory();
+    this.subscribeToContacts();
+  }
+
+  subscribeToCategory() {
     this.categorySubscription = this.form.controls[
       'category'
     ].valueChanges.subscribe(() => {
       this.toggleCategories();
     });
+  }
 
+  subscribeToContacts() {
     this.contactSubscription = this.form.controls[
       'contacts'
     ].valueChanges.subscribe(() => {
@@ -168,6 +214,43 @@ export class AddTaskService implements OnDestroy {
     if (formControl == 'subtasks') {
       this.selectedSubtasks.push(value);
     }
+  }
+
+  onEditTask() {
+    this.submitted = true;
+
+    if (this.form.valid) {
+     let editedTask = this.getEditedValues();
+
+      this.editTask(editedTask);
+      this.submitted = false;
+
+      console.log(this.taskDetailService.openedTaskDetailView);
+      console.log(editedTask);
+      console.log(this.appStateService.tasks);
+    } else {
+      this.resetSubmission();
+    }
+  }
+
+  getEditedValues() {
+    return {
+      title: this.form.controls['title'].value,
+      description: this.form.controls['description'].value,
+      dueDate: this.form.controls['dueDate'].value,
+      urgency: this.form.controls['urgency'].value,
+      assignedTo: this.selectedContacts,
+    };
+  }
+
+  editTask(editedTask: EditedTask) {
+    this.taskDetailService.openedTaskDetailView.title = editedTask.title;
+    this.taskDetailService.openedTaskDetailView.description =
+      editedTask.description;
+    this.taskDetailService.openedTaskDetailView.dueDate = editedTask.dueDate;
+    this.taskDetailService.openedTaskDetailView.urgency = editedTask.urgency;
+    this.taskDetailService.openedTaskDetailView.assignedTo =
+      editedTask.assignedTo;
   }
 
   onCreateNewTaskCategory() {
