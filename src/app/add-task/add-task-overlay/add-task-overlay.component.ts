@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AppStateService } from '../app-state/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency/choose-urgency.service';
-import { AddTaskService } from './add-task.service';
+import { AppStateService } from 'src/app/app-state/app-state.service';
+import { TaskDetailService } from 'src/app/board/task-detail.service';
+import { AddTaskService } from '../add-task.service';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css'],
+  selector: 'app-add-task-overlay',
+  templateUrl: './add-task-overlay.component.html',
+  styleUrls: ['./add-task-overlay.component.css'],
 })
-export class AddTaskComponent implements OnInit, OnDestroy {
+export class AddTaskOverlayComponent implements OnInit, OnDestroy {
   constructor(
     public addTaskService: AddTaskService,
-    public appStateService: AppStateService,
-    public chooseUrgencyService: ChooseUrgencyService
+    public taskDetailService: TaskDetailService,
+    public appStateService: AppStateService
   ) {}
 
   ngOnInit(): void {

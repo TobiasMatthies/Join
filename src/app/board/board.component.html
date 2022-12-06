@@ -14,7 +14,7 @@
         <img src="assets/img/search.svg" alt="search" />
       </div>
 
-      <app-button-primary>
+      <app-button-primary (click)="addTaskService.toggleAddTaskOverlay()">
         <div class="flex h-[33px] items-center gap-2">
           <span class="text-xl font-light">Add Task</span>
           <img src="assets/img/addWhite.svg" alt="add task" />
@@ -37,7 +37,12 @@
       >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">To do</b>
-          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+          <img
+            class="cursor-pointer"
+            src="assets/img/addTaskBoard.svg"
+            alt="add Task"
+            (click)="addTaskService.toggleAddTaskOverlay()"
+          />
         </h2>
 
         <div
@@ -94,7 +99,12 @@
       >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">In progress</b>
-          <img src="assets/img/addTaskBoard.svg" alt="add Task" class="mr-2" />
+          <img
+            class="cursor-pointer"
+            src="assets/img/addTaskBoard.svg"
+            alt="add Task"
+            (click)="addTaskService.toggleAddTaskOverlay('inProgress')"
+          />
         </h2>
 
         <div
@@ -151,7 +161,12 @@
       >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">Awaiting feedback</b>
-          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+          <img
+            class="cursor-pointer"
+            src="assets/img/addTaskBoard.svg"
+            alt="add Task"
+            (click)="addTaskService.toggleAddTaskOverlay('awaitingFeedback')"
+          />
         </h2>
 
         <div
@@ -212,7 +227,12 @@
       >
         <h2 class="flex justify-between text-xl">
           <b class="text-custom-title-gray">Done</b>
-          <img src="assets/img/addTaskBoard.svg" alt="add Task" />
+          <img
+            class="cursor-pointer"
+            src="assets/img/addTaskBoard.svg"
+            alt="add Task"
+            (click)="addTaskService.toggleAddTaskOverlay('done')"
+          />
         </h2>
 
         <div
@@ -260,6 +280,10 @@
       </div>
     </div>
   </div>
+
+  <app-add-task-overlay
+    *ngIf="addTaskService.addTaskOverlayOpened"
+  ></app-add-task-overlay>
 </app-layout>
 
 <!--overlay-->
@@ -271,10 +295,10 @@
 
 <app-task-detail-info
   *ngIf="taskDetailService.openedTaskDetailView && !taskDetailService.editMode"
-  class="w-2/5 absolute_center"
+  class="absolute_center w-2/5"
 ></app-task-detail-info>
 
 <app-task-detail-edit
   *ngIf="taskDetailService.openedTaskDetailView && taskDetailService.editMode"
-  class="w-2/5 absolute_center"
+  class="absolute_center w-2/5"
 ></app-task-detail-edit>

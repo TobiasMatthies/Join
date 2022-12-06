@@ -5,6 +5,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AppStateService } from '../app-state/app-state.service';
 import { Task } from '../models/tasks.model';
 import { TaskDetailService } from './task-detail.service';
+import { AddTaskService } from '../add-task/add-task.service';
 
 @Component({
   selector: 'app-board',
@@ -16,7 +17,8 @@ export class BoardComponent implements OnInit {
 
   constructor(
     public appStateService: AppStateService,
-    public taskDetailService: TaskDetailService
+    public taskDetailService: TaskDetailService,
+    public addTaskService: AddTaskService
   ) {}
 
   ngOnInit(): void {

@@ -18,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TaskDetailInfoComponent } from './board/task-detail-info/task-detail-info.component';
 import { ChooseUrgencyComponent } from './add-task/choose-urgency/choose-urgency.component';
 import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-edit.component';
+import { AddTaskOverlayComponent } from './add-task/add-task-overlay/add-task-overlay.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-ed
     TaskDetailInfoComponent,
     ChooseUrgencyComponent,
     TaskDetailEditComponent,
+    AddTaskOverlayComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,18 +1,17 @@
-import { Injectable, OnDestroy, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppStateService } from '../app-state/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency.service';
+import { ChooseUrgencyService } from './choose-urgency/choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
-import { coerceStringArray } from '@angular/cdk/coercion';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AddTaskService implements OnDestroy {
+export class AddTaskService {
   subtasks: string[] = [];
 
   demoContacts = ['you', 'friend1', 'friend2'];
@@ -32,6 +31,7 @@ export class AddTaskService implements OnDestroy {
   showCategories: boolean = false;
   showInviteNewContact: boolean = false;
   showCreateNewCategory: boolean = false;
+  addTaskOverlayOpened: boolean = false;
 
   categoryName: string;
   selectedColor: string;
@@ -41,6 +41,7 @@ export class AddTaskService implements OnDestroy {
   formValueSubscription: Subscription;
   selectedContacts = [];
   selectedSubtasks = [];
+  taskStatus: string;
   submitted: boolean = false;
 
   constructor(
@@ -48,15 +49,6 @@ export class AddTaskService implements OnDestroy {
     private chooseUrgencyService: ChooseUrgencyService,
     private taskDetailService: TaskDetailService
   ) {}
-
-  ngOnDestroy(): void {
-    this.categorySubscription.unsubscribe();
-    this.contactSubscription.unsubscribe();
-
-    if (this.formValueSubscription) {
-      this.formValueSubscription.unsubscribe();
-    }
-  }
 
   initAddTaskForm() {
     this.form = new FormGroup({
@@ -164,8 +156,7 @@ export class AddTaskService implements OnDestroy {
       this.getOnlySelectedValues('subtasks');
       let task: Task = this.createTask();
       this.appStateService.tasks.push(task);
-      this.resetForm();
-      this.submitted = false;
+      this.cleanForm();
     } else {
       this.resetSubmission();
     }
@@ -180,7 +171,7 @@ export class AddTaskService implements OnDestroy {
       urgency: this.form.controls['urgency'].value,
       description: this.form.controls['description'].value,
       subtasks: this.selectedSubtasks,
-      status: 'toDo',
+      status: this.taskStatus ? this.taskStatus : 'toDo',
       id: new Date().getTime(),
     };
   }
@@ -216,18 +207,24 @@ export class AddTaskService implements OnDestroy {
     }
   }
 
+  cleanForm() {
+    this.resetForm();
+    this.submitted = false;
+
+    if (this.addTaskOverlayOpened) {
+      this.taskStatus = null;
+      this.toggleAddTaskOverlay();
+    }
+  }
+
   onEditTask() {
     this.submitted = true;
 
     if (this.form.valid) {
-     let editedTask = this.getEditedValues();
-
+      let editedTask = this.getEditedValues();
       this.editTask(editedTask);
       this.submitted = false;
-
-      console.log(this.taskDetailService.openedTaskDetailView);
-      console.log(editedTask);
-      console.log(this.appStateService.tasks);
+      this.taskDetailService.toggleEditMode();
     } else {
       this.resetSubmission();
     }
@@ -358,5 +355,13 @@ export class AddTaskService implements OnDestroy {
 
   toggleNewCategory() {
     this.showCreateNewCategory = !this.showCreateNewCategory;
+  }
+
+  toggleAddTaskOverlay(status? : string) {
+    this.addTaskOverlayOpened = !this.addTaskOverlayOpened;
+
+    if (status) {
+      this.taskStatus = status;
+    }
   }
 }

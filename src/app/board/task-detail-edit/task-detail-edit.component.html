@@ -15,6 +15,7 @@
     />
   </div>
 
+  <div class="flex flex-col gap-2">
   <input
     formControlName="title"
     class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray placeholder:font-light"
@@ -23,6 +24,15 @@
     name="title"
     placeholder="Enter a title"
   />
+
+  <span
+      *ngIf="
+        addTaskService.form.get('title').invalid && addTaskService.submitted
+      "
+      class="text-xs text-custom-red-urgent self-start"
+      >This field is required</span
+    >
+  </div>
 
   <div class="mb-4 flex w-4/5 flex-col gap-2">
     <label class="font-bold text-custom-title-gray" for="description"
@@ -36,6 +46,14 @@
       id="description"
       placeholder="Enter a description"
     ></textarea>
+
+    <span
+      *ngIf="
+        addTaskService.form.get('description').invalid && addTaskService.submitted
+      "
+      class="text-xs text-custom-red-urgent self-start"
+      >This field is required</span
+    >
   </div>
 
   <div class="mb-4 flex w-4/5 flex-col gap-2">
@@ -47,6 +65,14 @@
       name="date"
       type="date"
     />
+
+    <span
+      *ngIf="
+        addTaskService.form.get('dueDate').invalid && addTaskService.submitted
+      "
+      class="text-xs text-custom-red-urgent self-start"
+      >This field is required</span
+    >
   </div>
 
   <app-choose-urgency class="my-5 w-4/5"></app-choose-urgency>
