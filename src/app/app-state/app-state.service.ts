@@ -39,7 +39,30 @@ export class AppStateService {
       id: new Date().getTime() - 1000,
     },
   ];
-  contacts: Contact[] = [];
+  contacts: Contact[] = [
+    {
+      name: 'You Test',
+      email: 'you@you.com',
+      phoneNumber: 1234678,
+      backgroundColor: 'rgb(127, 17, 224)',
+      abbrevation: 'YT'
+    },
+    {
+      name: 'Friend1',
+      email: 'friend1@friend1.com',
+      phoneNumber: 10234567,
+      backgroundColor: 'rgb(255, 165, 0)',
+      abbrevation: 'F'
+    },
+    {
+      name: 'Friend2 Asdf',
+      email: 'friend2@friend2.com',
+      phoneNumber: 12034567,
+      backgroundColor: 'rgb(45, 246, 200)',
+      abbrevation: 'FA'
+    },
+  ];
+
   categories: Array<{ name: string; color: string }> = [
     { name: 'Sales', color: 'rgb(252,113,255)' },
     { name: 'Backoffice', color: 'rgb(32,215,192)' },

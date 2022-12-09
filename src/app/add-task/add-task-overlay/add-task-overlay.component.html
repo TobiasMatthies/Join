@@ -4,7 +4,7 @@
     (click)="addTaskService.toggleAddTaskOverlay()"
   ></div>
   <form
-    class="absolute right-0 flex h-full w-1/3 flex-col gap-5 rounded-l-3xl bg-white p-8 shadow-custom-info-fields font-light pt-12"
+    class="absolute right-0 flex h-full w-1/3 flex-col gap-5 rounded-l-3xl bg-white p-8 shadow-custom-card font-light pt-12"
      id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
@@ -89,16 +89,16 @@
           >
             <ul class="flex flex-col">
               <li
-                *ngFor="let contact of addTaskService.demoContacts"
+                *ngFor="let contact of appStateService.contacts"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
               >
-                <span>{{ contact }}</span>
+                <span>{{ contact.name }}</span>
                 <input
                   class="cursor-pointer accent-custom-blue"
                   type="checkbox"
                   name="contacts"
                   [value]="contact"
-                  [formControlName]="contact"
+                  [formControlName]="contact.name"
                 />
               </li>
               <li

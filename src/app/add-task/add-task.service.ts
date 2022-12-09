@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { AppStateService } from '../app-state/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency/choose-urgency.service';
+import { ChooseUrgencyService } from './choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
@@ -13,8 +13,6 @@ import { TaskDetailService } from '../board/task-detail.service';
 })
 export class AddTaskService {
   subtasks: string[] = [];
-
-  demoContacts = ['you', 'friend1', 'friend2'];
   categoryColors: string[] = [
     'rgb(138,164,255)',
     'red',
@@ -92,8 +90,8 @@ export class AddTaskService {
   }
 
   fillContacts() {
-    for (let i = 0; i < this.demoContacts.length; i++) {
-      const contact = this.demoContacts[i];
+    for (let i = 0; i < this.appStateService.contacts.length; i++) {
+      const contact = this.appStateService.contacts[i].name;
 
       (<FormGroup>this.form.get('contacts')).addControl(
         contact,
@@ -116,8 +114,8 @@ export class AddTaskService {
   fillEditedContacts() {
     let assignees = this.taskDetailService.openedTaskDetailView.assignedTo;
 
-    for (let i = 0; i < this.demoContacts.length; i++) {
-      const contact = this.demoContacts[i];
+    for (let i = 0; i < this.appStateService.contacts.length; i++) {
+      const contact = this.appStateService.contacts[i].name;
       let assigned = assignees.includes(contact);
       console.log(assigned);
 
@@ -357,7 +355,7 @@ export class AddTaskService {
     this.showCreateNewCategory = !this.showCreateNewCategory;
   }
 
-  toggleAddTaskOverlay(status? : string) {
+  toggleAddTaskOverlay(status?: string) {
     this.addTaskOverlayOpened = !this.addTaskOverlayOpened;
 
     if (status) {

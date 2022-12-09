@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppStateService } from '../app-state/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency/choose-urgency.service';
+import { ChooseUrgencyService } from './choose-urgency.service';
 import { AddTaskService } from './add-task.service';
 
 @Component({

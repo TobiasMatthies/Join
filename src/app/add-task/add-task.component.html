@@ -65,16 +65,16 @@
           >
             <ul class="flex flex-col">
               <li
-                *ngFor="let contact of addTaskService.demoContacts"
+                *ngFor="let contact of appStateService.contacts"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
               >
-                <span>{{ contact }}</span>
+                <span>{{ contact.name }}</span>
                 <input
                   class="cursor-pointer accent-custom-blue"
                   type="checkbox"
                   name="contacts"
                   [value]="contact"
-                  [formControlName]="contact"
+                  [formControlName]="contact.name"
                 />
               </li>
               <li

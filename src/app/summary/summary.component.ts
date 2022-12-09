@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppStateService } from '../app-state/app-state.service';
+import { Task } from '../models/tasks.model';
 import { generalTasksInfo, urgentTasksInfo } from './task-info.models';
 import { TasksInfoService } from './tasks-info.service';
 
@@ -9,15 +11,22 @@ import { TasksInfoService } from './tasks-info.service';
   styleUrls: ['./summary.component.css'],
 })
 export class SummaryComponent implements OnInit {
+  urgentTasks: Task[];
   urgentTasksInfo: urgentTasksInfo;
 
   generalInfoFields: generalTasksInfo[] = null;
 
-  constructor(public tasksInfoService: TasksInfoService, private router: Router) {}
+  constructor(
+    public tasksInfoService: TasksInfoService,
+    private router: Router,
+    private appStateService: AppStateService
+  ) {}
 
   ngOnInit(): void {
+    this.findUrgentTasks();
+
     this.urgentTasksInfo = {
-      amount: 1,
+      amount: this.urgentTasks.length,
       deadline:
         new Date().toLocaleString('en-US', { month: 'long' }) +
         ' ' +
@@ -25,12 +34,14 @@ export class SummaryComponent implements OnInit {
         ', ' +
         new Date().getFullYear(),
     };
-
-    this.assignGeneralInfo();
     this.fillGeneralInfoFieldsArray();
   }
 
-  assignGeneralInfo() {}
+  findUrgentTasks() {
+    this.urgentTasks = this.appStateService.tasks.filter(
+      (task) => task.urgency.name === 'urgent'
+    );
+  }
 
   fillGeneralInfoFieldsArray() {
     this.generalInfoFields = [

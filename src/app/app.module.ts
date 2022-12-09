@@ -19,6 +19,7 @@ import { TaskDetailInfoComponent } from './board/task-detail-info/task-detail-in
 import { ChooseUrgencyComponent } from './add-task/choose-urgency/choose-urgency.component';
 import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-edit.component';
 import { AddTaskOverlayComponent } from './add-task/add-task-overlay/add-task-overlay.component';
+import { FilterPipe } from './contacts/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { AddTaskOverlayComponent } from './add-task/add-task-overlay/add-task-ov
     ChooseUrgencyComponent,
     TaskDetailEditComponent,
     AddTaskOverlayComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
