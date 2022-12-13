@@ -19,6 +19,7 @@ module.exports = {
         "custom-header": "0px 4px 4px 0px rgba(204,204,204,0.75)",
         "custom-navbar": "1px 0px 0px 0px rgba(232,232,232,0.75)",
         "custom-info-fields": "0px 0px 1px 1px rgba(232,232,232,0.75)",
+        "custom-contacts": "0px 0px 3px 3px rgba(232,232,232,0.75)",
         "custom-category-color": "0px 3px 5px 0px rgba(110,110,110,0.75)",
       },
       borderColor: {

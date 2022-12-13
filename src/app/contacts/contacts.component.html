@@ -1,6 +1,9 @@
 <app-layout>
   <div class="flex h-full w-full">
-    <div class="w-2/5 px-16 font-light shadow-custom-contacts-right max-h-full overflow-y-auto" id="contacts">
+    <div
+      class="max-h-full w-2/5 overflow-y-auto px-16 font-light shadow-custom-contacts-right"
+      id="contacts"
+    >
       <div *ngFor="let firstLetter of firstLetters">
         <h2 class="mb-4 border-b p-4 pb-6">{{ firstLetter | uppercase }}</h2>
 
@@ -10,25 +13,107 @@
               let contact of appStateService.contacts | filter: firstLetter;
               index as i
             "
-            class="-mx-4 flex cursor-pointer items-center gap-5 rounded-lg py-2 px-4 hover:bg-custom-blue-active"
+            class="-mx-4 flex cursor-pointer items-center gap-5 rounded-lg py-2 px-4"
+            [ngClass]="
+              selectedContact == contact
+                ? ['bg-custom-blue', 'text-white']
+                : ['hover:bg-custom-blue-active', 'group']
+            "
+            (click)="onSelectContact(contact)"
           >
             <div
-              class="flex h-10 min-w-[40px] items-center justify-center rounded-full"
+              class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full border border-white group-hover:border-2 group-hover:shadow-custom-contacts"
               [ngStyle]="{ backgroundColor: contact.backgroundColor }"
             >
-              <span
-                [ngStyle]="{ color: lightOrDark(contact.backgroundColor) }"
-                >{{ contact.abbrevation }}</span
-              >
+              <span class="text-white">{{ contact.abbrevation }}</span>
             </div>
 
             <div class="flex flex-col">
-              <span class="text-xl">{{ contact.name }}</span>
-              <span class="text-custom-blue">{{ contact.email }}</span>
+              <span class="text-lg">{{ contact.name }}</span>
+              <span
+                class="text-sm"
+                [ngClass]="
+                  selectedContact == contact ? 'text-white' : 'text-custom-blue'
+                "
+                >{{ contact.email }}</span
+              >
             </div>
           </li>
         </ul>
       </div>
     </div>
+
+    <div class="relative w-3/5 p-10 font-light">
+      <div *ngIf="selectedContact" class="flex flex-col gap-5">
+        <div class="flex items-center gap-5">
+          <div
+            class="box-border flex h-28 w-28 items-center justify-center rounded-full border-2 border-white shadow-custom-contacts"
+            [ngStyle]="{ backgroundColor: selectedContact.backgroundColor }"
+          >
+            <span class="text-5xl text-white">{{
+              selectedContact.abbrevation
+            }}</span>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <h1 class="text-5xl font-normal">{{ selectedContact.name }}</h1>
+
+            <span
+              class="flex cursor-pointer items-center gap-2"
+              (click)="addTaskService.toggleAddTaskOverlay()"
+            >
+              <img
+                class="blue-filter h-4"
+                src="assets/img/addWhite.svg"
+                alt="add task"
+              />
+              <span class="text-custom-blue">Add Task</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-20">
+          <h2 class="text-xl font-semibold">Contact Information</h2>
+
+          <span class="flex items-end">
+            <img
+              class="blue-filter"
+              src="assets/img/editWhite.svg"
+              alt="edit"
+            />
+            <span class="text-sm">Edit Contact</span>
+          </span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h3 class="font-semibold">Email</h3>
+          <span class="text-custom-blue">{{ selectedContact.email }}</span>
+        </div>
+
+        <div class="flex flex-col gap-2">
+          <h3 class="font-semibold">Phone</h3>
+          <span>{{ selectedContact.phoneNumber }}</span>
+        </div>
+      </div>
+
+      <app-button-primary
+        class="absolute right-10 bottom-20"
+        (click)="toggleAddContactOverlay()"
+      >
+        <div class="flex items-center gap-2">
+          <span class="text-xl">New contact</span>
+          <img src="assets/img/newContact.svg" alt="new contact" />
+        </div>
+      </app-button-primary>
+    </div>
   </div>
+
+  <app-add-task-overlay
+    *ngIf="addTaskService.addTaskOverlayOpened"
+  ></app-add-task-overlay>
+
+  <app-add-contact-overlay
+    *ngIf="addContactOverlayOpened"
+    (closeOverlay)="toggleAddContactOverlay()"
+  ></app-add-contact-overlay>
 </app-layout>

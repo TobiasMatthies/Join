@@ -10,3 +10,8 @@ textarea:focus {
 body {
     height: 100vh;
 }
+
+.blue-filter {
+  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
+    brightness(98%) contrast(106%);
+}

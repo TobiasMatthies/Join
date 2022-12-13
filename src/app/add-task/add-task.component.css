@@ -7,7 +7,3 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
-
-.blue-filter {
-  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
-}

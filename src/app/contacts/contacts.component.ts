@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AddTaskService } from '../add-task/add-task.service';
 import { AppStateService } from '../app-state/app-state.service';
+import { Contact } from '../models/contact.model';
 
 @Component({
   selector: 'app-contacts',
@@ -7,15 +9,12 @@ import { AppStateService } from '../app-state/app-state.service';
   styleUrls: ['./contacts.component.css'],
 })
 export class ContactsComponent implements OnInit {
-  //Variables for red green blue
-  r;
-  g;
-  b;
-  hsp;
-
   firstLetters: string[] = [];
+  addContactOverlayOpened: boolean = false;
 
-  constructor(public appStateService: AppStateService) {}
+  selectedContact: Contact = null;
+
+  constructor(public appStateService: AppStateService, public addTaskService: AddTaskService) {}
 
   ngOnInit(): void {
     this.getEveryFirstLetter();
@@ -33,6 +32,14 @@ export class ContactsComponent implements OnInit {
       }
     }
     this.firstLetters.sort();
+  }
+
+  onSelectContact(contact: Contact) {
+    if (this.selectedContact !== contact) {
+      this.selectedContact = contact;
+    } else {
+      this.selectedContact = null;
+    }
   }
 
   /**
@@ -61,61 +68,7 @@ export class ContactsComponent implements OnInit {
     return code;
   }
 
-  /**
-   *
-   * function used to chekc wether the color is dark or light and return the matching color
-   */
-  lightOrDark(color) {
-    // Check the format of the color, HEX or RGB?
-    if (color.match(/^rgb/)) {
-      this.storeRgbValues(color);
-    } else {
-      this.convertToRgb(color);
-    }
-
-    return this.determineColor();
-  }
-
-  /**
-   *
-   * If RGB --> store the red, green, blue values in separate variables
-   */
-  storeRgbValues(color) {
-    color = color.match(
-      /^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+(?:\.\d+)?))?\)$/
-    );
-
-    this.r = color[1];
-    this.g = color[2];
-    this.b = color[3];
-  }
-
-  /**
-   *
-   * If hex --> Convert it to RGB
-   */
-  convertToRgb(color) {
-    color = +('0x' + color.slice(1).replace(color.length < 5 && /./g, '$&$&'));
-
-    this.r = color >> 16;
-    this.g = (color >> 8) & 255;
-    this.b = color & 255;
-  }
-
-  /**
-   *
-   * determine wether the background-color is dark or light and return matching color
-   */
-  determineColor(): string {
-    this.hsp = Math.sqrt(
-      0.299 * (this.r * this.r) +
-        0.587 * (this.g * this.g) +
-        0.114 * (this.b * this.b)
-    );
-    if (this.hsp > 127.5) {
-      return 'black';
-    } else {
-      return 'white';
-    }
+  toggleAddContactOverlay() {
+    this.addContactOverlayOpened = !this.addContactOverlayOpened;
   }
 }
