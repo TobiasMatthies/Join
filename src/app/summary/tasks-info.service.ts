@@ -6,37 +6,60 @@ import { generalTasksInfo } from './task-info.models';
   providedIn: 'root',
 })
 export class TasksInfoService {
+  tasksTodoInfo;
+  tasksInBoardInfo: generalTasksInfo;
+  tasksInProgressInfo: generalTasksInfo;
+  tasksAwaitingFeedbackInfo: generalTasksInfo;
+  tasksDoneInfo: generalTasksInfo;
+
   constructor(private appStateService: AppStateService) {}
 
-  //needs to be in a function
-  tasksTodoInfo = {
-    name: 'Tasks To-do',
-    amount: this.findTasksWithStatus('todo'),
-  };
+  getSummaryInformation() {
+    this.getTasksTodo();
+    this.getTasksInBoard();
+    this.getTasksInProgress();
+    this.getTasksAwaitingFeedback();
+    this.getTasksDone();
+  }
 
-  tasksInBoardInfo: generalTasksInfo = {
-    name: 'Tasks in Board',
-    image: 'assets/img/Board.svg',
-    amount: this.appStateService.tasks.length,
-  };
+  getTasksTodo() {
+    this.tasksTodoInfo = {
+      name: 'Tasks To-do',
+      amount: this.findTasksWithStatus('toDo'),
+    };
+  }
 
-  tasksInProgressInfo: generalTasksInfo = {
-    name: 'Tasks in Progress',
-    image: 'assets/img/In Progress.svg',
-    amount: this.findTasksWithStatus('inProgress'),
-  };
+  getTasksInBoard() {
+    this.tasksInBoardInfo = {
+      name: 'Tasks in Board',
+      image: 'assets/img/Board.svg',
+      amount: this.appStateService.tasks.length,
+    };
+  }
 
-  tasksAwaitingFeedbackInfo: generalTasksInfo = {
-    name: 'Awaiting Feedback',
-    image: 'assets/img/Awaiting feedback.svg',
-    amount: this.findTasksWithStatus('awaitingFeedback'),
-  };
+  getTasksInProgress() {
+    this.tasksInProgressInfo = {
+      name: 'Tasks in Progress',
+      image: 'assets/img/In Progress.svg',
+      amount: this.findTasksWithStatus('inProgress'),
+    };
+  }
 
-  tasksDoneInfo: generalTasksInfo = {
-    name: 'Tasks Done',
-    image: 'assets/img/Done.svg',
-    amount: this.findTasksWithStatus('done'),
-  };
+  getTasksAwaitingFeedback() {
+    this.tasksAwaitingFeedbackInfo = {
+      name: 'Awaiting Feedback',
+      image: 'assets/img/Awaiting feedback.svg',
+      amount: this.findTasksWithStatus('awaitingFeedback'),
+    };
+  }
+
+  getTasksDone() {
+    this.tasksDoneInfo = {
+      name: 'Tasks Done',
+      image: 'assets/img/Done.svg',
+      amount: this.findTasksWithStatus('done'),
+    };
+  }
 
   findTasksWithStatus(status: string) {
     let tasksWithStatusAmount: number = 0;

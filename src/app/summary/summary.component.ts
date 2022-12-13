@@ -23,16 +23,15 @@ export class SummaryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.tasksInfoService.getSummaryInformation();
     this.findUrgentTasks();
 
     this.urgentTasksInfo = {
       amount: this.urgentTasks.length,
-      deadline:
-        new Date().toLocaleString('en-US', { month: 'long' }) +
-        ' ' +
-        new Date().getDay() +
-        ', ' +
-        new Date().getFullYear(),
+      deadline: this.urgentTasks[0].dueDate.toLocaleDateString(
+        {},
+        { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' }
+      ),
     };
     this.fillGeneralInfoFieldsArray();
   }
@@ -41,6 +40,11 @@ export class SummaryComponent implements OnInit {
     this.urgentTasks = this.appStateService.tasks.filter(
       (task) => task.urgency.name === 'urgent'
     );
+
+    this.urgentTasks = this.urgentTasks.sort((a, b) => {
+      return a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0;
+    });
+    console.log(this.urgentTasks);
   }
 
   fillGeneralInfoFieldsArray() {
