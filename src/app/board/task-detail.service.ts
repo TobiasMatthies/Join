@@ -15,6 +15,7 @@ export class TaskDetailService {
 
   closeTaskDetailView() {
     this.openedTaskDetailView = null;
+    this.editMode = false;
   }
 
   toggleEditMode() {

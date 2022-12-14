@@ -20,7 +20,7 @@ import { ChooseUrgencyComponent } from './add-task/choose-urgency/choose-urgency
 import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-edit.component';
 import { AddTaskOverlayComponent } from './add-task/add-task-overlay/add-task-overlay.component';
 import { FilterPipe } from './contacts/filter.pipe';
-import { AddContactComponent } from './contacts/add-contact-overlay/add-contact-overlay.component';
+import { AddContactComponent } from './contacts/contact-overlay/contact-overlay.component';
 
 @NgModule({
   declarations: [

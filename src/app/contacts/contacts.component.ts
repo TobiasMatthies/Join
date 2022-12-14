@@ -12,9 +12,13 @@ export class ContactsComponent implements OnInit {
   firstLetters: string[] = [];
   addContactOverlayOpened: boolean = false;
 
+  editMode: boolean;
   selectedContact: Contact = null;
 
-  constructor(public appStateService: AppStateService, public addTaskService: AddTaskService) {}
+  constructor(
+    public appStateService: AppStateService,
+    public addTaskService: AddTaskService
+  ) {}
 
   ngOnInit(): void {
     this.getEveryFirstLetter();
@@ -42,33 +46,12 @@ export class ContactsComponent implements OnInit {
     }
   }
 
-  /**
-   *
-   * get the first character of the first name and the second name
-   */
-  getFirstCharacters(name: string) {
-    let splittedName: any = name.split(' ');
-
-    for (let i = 0; i < splittedName.length; i++) {
-      splittedName[i] = splittedName[i].charAt(0);
+  toggleContactOverlay(editMode?: boolean) {
+    if (editMode) {
+      this.editMode = editMode;
+    } else {
+      this.editMode = false;
     }
-    splittedName = splittedName.toString();
-    splittedName = splittedName.replace(',', '');
-    return splittedName;
-  }
-
-  generateRandomColor() {
-    let makeColorCode = '0123456789ABCDEF';
-    let code = '#';
-
-    for (let count = 0; count < 6; count++) {
-      code = code + makeColorCode[Math.floor(Math.random() * 16)];
-    }
-
-    return code;
-  }
-
-  toggleAddContactOverlay() {
     this.addContactOverlayOpened = !this.addContactOverlayOpened;
   }
 }

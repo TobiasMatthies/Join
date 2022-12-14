@@ -75,7 +75,7 @@
         <div class="flex items-center gap-20">
           <h2 class="text-xl font-semibold">Contact Information</h2>
 
-          <span class="flex items-end">
+          <span class="flex items-end cursor-pointer" (click)="toggleContactOverlay(true)">
             <img
               class="blue-filter"
               src="assets/img/editWhite.svg"
@@ -98,7 +98,7 @@
 
       <app-button-primary
         class="absolute right-10 bottom-20"
-        (click)="toggleAddContactOverlay()"
+        (click)="toggleContactOverlay()"
       >
         <div class="flex items-center gap-2">
           <span class="text-xl">New contact</span>
@@ -112,8 +112,11 @@
     *ngIf="addTaskService.addTaskOverlayOpened"
   ></app-add-task-overlay>
 
-  <app-add-contact-overlay
+  <app-contact-overlay
     *ngIf="addContactOverlayOpened"
-    (closeOverlay)="toggleAddContactOverlay()"
-  ></app-add-contact-overlay>
+    [editMode]="editMode"
+    [selectedContact]="selectedContact"
+    (closeOverlay)="toggleContactOverlay()"
+    (createContact)="getEveryFirstLetter()"
+  ></app-contact-overlay>
 </app-layout>
