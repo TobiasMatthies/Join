@@ -7,7 +7,6 @@ import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
-import { Contact } from '../models/contact.model';
 
 @Injectable({
   providedIn: 'root',
@@ -91,7 +90,6 @@ export class AddTaskService {
 
   fillContacts() {
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
-
       (<FormGroup>this.form.get('contacts')).addControl(
         i.toString(),
         new FormControl()
@@ -101,7 +99,6 @@ export class AddTaskService {
 
   fillSubtasks() {
     for (let i = 0; i < this.appStateService.subtasks.length; i++) {
-
       (<FormGroup>this.form.get('subtasks')).addControl(
         i.toString(),
         new FormControl()
@@ -246,6 +243,17 @@ export class AddTaskService {
     this.taskDetailService.openedTaskDetailView.urgency = editedTask.urgency;
     this.taskDetailService.openedTaskDetailView.assignedTo =
       editedTask.assignedTo;
+  }
+
+  onDeleteTask() {
+    this.appStateService.tasks.splice(
+      this.appStateService.tasks.indexOf(
+        this.taskDetailService.openedTaskDetailView
+      ),
+      1
+    );
+
+    this.taskDetailService.closeTaskDetailView();
   }
 
   onCreateNewTaskCategory() {

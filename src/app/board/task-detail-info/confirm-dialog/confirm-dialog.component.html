@@ -1,0 +1,40 @@
+<div
+  class="flex h-full w-full flex-col items-center justify-center gap-5 rounded-lg bg-white p-8 text-center shadow-custom-info-fields"
+>
+  <img
+    class="absolute top-4 right-4 cursor-pointer"
+    src="assets/img/cancel.svg"
+    alt="close"
+    (click)="confirmService.toggleConfirmDialogOpened()"
+  />
+
+  <span>
+    Are you sure you <br />
+    want to delete this task?
+  </span>
+
+  <div class="flex gap-5">
+    <button
+      class="group box-border flex gap-4 rounded-lg border py-3 px-4 text-xl outline-gray-400 transition-all hover:border-custom-blue hover:shadow-md"
+      type="button"
+      (click)="confirmService.toggleConfirmDialogOpened()"
+    >
+      <span class="text-gray-400 group-hover:text-custom-blue">Cancel</span>
+      <span class="text-gray-400 group-hover:text-custom-blue">X</span>
+    </button>
+
+    <app-button-primary
+      class="min-w-[120px]"
+      (click)="confirmService.onConfirmDelete()"
+    >
+      <div class="flex gap-2 p-1">
+        <span>Confirm</span>
+        <img
+          class="brightness-0 invert"
+          src="assets/img/Vector-3.svg"
+          alt="edit"
+        />
+      </div>
+    </app-button-primary>
+  </div>
+</div>

@@ -41,7 +41,7 @@
   </div>
   <ul class="overflow-y-scroll">
     <li
-      class="mb-5 flex gap-5 items-center"
+      class="mb-5 flex items-center gap-5"
       *ngFor="let assignee of taskDetailService.openedTaskDetailView.assignedTo"
     >
       <div
@@ -54,12 +54,40 @@
     </li>
   </ul>
 
-  <app-button-primary
-    class="absolute right-8 bottom-4"
-    (click)="taskDetailService.toggleEditMode()"
-  >
-    <div class="p-1">
-      <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
-    </div>
-  </app-button-primary>
+  <div class="absolute right-8 bottom-4 flex gap-2">
+    <button
+      class="blue-filter-hover box-border rounded-lg border border-gray-400 p-2 transition-all hover:border-custom-blue"
+      (click)="confirmService.toggleConfirmDialogOpened()"
+    >
+      <div class="p-1">
+        <img
+          style="
+            filter: invert(68%) sepia(11%) saturate(295%) hue-rotate(179deg)
+              brightness(95%) contrast(87%);
+          "
+          class="h-6 w-6 transition-all"
+          src="assets/img/delete.svg"
+          alt="edit"
+        />
+      </div>
+    </button>
+
+    <app-button-primary (click)="taskDetailService.toggleEditMode()">
+      <div class="p-1">
+        <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
+      </div>
+    </app-button-primary>
+  </div>
+
+  <!--overlay-->
+  <div
+    *ngIf="confirmService.confirmDialogOpened"
+    class="absolute top-0 left-0 h-full w-full rounded-3xl bg-white/50"
+    (click)="confirmService.toggleConfirmDialogOpened()"
+  ></div>
+
+  <app-confirm-dialog
+    *ngIf="confirmService.confirmDialogOpened"
+    class="absolute_center min-w-[50%] h-1/3"
+  ></app-confirm-dialog>
 </div>

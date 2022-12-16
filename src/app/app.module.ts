@@ -21,6 +21,7 @@ import { TaskDetailEditComponent } from './board/task-detail-edit/task-detail-ed
 import { AddTaskOverlayComponent } from './add-task/add-task-overlay/add-task-overlay.component';
 import { FilterPipe } from './contacts/filter.pipe';
 import { AddContactComponent } from './contacts/contact-overlay/contact-overlay.component';
+import { ConfirmDialogComponent } from './board/task-detail-info/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddContactComponent } from './contacts/contact-overlay/contact-overlay.
     AddTaskOverlayComponent,
     FilterPipe,
     AddContactComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
