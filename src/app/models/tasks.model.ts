@@ -1,6 +1,8 @@
+import { Contact } from "./contact.model";
+
 export type Task = {
   title: string;
-  assignedTo: string[];
+  assignedTo: Contact[];
   dueDate: any;
   category: { name: string; color: string };
   urgency: { name: string; image: string, imageDetail: string };
@@ -15,5 +17,5 @@ export type EditedTask = {
   description: string;
   dueDate: Date;
   urgency: { name: string; image: string; imageDetail: string };
-  assignedTo: string[];
+  assignedTo: Contact[];
 };

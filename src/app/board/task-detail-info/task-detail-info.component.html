@@ -1,58 +1,65 @@
 <div
-    class="flex max-h-[80vh] min-h-[40vh] w-full flex-col gap-5 rounded-3xl bg-white p-8 text-xl font-light shadow-custom-info-fields relative"
-  >
-<div class="flex w-full items-center justify-between">
-  <span
-    [ngStyle]="{
-      'background-color': taskDetailService.openedTaskDetailView.category.color
-    }"
-    class="w-fit rounded-lg py-1 px-6 text-white"
-  >
-    {{ taskDetailService.openedTaskDetailView.category.name }}
-  </span>
-
-  <img
-    class="cursor-pointer"
-    src="assets/img/cancel.svg"
-    alt="close"
-    (click)="taskDetailService.closeTaskDetailView()"
-  />
-</div>
-
-<h1 class="text-6xl font-semibold">
-  {{ taskDetailService.openedTaskDetailView.title }}
-</h1>
-
-<span>{{ taskDetailService.openedTaskDetailView.description }}</span>
-
-<div class="flex gap-5">
-  <span class="font-semibold">Due date:</span>
-  <span>{{ taskDetailService.openedTaskDetailView.dueDate }}</span>
-</div>
-
-<div class="flex items-center gap-5">
-  <span class="font-semibold">Priority:</span>
-  <img
-    class="h-9"
-    [src]="taskDetailService.openedTaskDetailView.urgency.imageDetail"
-    alt="urgency"
-  />
-</div>
-<ul>
-  <li
-    class="mb-5"
-    *ngFor="let assignee of taskDetailService.openedTaskDetailView.assignedTo"
-  >
-    {{ assignee }}
-  </li>
-</ul>
-
-<app-button-primary
-  class="absolute right-8 bottom-4"
-  (click)="taskDetailService.toggleEditMode()"
+  class="relative flex max-h-[90vh] min-h-[40vh] w-full flex-col gap-5 rounded-3xl bg-white p-8 text-xl font-light shadow-custom-info-fields"
 >
-  <div class="p-1">
-    <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
+  <div class="flex w-full items-center justify-between">
+    <span
+      [ngStyle]="{
+        'background-color':
+          taskDetailService.openedTaskDetailView.category.color
+      }"
+      class="w-fit rounded-lg py-1 px-6 text-white"
+    >
+      {{ taskDetailService.openedTaskDetailView.category.name }}
+    </span>
+
+    <img
+      class="cursor-pointer"
+      src="assets/img/cancel.svg"
+      alt="close"
+      (click)="taskDetailService.closeTaskDetailView()"
+    />
   </div>
-</app-button-primary>
+
+  <h1 class="text-6xl font-semibold">
+    {{ taskDetailService.openedTaskDetailView.title }}
+  </h1>
+
+  <span>{{ taskDetailService.openedTaskDetailView.description }}</span>
+
+  <div class="flex gap-5">
+    <span class="font-semibold">Due date:</span>
+    <span>{{ taskDetailService.openedTaskDetailView.dueDate }}</span>
+  </div>
+
+  <div class="flex items-center gap-5">
+    <span class="font-semibold">Priority:</span>
+    <img
+      class="h-9"
+      [src]="taskDetailService.openedTaskDetailView.urgency.imageDetail"
+      alt="urgency"
+    />
+  </div>
+  <ul class="overflow-y-scroll">
+    <li
+      class="mb-5 flex gap-5 items-center"
+      *ngFor="let assignee of taskDetailService.openedTaskDetailView.assignedTo"
+    >
+      <div
+        class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"
+        [ngStyle]="{ backgroundColor: assignee.backgroundColor }"
+      >
+        {{ assignee.abbrevation }}
+      </div>
+      <span>{{ assignee.name }}</span>
+    </li>
+  </ul>
+
+  <app-button-primary
+    class="absolute right-8 bottom-4"
+    (click)="taskDetailService.toggleEditMode()"
+  >
+    <div class="p-1">
+      <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
+    </div>
+  </app-button-primary>
 </div>

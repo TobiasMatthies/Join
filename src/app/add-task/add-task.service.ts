@@ -7,12 +7,12 @@ import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
+import { Contact } from '../models/contact.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AddTaskService {
-  subtasks: string[] = [];
   categoryColors: string[] = [
     'rgb(138,164,255)',
     'red',
@@ -37,7 +37,7 @@ export class AddTaskService {
   categorySubscription: Subscription;
   contactSubscription: Subscription;
   formValueSubscription: Subscription;
-  selectedContacts = [];
+  selectedContacts: any[] = []; //Contact array
   selectedSubtasks = [];
   taskStatus: string;
   submitted: boolean = false;
@@ -91,21 +91,19 @@ export class AddTaskService {
 
   fillContacts() {
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
-      const contact = this.appStateService.contacts[i].name;
 
       (<FormGroup>this.form.get('contacts')).addControl(
-        contact,
+        i.toString(),
         new FormControl()
       );
     }
   }
 
   fillSubtasks() {
-    for (let i = 0; i < this.subtasks.length; i++) {
-      const subtask = this.subtasks[i];
+    for (let i = 0; i < this.appStateService.subtasks.length; i++) {
 
       (<FormGroup>this.form.get('subtasks')).addControl(
-        subtask,
+        i.toString(),
         new FormControl()
       );
     }
@@ -115,12 +113,11 @@ export class AddTaskService {
     let assignees = this.taskDetailService.openedTaskDetailView.assignedTo;
 
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
-      const contact = this.appStateService.contacts[i].name;
+      const contact = this.appStateService.contacts[i];
       let assigned = assignees.includes(contact);
-      console.log(assigned);
 
       (<FormGroup>this.form.get('contacts')).addControl(
-        contact,
+        i.toString(),
         new FormControl(assigned)
       );
     }
@@ -179,7 +176,8 @@ export class AddTaskService {
     this.resetSelectedValues(formControl);
 
     for (let i = 0; i < Object.keys(valueObject).length; i++) {
-      const value = Object.keys(valueObject)[i];
+      let value: any = Object.keys(valueObject)[i];
+      value = parseFloat(value);
 
       if (Object.entries(valueObject)[i][1]) {
         this.pushSelectedValues(formControl, value);
@@ -196,12 +194,14 @@ export class AddTaskService {
     }
   }
 
-  pushSelectedValues(formControl: string, value: string) {
+  pushSelectedValues(formControl: string, i: number) {
     if (formControl == 'contacts') {
-      this.selectedContacts.push(value);
+      let contact = this.appStateService.contacts[i];
+      this.selectedContacts.push(contact);
     }
     if (formControl == 'subtasks') {
-      this.selectedSubtasks.push(value);
+      let subtask = this.appStateService.subtasks[i];
+      this.selectedSubtasks.push(subtask);
     }
   }
 
@@ -298,7 +298,7 @@ export class AddTaskService {
         subtask,
         new FormControl()
       );
-      this.subtasks.push(subtask);
+      this.appStateService.subtasks.push(subtask);
       document.getElementById('subtask')['value'] = '';
     }
   }

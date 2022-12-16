@@ -16,20 +16,20 @@
   </div>
 
   <div class="flex flex-col gap-2">
-  <input
-    formControlName="title"
-    class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray placeholder:font-light"
-    id="title"
-    type="text"
-    name="title"
-    placeholder="Enter a title"
-  />
+    <input
+      formControlName="title"
+      class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray placeholder:font-light"
+      id="title"
+      type="text"
+      name="title"
+      placeholder="Enter a title"
+    />
 
-  <span
+    <span
       *ngIf="
         addTaskService.form.get('title').invalid && addTaskService.submitted
       "
-      class="text-xs text-custom-red-urgent self-start"
+      class="self-start text-xs text-custom-red-urgent"
       >This field is required</span
     >
   </div>
@@ -49,9 +49,10 @@
 
     <span
       *ngIf="
-        addTaskService.form.get('description').invalid && addTaskService.submitted
+        addTaskService.form.get('description').invalid &&
+        addTaskService.submitted
       "
-      class="text-xs text-custom-red-urgent self-start"
+      class="self-start text-xs text-custom-red-urgent"
       >This field is required</span
     >
   </div>
@@ -70,7 +71,7 @@
       *ngIf="
         addTaskService.form.get('dueDate').invalid && addTaskService.submitted
       "
-      class="text-xs text-custom-red-urgent self-start"
+      class="self-start text-xs text-custom-red-urgent"
       >This field is required</span
     >
   </div>
@@ -80,7 +81,7 @@
   <div class="flex w-4/5 flex-col gap-2">
     <span class="font-bold text-custom-title-gray">Assigned to</span>
 
-    <div class="flex items-center justify-between px-4 border-b py-2">
+    <div class="flex items-center justify-between border-b px-4 py-2">
       <ng-container
         *ngIf="!addTaskService.showInviteNewContact; else inviteNewContact"
       >
@@ -130,7 +131,7 @@
       <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-white">
         <div class="max-h-[78px] overflow-y-scroll">
           <li
-            *ngFor="let contact of appStateService.contacts"
+            *ngFor="let contact of appStateService.contacts, index as i"
             class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
           >
             <span>{{ contact.name }}</span>
@@ -138,8 +139,7 @@
               class="cursor-pointer accent-custom-blue"
               type="checkbox"
               name="contacts"
-              [value]="contact"
-              [formControlName]="contact.name"
+              [formControlName]="i"
             />
           </li>
         </div>
@@ -159,9 +159,13 @@
       class="text-xs text-custom-red-urgent"
       >This field is required</span
     >
-    <div class="flex gap-2">
-      <span *ngFor="let contact of addTaskService.selectedContacts">
-        {{ contact }}
+    <div class="flex gap-2 max-w-[150px] overflow-x-scroll">
+      <span
+        *ngFor="let contact of addTaskService.selectedContacts"
+        class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"
+        [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+      >
+        {{ contact.abbrevation }}
       </span>
     </div>
   </div>

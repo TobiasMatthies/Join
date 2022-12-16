@@ -74,10 +74,24 @@
           </div>
 
           <div class="flex w-full justify-between">
-            <div>
-              <span *ngFor="let contact of task.assignedTo">
-                {{ contact }}
-              </span>
+            <div class="flex">
+              <ng-container *ngFor="let contact of task.assignedTo; index as i">
+                <span
+                  *ngIf="i < 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  {{ contact.abbrevation }}
+                </span>
+
+                <span
+                  *ngIf="i == 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  +{{ task.assignedTo.length - 2 }}
+                </span>
+              </ng-container>
             </div>
 
             <img
@@ -136,10 +150,24 @@
           </div>
 
           <div class="flex w-full justify-between">
-            <div>
-              <span *ngFor="let contact of task.assignedTo">
-                {{ contact }}
-              </span>
+            <div class="flex">
+              <ng-container *ngFor="let contact of task.assignedTo; index as i">
+                <span
+                  *ngIf="i < 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  {{ contact.abbrevation }}
+                </span>
+
+                <span
+                  *ngIf="i == 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  +{{ task.assignedTo.length - 2 }}
+                </span>
+              </ng-container>
             </div>
 
             <img
@@ -198,10 +226,24 @@
           </div>
 
           <div class="flex w-full justify-between">
-            <div>
-              <span *ngFor="let contact of task.assignedTo">
-                {{ contact }}
-              </span>
+            <div class="flex">
+              <ng-container *ngFor="let contact of task.assignedTo; index as i">
+                <span
+                  *ngIf="i < 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  {{ contact.abbrevation }}
+                </span>
+
+                <span
+                  *ngIf="i == 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  +{{ task.assignedTo.length - 2 }}
+                </span>
+              </ng-container>
             </div>
 
             <img
@@ -264,10 +306,24 @@
           </div>
 
           <div class="flex w-full justify-between">
-            <div>
-              <span *ngFor="let contact of task.assignedTo">
-                {{ contact }}
-              </span>
+            <div class="flex">
+              <ng-container *ngFor="let contact of task.assignedTo; index as i">
+                <span
+                  *ngIf="i < 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  {{ contact.abbrevation }}
+                </span>
+
+                <span
+                  *ngIf="i == 2"
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                >
+                  +{{ task.assignedTo.length - 2 }}
+                </span>
+              </ng-container>
             </div>
 
             <img
