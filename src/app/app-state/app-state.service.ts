@@ -37,6 +37,11 @@ export class AppStateService {
     },
   ];
 
+  subtasks: Array<{ name: string; completed: boolean }> = [
+    { name: 'test1', completed: true },
+    { name: 'test2', completed: false },
+  ];
+
   tasks: Task[] = [
     {
       title: 'test1',
@@ -49,13 +54,18 @@ export class AppStateService {
         imageDetail: 'assets/img/urgentDetail.svg',
       },
       description: 'test description',
-      subtasks: ['test subtask'],
+      subtasks: [this.subtasks[0], this.subtasks[1]],
       status: 'toDo',
       id: new Date().getTime() - 1500,
     },
     {
       title: 'test2 a bit longer now',
-      assignedTo: [this.contacts[0], this.contacts[1], this.contacts[2], this.contacts[3]],
+      assignedTo: [
+        this.contacts[0],
+        this.contacts[1],
+        this.contacts[2],
+        this.contacts[3],
+      ],
       dueDate: new Date(), //as soon as test tasks are'nt needed anymore change type from any to date
       category: { name: 'Backoffice', color: 'rgb(32,215,192)' },
       urgency: {
@@ -75,6 +85,4 @@ export class AppStateService {
     { name: 'Sales', color: 'rgb(252,113,255)' },
     { name: 'Backoffice', color: 'rgb(32,215,192)' },
   ];
-
-  subtasks: string[] = ['test1'];
 }

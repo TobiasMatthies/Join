@@ -21,4 +21,11 @@ export class TaskDetailService {
   toggleEditMode() {
     this.editMode = !this.editMode;
   }
+
+  toggleSubtask(index: number) {
+    this.openedTaskDetailView.subtasks[index].completed =
+      !this.openedTaskDetailView.subtasks[index].completed;
+
+    console.log(this.openedTaskDetailView.subtasks[index].completed);
+  }
 }

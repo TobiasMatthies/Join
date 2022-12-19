@@ -69,8 +69,19 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
-            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
+              <div
+                class="h-full bg-custom-blue"
+                [style.width]="findCompletedSubtasks(task.subtasks, true)"
+              ></div>
+            </div>
+
+            <span class="text-xs">
+              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
+                task.subtasks.length
+              }}
+              done
+            </span>
           </div>
 
           <div class="flex w-full justify-between">
@@ -145,8 +156,19 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
-            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
+              <div
+                class="h-full bg-custom-blue"
+                [style.width]="findCompletedSubtasks(task.subtasks, true)"
+              ></div>
+            </div>
+
+            <span class="text-xs"
+              >{{ findCompletedSubtasks(task.subtasks, false) }}/{{
+                task.subtasks.length
+              }}
+              done</span
+            >
           </div>
 
           <div class="flex w-full justify-between">
@@ -221,8 +243,19 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
-            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
+              <div
+                class="h-full bg-custom-blue"
+                [style.width]="findCompletedSubtasks(task.subtasks, true)"
+              ></div>
+            </div>
+
+            <span class="text-xs">
+              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
+                task.subtasks.length
+              }}
+              done
+            </span>
           </div>
 
           <div class="flex w-full justify-between">
@@ -301,8 +334,19 @@
             *ngIf="task.subtasks.length > 0"
             class="flex w-full items-center gap-5"
           >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100"></div>
-            <span class="text-xs"> 0/{{ task.subtasks.length }} done </span>
+            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
+              <div
+                class="h-full bg-custom-blue"
+                [style.width]="findCompletedSubtasks(task.subtasks, true)"
+              ></div>
+            </div>
+
+            <span class="text-xs">
+              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
+                task.subtasks.length
+              }}
+              done
+            </span>
           </div>
 
           <div class="flex w-full justify-between">
