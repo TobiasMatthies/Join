@@ -19,7 +19,7 @@
       <span>Board</span>
     </a>
     <a
-      routerLink="/addTask"
+      routerLink="/add-task"
       [routerLinkActive]="'bg-custom-blue-active'"
       class="flex items-center gap-5 rounded-lg py-2 px-6"
     >
@@ -36,8 +36,12 @@
     </a>
   </div>
 
-  <div class="flex gap-5">
+  <a
+    routerLink="/legal-notice"
+    [routerLinkActive]="['bg-custom-blue-dark', 'text-white', 'white-image']"
+    class="flex items-center gap-5 rounded-lg py-2 px-6"
+  >
     <img class="h-6 w-6" src="assets/img/info.svg" alt="legal notice" />
-    <a class="font-light">Legal notice</a>
-  </div>
+    <span class="font-light">Legal notice</span>
+  </a>
 </div>

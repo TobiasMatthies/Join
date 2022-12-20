@@ -1,11 +1,13 @@
 <div
-  class="flex items-center justify-between bg-custom-blue p-5 shadow-custom-header"
+  class="relative flex items-center justify-between bg-custom-blue p-5 shadow-custom-header"
 >
   <img class="h-12 w-12" src="assets/img/icon_white.svg" alt="logo" />
 
   <div class="flex items-center gap-5">
     <span class="font-light text-white">Kanban Project Managment Tool</span>
     <img
+      routerLink="/help"
+      routerLinkActive="hidden"
       class="h-7 w-7 cursor-pointer brightness-100 invert"
       src="assets/img/help.svg"
       alt="help"
@@ -14,6 +16,16 @@
       class="h-12 w-12 cursor-pointer brightness-100 invert"
       src="assets/img/user.svg"
       alt="user"
+      (click)="toggleLogoutOpened()"
     />
   </div>
+
+  <a
+  *ngIf="logoutOpened"
+    class="absolute right-5 -bottom-12 h-14 cursor-pointer rounded-2xl rounded-tr-none bg-white px-8 py-4 font-light text-custom-blue shadow-lg hover:bg-custom-blue-active"
+    routerLink="/"
+    (click)="toggleLogoutOpened()"
+  >
+    Log out
+  </a>
 </div>
