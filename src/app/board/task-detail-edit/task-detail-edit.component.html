@@ -129,7 +129,7 @@
       formGroupName="contacts"
     >
       <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-white">
-        <div class="max-h-[78px] overflow-y-scroll">
+        <div class="max-h-[78px] overflow-y-auto">
           <li
             *ngFor="let contact of appStateService.contacts, index as i"
             class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
@@ -159,7 +159,7 @@
       class="text-xs text-custom-red-urgent"
       >This field is required</span
     >
-    <div class="flex gap-2 max-w-[150px] overflow-x-scroll">
+    <div class="flex gap-2 max-w-[150px] overflow-x-auto">
       <span
         *ngFor="let contact of addTaskService.selectedContacts"
         class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"

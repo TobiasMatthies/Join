@@ -5,7 +5,7 @@
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
   >
-    <div class="flex w-1/2 items-center overflow-y-scroll" id="input_section">
+    <div class="flex w-1/2 items-center overflow-y-auto" id="input_section">
       <div class="flex h-full flex-col gap-5">
         <input
           class="border-b py-2 px-4 text-4xl placeholder-custom-placeholder-gray placeholder:font-light"
@@ -107,7 +107,7 @@
           >
           <div
             *ngIf="!addTaskService.showContacts"
-            class="mt-5 flex max-w-[150px] gap-2 overflow-x-scroll"
+            class="mt-5 flex max-w-[150px] gap-2 overflow-x-auto"
           >
             <span
               *ngFor="let contact of addTaskService.selectedContacts"

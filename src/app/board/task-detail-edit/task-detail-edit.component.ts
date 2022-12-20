@@ -30,6 +30,8 @@ export class TaskDetailEditComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.addTaskService.contactSubscription.unsubscribe();
+    this.addTaskService.selectedContacts = [];
+    this.chooseUrgencyService.urgency = null;
 
     if (this.addTaskService.formValueSubscription) {
       this.addTaskService.formValueSubscription.unsubscribe();

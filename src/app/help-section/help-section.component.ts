@@ -15,7 +15,7 @@ export class HelpSectionComponent {
         .getCurrentNavigation()
         .previousNavigation.finalUrl.toString();
     } else {
-      this.lastRoute = '/help';
+      this.lastRoute = '/summary';
     }
   }
 }

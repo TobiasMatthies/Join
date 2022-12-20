@@ -15,7 +15,7 @@ export class LegalNoticeComponent {
         .getCurrentNavigation()
         .previousNavigation.finalUrl.toString();
     } else {
-      this.lastRoute = '/legal-notice';
+      this.lastRoute = '/summary';
     }
   }
 }
