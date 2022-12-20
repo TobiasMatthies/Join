@@ -2,6 +2,7 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -14,21 +15,28 @@ import { Contact } from 'src/app/models/contact.model';
   templateUrl: './contact-overlay.component.html',
   styleUrls: ['./contact-overlay.component.css'],
 })
-export class AddContactComponent {
+export class AddContactComponent implements OnInit {
   @ViewChild('contactForm', { static: false }) contactForm: NgForm;
-
-  contact: Contact;
 
   @Input() editMode: boolean;
   @Input() selectedContact: Contact;
+
+  contact: Contact;
+  selectedBackgroundColor: string;
+
   @Output() closeOverlay = new EventEmitter<void>();
   @Output() createContact = new EventEmitter<Contact>();
+  @Output() editContact = new EventEmitter<Contact>();
 
   constructor(private appStateService: AppStateService) {}
 
+  ngOnInit(): void {
+    if (this.selectedContact)
+      this.selectedBackgroundColor = this.selectedContact.backgroundColor;
+  }
+
   onCloseOverlay() {
     this.closeOverlay.emit();
-    //clear the form
   }
 
   onSubmit() {
@@ -48,18 +56,22 @@ export class AddContactComponent {
     this.appStateService.contacts[
       this.appStateService.contacts.indexOf(this.selectedContact)
     ] = this.contact;
+    this.selectedContact = this.contact;
 
+    this.editContact.emit(this.selectedContact);
     this.onCloseOverlay();
   }
 
   getFormValues() {
     this.contact = {
-      name: this.contactForm.form.value.name.charAt(0).toUpperCase() + this.contactForm.form.value.name.slice(1),
+      name:
+        this.contactForm.form.value.name.charAt(0).toUpperCase() +
+        this.contactForm.form.value.name.slice(1),
       email: this.contactForm.form.value.email,
       phoneNumber: this.contactForm.form.value.phoneNumber,
       abbrevation: this.getFirstCharacters(this.contactForm.form.value.name),
       backgroundColor: this.editMode
-        ? this.selectedContact.backgroundColor
+        ? this.selectedBackgroundColor
         : this.generateRandomColor(),
     };
   }
@@ -88,5 +100,9 @@ export class AddContactComponent {
     }
 
     return code;
+  }
+
+  onSelectBackgroundColor(color: string) {
+    this.selectedBackgroundColor = color;
   }
 }

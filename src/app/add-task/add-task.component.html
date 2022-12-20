@@ -192,7 +192,6 @@
                     alt="cancel"
                     (click)="
                       addTaskService.toggleNewCategory();
-                      addTaskService.toggleCategories()
                     "
                   />
                   <div class="w-px bg-custom-placeholder-gray"></div>
@@ -256,7 +255,7 @@
 
           <ng-template #categoryColorsContainer>
             <ng-container *ngIf="addTaskService.showCreateNewCategory">
-              <div class="mt-5 flex gap-5 px-4">
+              <div class="mt-5 flex items-center gap-5 px-4">
                 <div
                   *ngFor="let color of addTaskService.categoryColors"
                   [ngClass]="
@@ -268,6 +267,17 @@
                   class="h-4 w-4 cursor-pointer rounded-full border-2 border-white"
                   (click)="addTaskService.selectColor(color)"
                 ></div>
+
+                <label class="colorpicker h-6 w-6">
+                  <input
+                    class="opacity-0 h-6 w-6 cursor-pointer"
+                    id="color"
+                    name="color"
+                    type="color"
+                    (blur)="addTaskService.selectColor(colorpicker.value)"
+                    #colorpicker
+                  />
+                </label>
               </div>
             </ng-container>
           </ng-template>

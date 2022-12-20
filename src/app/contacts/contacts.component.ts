@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddTaskService } from '../add-task/add-task.service';
 import { AppStateService } from '../app-state/app-state.service';
 import { Contact } from '../models/contact.model';
@@ -17,8 +17,16 @@ export class ContactsComponent implements OnInit {
 
   constructor(
     public appStateService: AppStateService,
-    public addTaskService: AddTaskService
+    public addTaskService: AddTaskService,
+    private changeDetectorRef: ChangeDetectorRef
   ) {}
+
+  updateContacts(contact: Contact) {
+    this.firstLetters = [];
+    this.changeDetectorRef.detectChanges();
+    this.getEveryFirstLetter();
+    this.selectedContact = contact;
+  }
 
   ngOnInit(): void {
     this.getEveryFirstLetter();

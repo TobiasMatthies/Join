@@ -285,6 +285,10 @@ export class AddTaskService {
   }
 
   selectColor(color: string) {
+    if (!this.categoryColors.includes(color)) {
+      this.categoryColors.push(color);
+    }
+
     this.selectedColor = color;
   }
 
@@ -360,6 +364,17 @@ export class AddTaskService {
   }
 
   toggleNewCategory() {
+    if (this.showCreateNewCategory) {
+      this.categoryColors = [
+        'rgb(138,164,255)',
+        'red',
+        'rgb(43,211,2)',
+        'rgb(255,138,0)',
+        'rgb(225,0,190)',
+        'rgb(0,56,255)',
+      ];
+    }
+
     this.showCreateNewCategory = !this.showCreateNewCategory;
   }
 

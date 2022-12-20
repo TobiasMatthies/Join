@@ -4,11 +4,11 @@
 
 input:focus,
 textarea:focus {
-    outline: none;
+  outline: none;
 }
 
 body {
-    height: 100vh;
+  height: 100vh;
 }
 
 .blue-filter {
@@ -16,6 +16,10 @@ body {
     brightness(98%) contrast(106%);
 }
 
+.colorpicker {
+  background-image: url(./assets/img/colorize.svg);
+  background-size: cover;
+}
 
 /*Border radius*/
 /*important!*/
