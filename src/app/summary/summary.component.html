@@ -1,29 +1,29 @@
 <app-layout>
   <div
-    class="flex h-full flex-col items-center justify-center gap-20 px-32 font-light"
+    class="flex h-full flex-col items-center justify-center gap-20 px-[5%] font-light lg:px-0"
   >
-    <h1 class="text-4xl">
+    <h1 class="hidden text-4xl lg:block">
       Good morning <b class="text-5xl text-custom-blue"></b>
     </h1>
 
-    <div class="flex flex-col gap-10">
-      <div class="flex gap-10">
+    <div class="flex flex-col gap-8">
+      <div class="flex flex-col gap-8 lg:flex-row">
         <div
-          class="group flex justify-center h-44 w-[656px] cursor-pointer gap-10 rounded-3xl bg-custom-blue py-5 text-white shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue"
+          class="group flex lg:h-40 w-full max-w-xl cursor-pointer justify-center gap-4 sm:gap-10 rounded-3xl bg-custom-blue py-2 sm:py-5 text-white shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue lg:w-[624px] lg:max-w-none"
           (click)="navigateToBoard()"
         >
-          <div class="flex flex-col items-center gap-2 py-5">
+          <div class="flex flex-col items-center justify-center gap-2">
             <div class="flex items-center gap-5">
               <img
-                class="h-16 w-16"
+                class="h-10 w-10 lg:h-16 lg:w-16"
                 src="assets/img/icon + circle.svg"
                 alt="Tasks urgent"
               />
-              <span class="text-4xl font-semibold">{{
+              <span class="text-2xl lg:text-4xl font-semibold">{{
                 urgentTasksInfo.amount
               }}</span>
             </div>
-            <h3 class="text-xl">Tasks Urgent</h3>
+            <h3 class="text-sm lg:text-xl">Tasks Urgent</h3>
           </div>
 
           <div
@@ -31,46 +31,48 @@
             style="width: 3px"
           ></div>
 
-          <div class="flex flex-col justify-center gap-2 py-5">
-            <h2 class="text-3xl font-semibold">
+          <div class="flex flex-col justify-center gap-2">
+            <h2 class="text-xl lg:text-3xl font-semibold">
               {{ urgentTasksInfo.deadline }}
             </h2>
-            <span class="text-xl">Upcoming Deadline</span>
+            <span class="text-sm lg:text-xl">Upcoming Deadline</span>
           </div>
         </div>
 
         <div
-          class="flex h-44 w-48 cursor-pointer flex-col items-center rounded-3xl bg-custom-blue-active p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white"
+          class="flex lg:h-40 w-full max-w-xl cursor-pointer flex-row items-center justify-center gap-5 rounded-3xl bg-custom-blue-active p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white md:p-8 lg:w-44 lg:flex-col lg:gap-0"
           (click)="navigateToBoard()"
         >
           <div class="flex items-center gap-5">
             <img
-              class="h-16 w-16"
+              class="h-10 w-10 lg:h-16 lg:w-16"
               src="assets/img/to do 1.svg"
               alt="Tasks Todo"
             />
-            <span class="text-4xl font-semibold">{{
+            <span class="text-2xl lg:text-4xl font-semibold">{{
               tasksInfoService.tasksTodoInfo.amount
             }}</span>
           </div>
-          <span class="text-xl text-custom-blue">{{
+          <span class="text-sm lg:text-xl text-custom-blue">{{
             tasksInfoService.tasksTodoInfo.name
           }}</span>
         </div>
       </div>
 
-      <div class="flex w-full gap-10">
+      <div
+        class="flex w-full max-w-xl flex-wrap justify-between lg:max-w-none lg:gap-8"
+      >
         <div
           *ngFor="let info of generalInfoFields"
-          class="group flex w-48 flex-1 cursor-pointer flex-col items-center rounded-3xl p-10 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark hover:text-white"
+          class="group mb-8 flex w-[47.5%] cursor-pointer flex-col items-center rounded-3xl p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark hover:text-white md:p-8 lg:w-44 lg:flex-1"
           (click)="navigateToBoard()"
         >
           <div class="flex items-center gap-5">
-            <img class="h-16 w-16" [src]="info.image" alt="Tasks Todo" />
-            <span class="text-4xl font-semibold">{{ info.amount }}</span>
+            <img class="h-10 w-10 lg:h-16 lg:w-16" [src]="info.image" alt="Tasks Todo" />
+            <span class="text-2xl lg:text-4xl font-semibold">{{ info.amount }}</span>
           </div>
           <span
-            class="text-center text-xl text-custom-blue group-hover:text-white"
+            class="text-center text-sm lg:text-xl text-custom-blue group-hover:text-white"
             >{{ info.name }}</span
           >
         </div>

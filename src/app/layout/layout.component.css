@@ -1,0 +1,13 @@
+.max-width {
+    max-width: calc(100% - 208px);
+}
+
+@media(max-width: 1024px) {
+    .max-width {
+        max-width: none;
+    }
+
+    .max-height {
+        height: calc(100vh - 173px);
+    }
+}

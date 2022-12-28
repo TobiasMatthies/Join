@@ -4,7 +4,9 @@
   <img class="h-12 w-12" src="assets/img/icon_white.svg" alt="logo" />
 
   <div class="flex items-center gap-5">
-    <span class="font-light text-white">Kanban Project Managment Tool</span>
+    <span class="hidden font-light text-white lg:block"
+      >Kanban Project Managment Tool</span
+    >
     <img
       routerLink="/help"
       routerLinkActive="hidden"
@@ -21,7 +23,7 @@
   </div>
 
   <a
-  *ngIf="logoutOpened"
+    *ngIf="logoutOpened"
     class="absolute right-5 -bottom-12 h-14 cursor-pointer rounded-2xl rounded-tr-none bg-white px-8 py-4 font-light text-custom-blue shadow-lg hover:bg-custom-blue-active"
     routerLink="/"
     (click)="toggleLogoutOpened()"

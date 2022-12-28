@@ -1,45 +1,45 @@
 <div
-  class="flex h-full w-56 flex-col items-center justify-between border-r pt-12 pb-24"
+  class="flex w-full flex-col items-center justify-between border-r border-t lg:h-full lg:w-52 lg:border-t-0 lg:pt-12 lg:pb-24"
 >
-  <div class="flex flex-col gap-5 font-light">
+  <div class="flex w-full gap-5 font-light lg:w-auto lg:flex-col justify-around">
     <a
       routerLink="/summary"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex items-center gap-5 rounded-lg py-2 px-6"
+      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
     >
       <img class="h-6 w-6" src="assets/img/Vector-9.svg" alt="summary" />
-      <span>Summary</span>
+      <span class="text-sm sm:text-base">Summary</span>
     </a>
     <a
       routerLink="/board"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex items-center gap-5 rounded-lg py-2 px-6"
+      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
     >
       <img class="h-6 w-6" src="assets/img/Vector-10.svg" alt="board" />
-      <span>Board</span>
+      <span class="text-sm sm:text-base">Board</span>
     </a>
     <a
       routerLink="/add-task"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex items-center gap-5 rounded-lg py-2 px-6"
+      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
     >
       <img class="h-6 w-6" src="assets/img/Group 1.svg" alt="add task" />
-      <span>Add Task</span>
+      <span class="text-sm sm:text-base">Add Task</span>
     </a>
     <a
       routerLink="/contacts"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex items-center gap-5 rounded-lg py-2 px-6"
+      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
     >
       <img class="h-6 w-6" src="assets/img/Vector-12.svg" alt="contacts" />
-      <span>Contacts</span>
+      <span class="text-sm sm:text-base">Contacts</span>
     </a>
   </div>
 
   <a
     routerLink="/legal-notice"
     [routerLinkActive]="['bg-custom-blue-dark', 'text-white', 'white-image']"
-    class="flex items-center gap-5 rounded-lg py-2 px-6"
+    class="hidden items-center gap-5 rounded-lg py-2 px-6 lg:flex"
   >
     <img class="h-6 w-6" src="assets/img/info.svg" alt="legal notice" />
     <span class="font-light">Legal notice</span>

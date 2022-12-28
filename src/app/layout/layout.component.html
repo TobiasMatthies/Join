@@ -1,8 +1,17 @@
-<app-header [logoutOpened]="logoutOpened" (logoutOpenedChanged)="setLogoutOpened($event)"></app-header>
+<app-header
+  [logoutOpened]="logoutOpened"
+  (logoutOpenedChanged)="setLogoutOpened($event)"
+></app-header>
 
-<div class="flex" style="height: calc(100vh - 88px)" (click)="closeLogoutOpened()">
+<div
+  class="flex flex-col-reverse lg:flex-row"
+  style="height: calc(100vh - 88px)"
+  (click)="closeLogoutOpened()"
+>
   <app-navbar class="shadow-custom-navbar"></app-navbar>
-  <main class="flex justify-center flex-1 box-border" style="max-width: calc(100% - 224px)">
+  <main
+    class="max-width max-height container box-border flex flex-1 justify-center lg:h-auto"
+  >
     <ng-content></ng-content>
   </main>
 </div>
