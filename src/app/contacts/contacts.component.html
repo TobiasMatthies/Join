@@ -1,7 +1,7 @@
 <app-layout>
   <div class="flex h-full w-full">
     <div
-      class="max-h-full w-2/5 overflow-y-auto px-16 font-light shadow-custom-contacts-right"
+      class="max-h-full w-2/5 overflow-y-auto px-16 lg:font-light shadow-custom-contacts-right"
       id="contacts"
     >
       <div *ngFor="let firstLetter of firstLetters">
@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="relative w-3/5 p-10 font-light">
+    <div class="relative w-3/5 p-10 lg:font-light">
       <div *ngIf="selectedContact" class="flex flex-col gap-5">
         <div class="flex items-center gap-5">
           <div

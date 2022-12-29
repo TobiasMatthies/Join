@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Contact } from '../models/contact.model';
 import { Task } from '../models/tasks.model';
 
@@ -38,7 +38,7 @@ export class AppStateService {
   ];
 
   subtasks: Array<{ name: string; completed: boolean }> = [
-    { name: 'test1', completed: true },
+    { name: 'test1', completed: false },
     { name: 'test2', completed: false },
   ];
 
@@ -54,7 +54,7 @@ export class AppStateService {
         imageDetail: 'assets/img/urgentDetail.svg',
       },
       description: 'test description',
-      subtasks: [this.subtasks[0], this.subtasks[1]],
+      subtasks: [{ ...this.subtasks[0] }, { ...this.subtasks[1] }],
       status: 'toDo',
       id: new Date().getTime() - 1500,
     },
@@ -75,7 +75,7 @@ export class AppStateService {
       },
       description:
         'test description, but this time its gotta be a bit longer, so Im just typing some random text',
-      subtasks: [],
+      subtasks: [{ ...this.subtasks[0] }],
       status: 'inProgress',
       id: new Date().getTime() - 1000,
     },

@@ -1,6 +1,6 @@
 <app-layout>
   <form
-    class="flex h-[80vh] w-full px-[5%] pt-12 font-light container"
+    class="flex h-[80vh] w-full px-[5%] pt-12 lg:font-light container"
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
@@ -8,7 +8,7 @@
     <div class="flex w-1/2 items-center overflow-y-auto" id="input_section">
       <div class="flex h-full flex-col gap-5">
         <input
-          class="border-b py-2 px-4 text-4xl placeholder-custom-placeholder-gray placeholder:font-light"
+          class="border-b py-2 px-4 text-4xl placeholder-custom-placeholder-gray lg:placeholder:font-light"
           id="title"
           type="text"
           name="title"

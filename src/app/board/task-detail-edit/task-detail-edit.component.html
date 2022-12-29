@@ -1,7 +1,7 @@
 <form
   [formGroup]="addTaskService.form"
   (ngSubmit)="onEditTask()"
-  class="relative flex max-h-[90vh] min-h-[40vh] w-full flex-col items-center gap-5 rounded-3xl bg-white p-8 text-xl font-light shadow-custom-info-fields"
+  class="relative flex max-h-[90vh] min-h-[40vh] w-full flex-col items-center gap-5 rounded-3xl bg-white p-8 text-xl lg:font-light shadow-custom-info-fields"
 >
   <div class="flex w-full justify-end">
     <img
@@ -18,7 +18,7 @@
   <div class="flex flex-col gap-2">
     <input
       formControlName="title"
-      class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray placeholder:font-light"
+      class="border-b py-2 px-4 text-4xl font-semibold placeholder-custom-placeholder-gray lg:placeholder:font-light"
       id="title"
       type="text"
       name="title"

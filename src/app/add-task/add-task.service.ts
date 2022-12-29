@@ -197,8 +197,9 @@ export class AddTaskService {
       this.selectedContacts.push(contact);
     }
     if (formControl == 'subtasks') {
-      let subtask = this.appStateService.subtasks[i];
-      this.selectedSubtasks.push(subtask);
+      let subtasks = this.appStateService.subtasks;
+      let subtask = subtasks[i];
+      this.selectedSubtasks.push({ ...subtask });
     }
   }
 
@@ -303,11 +304,14 @@ export class AddTaskService {
   }
 
   onCreateNewSubtask() {
-    let subtask = document.getElementById('subtask')['value'];
+    let subtask: {name: string, completed: boolean} = {
+      name: document.getElementById('subtask')['value'],
+      completed: false,
+    };
 
     if (subtask) {
       (<FormGroup>this.form.get('subtasks')).addControl(
-        subtask,
+        this.appStateService.subtasks.length.toString(),
         new FormControl()
       );
       this.appStateService.subtasks.push(subtask);

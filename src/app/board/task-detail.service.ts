@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AppStateService } from '../app-state/app-state.service';
 import { Task } from '../models/tasks.model';
 
 @Injectable({
@@ -7,9 +8,9 @@ import { Task } from '../models/tasks.model';
 export class TaskDetailService {
   openedTaskDetailView: Task;
   editMode: boolean = false;
-  constructor() {}
+  constructor(private appStateService: AppStateService) {}
 
-  openTaskDetailView(task) {
+  openTaskDetailView(task: Task) {
     this.openedTaskDetailView = task;
   }
 
@@ -25,7 +26,5 @@ export class TaskDetailService {
   toggleSubtask(index: number) {
     this.openedTaskDetailView.subtasks[index].completed =
       !this.openedTaskDetailView.subtasks[index].completed;
-
-    console.log(this.openedTaskDetailView.subtasks[index].completed);
   }
 }

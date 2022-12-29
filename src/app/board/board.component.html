@@ -5,7 +5,7 @@
         class="flex w-1/5 min-w-fit justify-between rounded-lg border border-gray-400 p-2"
       >
         <input
-          class="custom-placeholder-custom-gray text-sm font-light"
+          class="custom-placeholder-custom-gray text-sm lg:font-light"
           placeholder="Find Task"
           type="text"
           id="filter"
@@ -16,13 +16,13 @@
 
       <app-button-primary (click)="addTaskService.toggleAddTaskOverlay()">
         <div class="flex h-[33px] items-center gap-2">
-          <span class="text-xl font-light">Add Task</span>
+          <span class="text-xl lg:font-light">Add Task</span>
           <img src="assets/img/addWhite.svg" alt="add task" />
         </div>
       </app-button-primary>
     </div>
 
-    <div class="flex h-full w-full justify-between font-light">
+    <div class="flex h-full w-full justify-between lg:font-light">
       <div
         class="flex w-1/5 flex-col gap-5"
         cdkDropList
