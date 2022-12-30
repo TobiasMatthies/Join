@@ -1,5 +1,5 @@
 <app-layout>
-  <div class="flex h-full w-full flex-col items-center px-[5%] container">
+  <div class="container flex w-full flex-col items-center px-[5%] lg:h-full">
     <div class="flex w-full gap-5 py-12">
       <div
         class="flex w-1/5 min-w-fit justify-between rounded-lg border border-gray-400 p-2"
@@ -22,9 +22,16 @@
       </app-button-primary>
     </div>
 
-    <div class="flex h-full w-full justify-between lg:font-light">
+    <div
+      class="flex w-full flex-col justify-between gap-5 lg:h-full lg:flex-row lg:font-light overflow-y-auto"
+    >
       <div
-        class="flex w-1/5 flex-col gap-5"
+        class="flex w-full flex-col gap-5 overflow-auto px-1 lg:w-1/5 lg:min-w-[250px]"
+        [ngClass]="
+          (filteredTasks | filterTasks: 'toDo').length > 0
+            ? ''
+            : 'min-h-[220px]'
+        "
         cdkDropList
         #todoList="cdkDropList"
         [cdkDropListData]="appStateService.tasks"
@@ -35,261 +42,67 @@
         ]"
         (cdkDropListDropped)="onDrop($event, 'toDo')"
       >
-        <h2 class="flex justify-between text-xl">
-          <b class="text-custom-title-gray">To do</b>
-          <img
-            class="cursor-pointer"
-            src="assets/img/addTaskBoard.svg"
-            alt="add Task"
-            (click)="addTaskService.toggleAddTaskOverlay()"
-          />
-        </h2>
-
-        <div
-          *ngFor="let task of filteredTasks | filterTasks: 'toDo'"
-          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
-          [id]="task.id"
-          cdkDrag
-          [cdkDragData]="task.id"
-          (click)="taskDetailService.openTaskDetailView(task)"
-        >
-          <span
-            [ngStyle]="{ 'background-color': task.category.color }"
-            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
-          >
-            {{ task.category.name }}
-          </span>
-
-          <section class="flex flex-col gap-1">
-            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-            <span class="text-gray-400">{{ task.description }}</span>
-          </section>
-
-          <div
-            *ngIf="task.subtasks.length > 0"
-            class="flex w-full items-center gap-5"
-          >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
-              <div
-                class="h-full bg-custom-blue"
-                [style.width]="findCompletedSubtasks(task.subtasks, true)"
-              ></div>
-            </div>
-
-            <span class="text-xs">
-              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
-                task.subtasks.length
-              }}
-              done
-            </span>
-          </div>
-
-          <div class="flex w-full justify-between">
-            <div class="flex">
-              <ng-container *ngFor="let contact of task.assignedTo; index as i">
-                <span
-                  *ngIf="i < 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  {{ contact.abbrevation }}
-                </span>
-
-                <span
-                  *ngIf="i == 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  +{{ task.assignedTo.length - 2 }}
-                </span>
-              </ng-container>
-            </div>
-
-            <img
-              [src]="task.urgency.image"
-              [alt]="task.urgency.name"
-              class="mr-2"
-            />
-          </div>
-        </div>
+        <app-board-column
+          class="max-h-full"
+          [filter]="'toDo'"
+          [filteredTasks]="filteredTasks"
+          [title]="'To do'"
+        ></app-board-column>
       </div>
 
+
       <div
-        class="flex w-1/5 flex-col gap-5"
+        class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
+        [ngClass]="
+          (filteredTasks | filterTasks: 'inProgress').length > 0
+            ? ''
+            : 'min-h-[220px]'
+        "
         cdkDropList
         #inProgressList="cdkDropList"
         [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]"
         (cdkDropListDropped)="onDrop($event, 'inProgress')"
       >
-        <h2 class="flex justify-between text-xl">
-          <b class="text-custom-title-gray">In progress</b>
-          <img
-            class="cursor-pointer"
-            src="assets/img/addTaskBoard.svg"
-            alt="add Task"
-            (click)="addTaskService.toggleAddTaskOverlay('inProgress')"
-          />
-        </h2>
-
-        <div
-          *ngFor="let task of filteredTasks | filterTasks: 'inProgress'"
-          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
-          [id]="task.id"
-          cdkDrag
-          [cdkDragData]="task.id"
-          (click)="taskDetailService.openTaskDetailView(task)"
+        <app-board-column
+        class="max-h-full"
+          [filter]="'inProgress'"
+          [filteredTasks]="filteredTasks"
+          [title]="'In Progress'"
         >
-          <span
-            [ngStyle]="{ 'background-color': task.category.color }"
-            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
-          >
-            {{ task.category.name }}
-          </span>
-
-          <section class="flex flex-col gap-1">
-            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-            <span class="text-gray-400">{{ task.description }}</span>
-          </section>
-
-          <div
-            *ngIf="task.subtasks.length > 0"
-            class="flex w-full items-center gap-5"
-          >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
-              <div
-                class="h-full bg-custom-blue"
-                [style.width]="findCompletedSubtasks(task.subtasks, true)"
-              ></div>
-            </div>
-
-            <span class="text-xs"
-              >{{ findCompletedSubtasks(task.subtasks, false) }}/{{
-                task.subtasks.length
-              }}
-              done</span
-            >
-          </div>
-
-          <div class="flex w-full justify-between">
-            <div class="flex">
-              <ng-container *ngFor="let contact of task.assignedTo; index as i">
-                <span
-                  *ngIf="i < 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  {{ contact.abbrevation }}
-                </span>
-
-                <span
-                  *ngIf="i == 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  +{{ task.assignedTo.length - 2 }}
-                </span>
-              </ng-container>
-            </div>
-
-            <img
-              [src]="task.urgency.image"
-              [alt]="task.urgency.name"
-              class="mr-2"
-            />
-          </div>
-        </div>
+        </app-board-column>
       </div>
 
+
       <div
-        class="flex w-1/5 flex-col gap-5"
+        class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
+        [ngClass]="
+          (filteredTasks | filterTasks: 'awaitingFeedback').length > 0
+            ? ''
+            : 'min-h-[220px]'
+        "
         cdkDropList
         #awaitingFeedbackList="cdkDropList"
         [cdkDropListData]="appStateService.tasks"
         [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]"
         (cdkDropListDropped)="onDrop($event, 'awaitingFeedback')"
       >
-        <h2 class="flex justify-between text-xl">
-          <b class="text-custom-title-gray">Awaiting feedback</b>
-          <img
-            class="cursor-pointer"
-            src="assets/img/addTaskBoard.svg"
-            alt="add Task"
-            (click)="addTaskService.toggleAddTaskOverlay('awaitingFeedback')"
-          />
-        </h2>
-
-        <div
-          *ngFor="let task of filteredTasks | filterTasks: 'awaitingFeedback'"
-          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
-          [id]="task.id"
-          cdkDrag
-          [cdkDragData]="task.id"
-          (click)="taskDetailService.openTaskDetailView(task)"
-        >
-          <span
-            [ngStyle]="{ 'background-color': task.category.color }"
-            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
-          >
-            {{ task.category.name }}
-          </span>
-
-          <section class="flex flex-col gap-1">
-            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-            <span class="text-gray-400">{{ task.description }}</span>
-          </section>
-
-          <div
-            *ngIf="task.subtasks.length > 0"
-            class="flex w-full items-center gap-5"
-          >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
-              <div
-                class="h-full bg-custom-blue"
-                [style.width]="findCompletedSubtasks(task.subtasks, true)"
-              ></div>
-            </div>
-
-            <span class="text-xs">
-              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
-                task.subtasks.length
-              }}
-              done
-            </span>
-          </div>
-
-          <div class="flex w-full justify-between">
-            <div class="flex">
-              <ng-container *ngFor="let contact of task.assignedTo; index as i">
-                <span
-                  *ngIf="i < 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  {{ contact.abbrevation }}
-                </span>
-
-                <span
-                  *ngIf="i == 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  +{{ task.assignedTo.length - 2 }}
-                </span>
-              </ng-container>
-            </div>
-
-            <img
-              [src]="task.urgency.image"
-              [alt]="task.urgency.name"
-              class="mr-2"
-            />
-          </div>
-        </div>
+        <app-board-column
+        class="max-h-full"
+          [filter]="'awaitingFeedback'"
+          [filteredTasks]="filteredTasks"
+          [title]="'Awaiting feedback'"
+        ></app-board-column>
       </div>
 
+
       <div
-        class="flex w-1/5 flex-col gap-5"
+        class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
+        [ngClass]="
+          (filteredTasks | filterTasks: 'done').length > 0
+            ? ''
+            : 'min-h-[220px]'
+        "
         cdkDropList
         #doneList="cdkDropList"
         [cdkDropListData]="appStateService.tasks"
@@ -300,86 +113,16 @@
         ]"
         (cdkDropListDropped)="onDrop($event, 'done')"
       >
-        <h2 class="flex justify-between text-xl">
-          <b class="text-custom-title-gray">Done</b>
-          <img
-            class="cursor-pointer"
-            src="assets/img/addTaskBoard.svg"
-            alt="add Task"
-            (click)="addTaskService.toggleAddTaskOverlay('done')"
-          />
-        </h2>
-
-        <div
-          *ngFor="let task of filteredTasks | filterTasks: 'done'"
-          class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
-          [id]="task.id"
-          cdkDrag
-          [cdkDragData]="task.id"
-          (click)="taskDetailService.openTaskDetailView(task)"
-        >
-          <span
-            [ngStyle]="{ 'background-color': task.category.color }"
-            class="w-fit rounded-lg py-1 px-6 text-sm text-white"
-          >
-            {{ task.category.name }}
-          </span>
-
-          <section class="flex flex-col gap-1">
-            <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-            <span class="text-gray-400">{{ task.description }}</span>
-          </section>
-
-          <div
-            *ngIf="task.subtasks.length > 0"
-            class="flex w-full items-center gap-5"
-          >
-            <div class="h-1/2 flex-1 rounded-sm bg-gray-100">
-              <div
-                class="h-full bg-custom-blue"
-                [style.width]="findCompletedSubtasks(task.subtasks, true)"
-              ></div>
-            </div>
-
-            <span class="text-xs">
-              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
-                task.subtasks.length
-              }}
-              done
-            </span>
-          </div>
-
-          <div class="flex w-full justify-between">
-            <div class="flex">
-              <ng-container *ngFor="let contact of task.assignedTo; index as i">
-                <span
-                  *ngIf="i < 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  {{ contact.abbrevation }}
-                </span>
-
-                <span
-                  *ngIf="i == 2"
-                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                >
-                  +{{ task.assignedTo.length - 2 }}
-                </span>
-              </ng-container>
-            </div>
-
-            <img
-              [src]="task.urgency.image"
-              [alt]="task.urgency.name"
-              class="mr-2"
-            />
-          </div>
-        </div>
+        <app-board-column
+        class="max-h-full"
+          [filter]="'done'"
+          [filteredTasks]="filteredTasks"
+          [title]="'Done'"
+        ></app-board-column>
       </div>
     </div>
   </div>
+
 
   <app-add-task-overlay
     *ngIf="addTaskService.addTaskOverlayOpened"

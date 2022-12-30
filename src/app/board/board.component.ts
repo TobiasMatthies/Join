@@ -60,21 +60,6 @@ export class BoardComponent implements OnInit {
     );
   }
 
-  findCompletedSubtasks(
-    subtasks: Array<{ name: string; completed: boolean }>,
-    percentage: boolean
-  ) {
-    let completedSubtasks = subtasks.filter(subtask => subtask.completed);
-
-    if (percentage) {
-    let percentage = (completedSubtasks.length / subtasks.length) * 100 + '%'
-
-    return percentage;
-    }
-
-    return completedSubtasks.length
-  }
-
   searchTasks() {
     let filter = document.getElementById('filter')['value'];
 

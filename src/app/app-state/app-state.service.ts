@@ -8,32 +8,32 @@ import { Task } from '../models/tasks.model';
 export class AppStateService {
   contacts: Contact[] = [
     {
-      name: 'You Test',
-      email: 'you@you.com',
+      name: 'Anton Mayer',
+      email: 'antonmayer@test.com',
       phoneNumber: 1234678,
       backgroundColor: 'rgb(127, 17, 224)',
-      abbrevation: 'YT',
+      abbrevation: 'AM',
     },
     {
-      name: 'Friend1',
-      email: 'friend1@friend1.com',
+      name: 'Davi Eisenberg',
+      email: 'davideisenberg@test.com',
       phoneNumber: 10234567,
       backgroundColor: 'rgb(255, 165, 0)',
-      abbrevation: 'F',
+      abbrevation: 'DE',
     },
     {
-      name: 'Friend2 Asdf',
-      email: 'friend2@friend2.com',
+      name: 'Marcel Bauer',
+      email: 'marcelbauer@test.com',
       phoneNumber: 12034567,
       backgroundColor: 'rgb(45, 246, 200)',
-      abbrevation: 'FA',
+      abbrevation: 'MB',
     },
     {
-      name: 'Bro1 Test',
-      email: 'bro1@bro1.com',
+      name: 'Tatjana Wolf',
+      email: 'tatjanawolf@test.com',
       phoneNumber: 12034545,
       backgroundColor: 'rgb(245, 40, 145)',
-      abbrevation: 'BT',
+      abbrevation: 'TW',
     },
   ];
 

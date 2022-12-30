@@ -44,7 +44,6 @@ export class SummaryComponent implements OnInit {
     this.urgentTasks = this.urgentTasks.sort((a, b) => {
       return a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0;
     });
-    console.log(this.urgentTasks);
   }
 
   fillGeneralInfoFieldsArray() {

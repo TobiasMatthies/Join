@@ -24,6 +24,7 @@ import { AddContactComponent } from './contacts/contact-overlay/contact-overlay.
 import { ConfirmDialogComponent } from './board/task-detail-info/confirm-dialog/confirm-dialog.component';
 import { HelpSectionComponent } from './help-section/help-section.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
+import { BoardColumnComponent } from './board/board-column/board-column.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
     ConfirmDialogComponent,
     HelpSectionComponent,
     LegalNoticeComponent,
+    BoardColumnComponent,
   ],
   imports: [
     BrowserModule,
