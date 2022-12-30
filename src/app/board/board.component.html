@@ -1,8 +1,12 @@
 <app-layout>
   <div class="container flex w-full flex-col items-center px-[5%] lg:h-full">
-    <div class="flex w-full gap-5 py-12">
+    <span class="mt-5 self-start text-custom-blue lg:hidden"
+      >Kanban Project Management Tool</span
+    >
+
+    <div class="flex w-full gap-5 py-5 lg:py-12">
       <div
-        class="flex w-1/5 min-w-fit justify-between rounded-lg border border-gray-400 p-2"
+        class="flex min-w-fit justify-between rounded-lg border border-gray-400 p-2 lg:w-1/5"
       >
         <input
           class="custom-placeholder-custom-gray text-sm lg:font-light"
@@ -14,7 +18,10 @@
         <img src="assets/img/search.svg" alt="search" />
       </div>
 
-      <app-button-primary (click)="addTaskService.toggleAddTaskOverlay()">
+      <app-button-primary
+        class="hidden sm:block"
+        (click)="addTaskService.toggleAddTaskOverlay()"
+      >
         <div class="flex h-[33px] items-center gap-2">
           <span class="text-xl lg:font-light">Add Task</span>
           <img src="assets/img/addWhite.svg" alt="add task" />
@@ -23,10 +30,10 @@
     </div>
 
     <div
-      class="flex w-full flex-col justify-between gap-5 lg:h-full lg:flex-row lg:font-light overflow-y-auto"
+      class="flex w-full flex-col justify-between gap-5 overflow-y-auto lg:h-full lg:flex-row lg:font-light"
     >
       <div
-        class="flex w-full flex-col gap-5 overflow-auto px-1 lg:w-1/5 lg:min-w-[250px]"
+        class="flex w-full flex-col gap-5 px-1 lg:w-1/5 lg:min-w-[250px]"
         [ngClass]="
           (filteredTasks | filterTasks: 'toDo').length > 0
             ? ''
@@ -50,7 +57,6 @@
         ></app-board-column>
       </div>
 
-
       <div
         class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
         [ngClass]="
@@ -65,14 +71,13 @@
         (cdkDropListDropped)="onDrop($event, 'inProgress')"
       >
         <app-board-column
-        class="max-h-full"
+          class="max-h-full"
           [filter]="'inProgress'"
           [filteredTasks]="filteredTasks"
           [title]="'In Progress'"
         >
         </app-board-column>
       </div>
-
 
       <div
         class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
@@ -88,13 +93,12 @@
         (cdkDropListDropped)="onDrop($event, 'awaitingFeedback')"
       >
         <app-board-column
-        class="max-h-full"
+          class="max-h-full"
           [filter]="'awaitingFeedback'"
           [filteredTasks]="filteredTasks"
           [title]="'Awaiting feedback'"
         ></app-board-column>
       </div>
-
 
       <div
         class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
@@ -114,7 +118,7 @@
         (cdkDropListDropped)="onDrop($event, 'done')"
       >
         <app-board-column
-        class="max-h-full"
+          class="max-h-full"
           [filter]="'done'"
           [filteredTasks]="filteredTasks"
           [title]="'Done'"
@@ -122,7 +126,6 @@
       </div>
     </div>
   </div>
-
 
   <app-add-task-overlay
     *ngIf="addTaskService.addTaskOverlayOpened"
