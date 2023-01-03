@@ -1,14 +1,19 @@
-<app-layout>
+<app-layout (window:resize)="windowWidthService.getWindowWidth()">
   <form
-    class="flex h-[80vh] w-full px-[5%] pt-12 lg:font-light container"
+    class="flex lg:h-[80vh] w-full scroll-pb-2 overflow-y-auto px-[5%] lg:container py-6 lg:pt-12 lg:pb-1 lg:font-light"
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
   >
-    <div class="flex w-1/2 items-center overflow-y-auto" id="input_section">
-      <div class="flex h-full flex-col gap-5">
+    <div
+      class="flex w-full items-center overflow-y-auto lg:w-1/2"
+      id="input_section"
+    >
+      <div
+        class="mx-auto flex h-full w-full max-w-[550px] flex-col gap-5 lg:mx-0"
+      >
         <input
-          class="border-b py-2 px-4 text-4xl placeholder-custom-placeholder-gray lg:placeholder:font-light"
+          class="border-b py-2 px-4 text-2xl placeholder-custom-placeholder-gray lg:text-4xl lg:placeholder:font-light"
           id="title"
           type="text"
           name="title"
@@ -190,9 +195,7 @@
                     class="blue-filter w-5 cursor-pointer"
                     src="assets/img/cancel.svg"
                     alt="cancel"
-                    (click)="
-                      addTaskService.toggleNewCategory();
-                    "
+                    (click)="addTaskService.toggleNewCategory()"
                   />
                   <div class="w-px bg-custom-placeholder-gray"></div>
                   <img
@@ -270,7 +273,7 @@
 
                 <label class="colorpicker h-6 w-6">
                   <input
-                    class="opacity-0 h-6 w-6 cursor-pointer"
+                    class="h-6 w-6 cursor-pointer opacity-0"
                     id="color"
                     name="color"
                     type="color"
@@ -343,7 +346,7 @@
       </div>
     </div>
 
-    <div class="flex w-1/2 items-end justify-center gap-4">
+    <div class="hidden w-1/2 items-end justify-center gap-4 lg:flex">
       <button
         class="group box-border flex gap-4 rounded-lg py-3 px-4 text-xl outline outline-1 outline-gray-400 transition-all hover:shadow-md hover:outline-2 hover:outline-custom-blue"
         type="button"

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppStateService } from '../app-state/app-state.service';
 import { ChooseUrgencyService } from './choose-urgency.service';
 import { AddTaskService } from './add-task.service';
+import { WindowWidthService } from '../layout/window-width.service';
 
 @Component({
   selector: 'app-add-task',
@@ -10,12 +11,14 @@ import { AddTaskService } from './add-task.service';
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
   constructor(
+    public windowWidthService: WindowWidthService,
     public addTaskService: AddTaskService,
     public appStateService: AppStateService,
     public chooseUrgencyService: ChooseUrgencyService
   ) {}
 
   ngOnInit(): void {
+    this.windowWidthService.getWindowWidth();
     this.addTaskService.initAddTaskForm();
     this.addTaskService.date = new Date().toISOString().split('T')[0];
     this.addTaskService.fillFormArrays();

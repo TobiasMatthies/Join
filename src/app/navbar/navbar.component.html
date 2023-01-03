@@ -1,11 +1,13 @@
 <div
-  class="flex w-full flex-col items-center justify-between border-r border-t lg:h-full lg:w-52 lg:border-t-0 lg:pt-12 lg:pb-24"
+  class="flex w-full flex-col items-center justify-between border-r border-t bg-white lg:h-full lg:w-52 lg:border-t-0 lg:pt-12 lg:pb-24"
 >
-  <div class="flex w-full gap-5 lg:font-light lg:w-auto lg:flex-col justify-around">
+  <div
+    class="flex w-full justify-around gap-5 lg:w-auto lg:flex-col lg:font-light"
+  >
     <a
       routerLink="/summary"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
+      class="flex flex-col items-center gap-5 py-2 px-2 sm:px-6 lg:flex-row lg:rounded-lg"
     >
       <img class="h-6 w-6" src="assets/img/Vector-9.svg" alt="summary" />
       <span class="text-sm sm:text-base">Summary</span>
@@ -13,7 +15,7 @@
     <a
       routerLink="/board"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
+      class="flex flex-col items-center gap-5 py-2 px-2 sm:px-6 lg:flex-row lg:rounded-lg"
     >
       <img class="h-6 w-6" src="assets/img/Vector-10.svg" alt="board" />
       <span class="text-sm sm:text-base">Board</span>
@@ -21,7 +23,7 @@
     <a
       routerLink="/add-task"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
+      class="flex flex-col items-center gap-5 py-2 px-2 sm:px-6 lg:flex-row lg:rounded-lg"
     >
       <img class="h-6 w-6" src="assets/img/Group 1.svg" alt="add task" />
       <span class="text-sm sm:text-base">Add Task</span>
@@ -29,7 +31,7 @@
     <a
       routerLink="/contacts"
       [routerLinkActive]="'bg-custom-blue-active'"
-      class="flex flex-col items-center gap-5 lg:rounded-lg py-2 px-2 sm:px-6 lg:flex-row"
+      class="flex flex-col items-center gap-5 py-2 px-2 sm:px-6 lg:flex-row lg:rounded-lg"
     >
       <img class="h-6 w-6" src="assets/img/Vector-12.svg" alt="contacts" />
       <span class="text-sm sm:text-base">Contacts</span>
