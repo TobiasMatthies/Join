@@ -1,15 +1,25 @@
-<div class="absolute top-0 right-0 flex h-full w-full">
+<div
+  class="absolute top-0 right-0 flex h-full w-full flex-col"
+  (window:resize)="windowWidthService.getWindowWidth()"
+>
+  <app-add-task-responsive-header
+    *ngIf="windowWidthService.getWindowWidth() < 768"
+  >
+  </app-add-task-responsive-header>
+
   <div
     class="w-full bg-white/50"
     (click)="addTaskService.toggleAddTaskOverlay()"
   ></div>
   <form
-    class="absolute right-0 flex h-full w-full flex-col gap-5 rounded-l-3xl bg-white p-8 pt-12 shadow-custom-card md:w-2/3 md:max-w-[550px] lg:font-light xl:w-1/3"
+    class="flex h-full w-full flex-col gap-5 bg-white p-8 pt-12 shadow-custom-card md:absolute md:right-0 md:w-2/3 md:max-w-[550px] md:rounded-l-3xl lg:font-light xl:w-1/3"
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
   >
-    <div class="flex w-full justify-end">
+    <div class="flex w-full justify-between md:justify-end">
+      <h1 class="text-3xl font-semibold md:hidden md:text-5xl">Add Task</h1>
+
       <img
         class="cursor-pointer"
         src="assets/img/cancel.svg"
@@ -19,9 +29,9 @@
     </div>
 
     <div
-      class="mx-auto flex max-w-[550px] w-full items-center justify-between md:mx-0 md:max-w-none"
+      class="mx-auto hidden w-full max-w-[550px] items-center justify-between md:mx-0 md:max-w-none lg:flex"
     >
-      <h1 class="text-3xl md:text-5xl font-semibold">Add Task</h1>
+      <h1 class="text-3xl font-semibold md:text-5xl">Add Task</h1>
 
       <app-button-primary>
         <div class="flex gap-2 py-1">
@@ -41,7 +51,7 @@
     >
       <div class="flex max-h-full w-full flex-col gap-5">
         <input
-          class="border-b py-2 px-4 text-2xl md:text-4xl placeholder-custom-placeholder-gray lg:placeholder:font-light"
+          class="border-b py-2 px-4 text-2xl placeholder-custom-placeholder-gray md:text-4xl lg:placeholder:font-light"
           id="title"
           type="text"
           name="title"
@@ -144,7 +154,7 @@
           >
             <span
               *ngFor="let contact of addTaskService.selectedContacts"
-              class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-base md:text-lg text-white"
+              class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-base text-white md:text-lg"
               [ngStyle]="{ backgroundColor: contact.backgroundColor }"
             >
               {{ contact.abbrevation }}

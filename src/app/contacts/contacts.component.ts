@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddTaskService } from '../add-task/add-task.service';
 import { AppStateService } from '../app-state/app-state.service';
+import { WindowWidthService } from '../layout/window-width.service';
 import { Contact } from '../models/contact.model';
 
 @Component({
@@ -18,6 +19,7 @@ export class ContactsComponent implements OnInit {
   constructor(
     public appStateService: AppStateService,
     public addTaskService: AddTaskService,
+    public windowWidthService: WindowWidthService,
     private changeDetectorRef: ChangeDetectorRef
   ) {}
 
@@ -29,6 +31,7 @@ export class ContactsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.windowWidthService.getWindowWidth();
     this.getEveryFirstLetter();
   }
 

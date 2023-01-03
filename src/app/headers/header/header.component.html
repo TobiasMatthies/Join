@@ -4,13 +4,13 @@
   <img class="h-12 w-12" src="assets/img/icon_white.svg" alt="logo" />
 
   <div class="flex items-center gap-5">
-    <span class="hidden lg:font-light text-white lg:block"
+    <span class="hidden text-white lg:block lg:font-light"
       >Kanban Project Managment Tool</span
     >
     <img
       routerLink="/help"
       routerLinkActive="hidden"
-      class="h-7 w-7 cursor-pointer brightness-100 invert"
+      class="hidden h-7 w-7 cursor-pointer brightness-100 invert lg:block"
       src="assets/img/help.svg"
       alt="help"
     />
@@ -22,12 +22,13 @@
     />
   </div>
 
-  <a
+  <div
     *ngIf="logoutOpened"
-    class="absolute right-5 -bottom-12 h-14 cursor-pointer rounded-2xl rounded-tr-none bg-white px-8 py-4 lg:font-light text-custom-blue shadow-lg hover:bg-custom-blue-active"
-    routerLink="/"
+    class="absolute right-5 -bottom-28 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white px-8 py-4 text-custom-blue shadow-lg hover:bg-custom-blue-active lg:font-light"
     (click)="toggleLogoutOpened()"
   >
-    Log out
-  </a>
+    <a routerLink="/">Log out</a>
+    <a routerLink="/help">Help</a>
+    <a routerLink="/legal-notice">Legal notice</a>
+  </div>
 </div>
