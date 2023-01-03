@@ -26,6 +26,7 @@ import { HelpSectionComponent } from './help-section/help-section.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { BoardColumnComponent } from './board/board-column/board-column.component';
 import { AddTaskResponsiveHeaderComponent } from './headers/add-task-responsive-header/add-task-responsive-header.component';
+import { ContactDetailViewComponent } from './contacts/contact-detail-view/contact-detail-view.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AddTaskResponsiveHeaderComponent } from './headers/add-task-responsive-
     LegalNoticeComponent,
     BoardColumnComponent,
     AddTaskResponsiveHeaderComponent,
+    ContactDetailViewComponent,
   ],
   imports: [
     BrowserModule,
