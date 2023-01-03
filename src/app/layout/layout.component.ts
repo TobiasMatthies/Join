@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { WindowWidthService } from './window-width.service';
 
 @Component({
   selector: 'app-layout',
@@ -8,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 export class LayoutComponent implements OnInit {
   logoutOpened: boolean = false;
 
-  constructor() {}
+  constructor(public windowWidthService: WindowWidthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+  }
 
   closeLogoutOpened() {
     this.logoutOpened = false;

@@ -1,7 +1,12 @@
 <app-header
+  *ngIf="windowWidthService.router.url !== '/add-task' || windowWidthService.getWindowWidth() > 1023"
   [logoutOpened]="logoutOpened"
   (logoutOpenedChanged)="setLogoutOpened($event)"
 ></app-header>
+
+<app-add-task-responsive-header
+  *ngIf="windowWidthService.router.url == '/add-task' && windowWidthService.getWindowWidth() < 1024"
+></app-add-task-responsive-header>
 
 <div
   class="flex flex-col-reverse lg:flex-row"

@@ -9,7 +9,7 @@ import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonPrimaryComponent } from './customComponents/button-primary/button-primary.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './headers/header/header.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -25,6 +25,7 @@ import { ConfirmDialogComponent } from './board/task-detail-info/confirm-dialog/
 import { HelpSectionComponent } from './help-section/help-section.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { BoardColumnComponent } from './board/board-column/board-column.component';
+import { AddTaskResponsiveHeaderComponent } from './headers/add-task-responsive-header/add-task-responsive-header.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { BoardColumnComponent } from './board/board-column/board-column.componen
     HelpSectionComponent,
     LegalNoticeComponent,
     BoardColumnComponent,
+    AddTaskResponsiveHeaderComponent,
   ],
   imports: [
     BrowserModule,
