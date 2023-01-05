@@ -28,7 +28,7 @@
 
   <div class="flex gap-5">
     <span class="font-semibold">Due date:</span>
-    <span>{{ taskDetailService.openedTaskDetailView.dueDate }}</span>
+    <span>{{ taskDetailService.openedTaskDetailView.dueDate | date: 'dd/MM/yyyy' }}</span>
   </div>
 
   <div class="flex items-center gap-5">
@@ -41,7 +41,7 @@
   </div>
 
   <div
-    *ngIf="taskDetailService.openedTaskDetailView.subtasks.length > 0"
+    *ngIf="taskDetailService.openedTaskDetailView.subtasks"
     class="flex gap-5"
   >
     <span class="font-semibold">Subtasks:</span>

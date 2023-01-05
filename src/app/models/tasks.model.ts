@@ -3,11 +3,11 @@ import { Contact } from "./contact.model";
 export type Task = {
   title: string;
   assignedTo: Contact[];
-  dueDate: any;
+  dueDate: Date;
   category: { name: string; color: string };
   urgency: { name: string; image: string, imageDetail: string };
   description: string;
-  subtasks: any[];
+  subtasks: {name: string, completed: boolean}[];
   status: string;
   id: number;
 };

@@ -7,7 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AppStateService } from 'src/app/app-state/app-state.service';
+import { AppStateService } from 'src/app/services/app-state.service';
 import { Contact } from 'src/app/models/contact.model';
 
 @Component({

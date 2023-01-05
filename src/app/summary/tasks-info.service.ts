@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AppStateService } from '../app-state/app-state.service';
+import { AppStateService } from '../services/app-state.service';
 import { generalTasksInfo } from './task-info.models';
 
 @Injectable({

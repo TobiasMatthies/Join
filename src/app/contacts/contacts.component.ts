@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AddTaskService } from '../add-task/add-task.service';
-import { AppStateService } from '../app-state/app-state.service';
+import { AppStateService } from '../services/app-state.service';
 import { WindowWidthService } from '../layout/window-width.service';
 import { Contact } from '../models/contact.model';
 

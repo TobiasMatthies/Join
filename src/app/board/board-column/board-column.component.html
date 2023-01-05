@@ -27,11 +27,11 @@
 
       <section class="flex flex-col gap-1">
         <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-        <span class="text-gray-400">{{ task.description }}</span>
+        <span class="text-gray-400 text-overflow">{{ task.description }}</span>
       </section>
 
       <div
-        *ngIf="task.subtasks.length > 0"
+        *ngIf="task.subtasks"
         class="flex w-full items-center gap-5"
       >
         <div class="h-2 flex-1 rounded-sm bg-gray-100">
