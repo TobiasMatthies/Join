@@ -1,6 +1,6 @@
 <app-layout (window:resize)="windowWidthService.getWindowWidth()">
   <form
-    class="flex lg:h-[80vh] w-full scroll-pb-2 overflow-y-auto px-[5%] lg:container py-6 lg:pt-12 lg:pb-1 lg:font-light"
+    class="flex w-full scroll-pb-2 overflow-y-auto px-[5%] py-6 lg:container lg:h-[80vh] lg:pt-12 lg:pb-1 lg:font-light"
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
@@ -10,7 +10,7 @@
       id="input_section"
     >
       <div
-        class="mx-auto flex h-full w-full max-w-[550px] flex-col gap-5 lg:mx-0"
+        class="mx-auto flex w-full h-full max-w-[550px] flex-col gap-5 lg:mx-0 lg:w-auto"
       >
         <input
           class="border-b py-2 px-4 text-2xl placeholder-custom-placeholder-gray lg:text-4xl lg:placeholder:font-light"
@@ -80,7 +80,7 @@
             "
             formGroupName="contacts"
           >
-            <ul class="flex flex-col">
+            <ul class="flex flex-col max-h-40 overflow-y-auto">
               <li
                 *ngFor="let contact of appStateService.contacts; index as i"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
@@ -332,7 +332,7 @@
           </div>
 
           <div
-            *ngFor="let subtask of appStateService.subtasks; index as i"
+            *ngFor="let subtask of addTaskService.subtasks; index as i"
             class="flex gap-4"
           >
             <input

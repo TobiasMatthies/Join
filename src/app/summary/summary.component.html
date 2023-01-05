@@ -37,7 +37,7 @@
 
           <div class="flex flex-col justify-center gap-2">
             <h2 class="text-xl font-semibold lg:text-3xl">
-              {{ urgentTasksInfo.deadline }}
+              {{ urgentTasksInfo.deadline | date: 'longDate' }}
             </h2>
             <span class="text-sm lg:text-xl">Upcoming Deadline</span>
           </div>

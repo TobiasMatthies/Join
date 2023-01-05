@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AppStateService } from '../app-state/app-state.service';
+import { AppStateService } from '../services/app-state.service';
 import { ChooseUrgencyService } from './choose-urgency.service';
 import { AddTaskService } from './add-task.service';
 import { WindowWidthService } from '../layout/window-width.service';
@@ -21,7 +21,7 @@ export class AddTaskComponent implements OnInit, OnDestroy {
     this.windowWidthService.getWindowWidth();
     this.addTaskService.initAddTaskForm();
     this.addTaskService.date = new Date().toISOString().split('T')[0];
-    this.addTaskService.fillFormArrays();
+    this.addTaskService.fillContacts();
     this.addTaskService.subscribeToAddTaskFormValues();
   }
 

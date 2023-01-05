@@ -118,7 +118,7 @@
             "
             formGroupName="contacts"
           >
-            <ul class="flex flex-col">
+            <ul class="flex flex-col max-h-40 overflow-y-auto">
               <li
                 *ngFor="let contact of appStateService.contacts; index as i"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
@@ -373,7 +373,7 @@
           </div>
 
           <div
-            *ngFor="let subtask of appStateService.subtasks; index as i"
+            *ngFor="let subtask of addTaskService.subtasks; index as i"
             class="flex gap-4"
           >
             <input

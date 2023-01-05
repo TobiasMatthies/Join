@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AppStateService } from '../app-state/app-state.service';
+import { AppStateService } from '../services/app-state.service';
 import { Task } from '../models/tasks.model';
 import { generalTasksInfo, urgentTasksInfo } from './task-info.models';
 import { TasksInfoService } from './tasks-info.service';
@@ -28,10 +28,7 @@ export class SummaryComponent implements OnInit {
 
     this.urgentTasksInfo = {
       amount: this.urgentTasks.length,
-      deadline: this.urgentTasks[0].dueDate.toLocaleDateString(
-        {},
-        { timeZone: 'UTC', month: 'long', day: '2-digit', year: 'numeric' }
-      ),
+      deadline: this.urgentTasks[0].dueDate,
     };
     this.fillGeneralInfoFieldsArray();
   }
@@ -40,6 +37,11 @@ export class SummaryComponent implements OnInit {
     this.urgentTasks = this.appStateService.tasks.filter(
       (task) => task.urgency.name === 'urgent'
     );
+
+    if (!this.urgentTasks) {
+      this.urgentTasks = [];
+      return;
+    }
 
     this.urgentTasks = this.urgentTasks.sort((a, b) => {
       return a.dueDate < b.dueDate ? -1 : a.dueDate > b.dueDate ? 1 : 0;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AppStateService } from '../app-state/app-state.service';
+import { AppStateService } from '../services/app-state.service';
 import { ChooseUrgencyService } from './choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
@@ -40,11 +40,12 @@ export class AddTaskService {
   selectedSubtasks = [];
   taskStatus: string;
   submitted: boolean = false;
+  subtasks: Array<{ name: string; completed: boolean }> = [];
 
   constructor(
     private appStateService: AppStateService,
     private chooseUrgencyService: ChooseUrgencyService,
-    private taskDetailService: TaskDetailService
+    private taskDetailService: TaskDetailService,
   ) {}
 
   initAddTaskForm() {
@@ -83,23 +84,9 @@ export class AddTaskService {
     });
   }
 
-  fillFormArrays() {
-    this.fillContacts();
-    this.fillSubtasks();
-  }
-
   fillContacts() {
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
       (<FormGroup>this.form.get('contacts')).addControl(
-        i.toString(),
-        new FormControl()
-      );
-    }
-  }
-
-  fillSubtasks() {
-    for (let i = 0; i < this.appStateService.subtasks.length; i++) {
-      (<FormGroup>this.form.get('subtasks')).addControl(
         i.toString(),
         new FormControl()
       );
@@ -197,13 +184,14 @@ export class AddTaskService {
       this.selectedContacts.push(contact);
     }
     if (formControl == 'subtasks') {
-      let subtasks = this.appStateService.subtasks;
+      let subtasks = this.subtasks;
       let subtask = subtasks[i];
       this.selectedSubtasks.push({ ...subtask });
     }
   }
 
   cleanForm() {
+    this.subtasks = [];
     this.resetForm();
     this.submitted = false;
 
@@ -304,17 +292,17 @@ export class AddTaskService {
   }
 
   onCreateNewSubtask() {
-    let subtask: {name: string, completed: boolean} = {
+    let subtask: { name: string; completed: boolean } = {
       name: document.getElementById('subtask')['value'],
       completed: false,
     };
 
     if (subtask) {
       (<FormGroup>this.form.get('subtasks')).addControl(
-        this.appStateService.subtasks.length.toString(),
-        new FormControl()
+        this.subtasks.length.toString(),
+        new FormControl(true)
       );
-      this.appStateService.subtasks.push(subtask);
+      this.subtasks.push(subtask);
       document.getElementById('subtask')['value'] = '';
     }
   }

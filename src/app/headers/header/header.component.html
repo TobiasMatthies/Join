@@ -24,11 +24,19 @@
 
   <div
     *ngIf="logoutOpened"
-    class="absolute right-5 -bottom-28 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white px-8 py-4 text-custom-blue shadow-lg hover:bg-custom-blue-active lg:font-light"
+    class="absolute right-5 -bottom-32 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white text-custom-blue shadow-lg lg:font-light"
     (click)="toggleLogoutOpened()"
   >
-    <a routerLink="/">Log out</a>
-    <a routerLink="/help">Help</a>
-    <a routerLink="/legal-notice">Legal notice</a>
+    <a
+      routerLink="/"
+      class="rounded-tl-2xl px-8 py-2 hover:bg-custom-blue-active"
+      >Log out</a
+    >
+    <a routerLink="/help" class="px-8 py-2 hover:bg-custom-blue-active">Help</a>
+    <a
+      routerLink="/legal-notice"
+      class="rounded-bl-2xl px-8 py-2 hover:bg-custom-blue-active"
+      >Legal notice</a
+    >
   </div>
 </div>
