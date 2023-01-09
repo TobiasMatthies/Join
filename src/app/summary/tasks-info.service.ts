@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AppStateService } from '../services/app-state.service';
+import { DataStorageService } from '../services/data-storage.service';
 import { generalTasksInfo } from './task-info.models';
 
 @Injectable({
@@ -12,20 +13,23 @@ export class TasksInfoService {
   tasksAwaitingFeedbackInfo: generalTasksInfo;
   tasksDoneInfo: generalTasksInfo;
 
-  constructor(private appStateService: AppStateService) {}
+  constructor(
+    private appStateService: AppStateService,
+    private dataStorageService: DataStorageService
+  ) {}
 
-  getSummaryInformation() {
-    this.getTasksTodo();
+  async getSummaryInformation() {
+    await this.getTasksTodo();
     this.getTasksInBoard();
     this.getTasksInProgress();
     this.getTasksAwaitingFeedback();
     this.getTasksDone();
   }
 
-  getTasksTodo() {
+  async getTasksTodo() {
     this.tasksTodoInfo = {
       name: 'Tasks To-do',
-      amount: this.findTasksWithStatus('toDo'),
+      amount: await this.findTasksWithStatus('toDo'),
     };
   }
 
@@ -37,32 +41,38 @@ export class TasksInfoService {
     };
   }
 
-  getTasksInProgress() {
+  async getTasksInProgress() {
     this.tasksInProgressInfo = {
       name: 'Tasks in Progress',
       image: 'assets/img/In Progress.svg',
-      amount: this.findTasksWithStatus('inProgress'),
+      amount: await this.findTasksWithStatus('inProgress'),
     };
   }
 
-  getTasksAwaitingFeedback() {
+  async getTasksAwaitingFeedback() {
     this.tasksAwaitingFeedbackInfo = {
       name: 'Awaiting Feedback',
       image: 'assets/img/Awaiting feedback.svg',
-      amount: this.findTasksWithStatus('awaitingFeedback'),
+      amount: await this.findTasksWithStatus('awaitingFeedback'),
     };
   }
 
-  getTasksDone() {
+  async getTasksDone() {
     this.tasksDoneInfo = {
       name: 'Tasks Done',
       image: 'assets/img/Done.svg',
-      amount: this.findTasksWithStatus('done'),
+      amount: await this.findTasksWithStatus('done'),
     };
   }
 
-  findTasksWithStatus(status: string) {
+  async findTasksWithStatus(status: string) {
     let tasksWithStatusAmount: number = 0;
+
+    if (this.appStateService.tasks.length < 1) {
+      this.appStateService.tasks = await this.dataStorageService.getItem(
+        'tasks.json'
+      );
+    }
 
     for (let i = 0; i < this.appStateService.tasks.length; i++) {
       const task = this.appStateService.tasks[i];

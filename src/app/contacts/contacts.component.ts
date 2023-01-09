@@ -3,6 +3,7 @@ import { AddTaskService } from '../add-task/add-task.service';
 import { AppStateService } from '../services/app-state.service';
 import { WindowWidthService } from '../layout/window-width.service';
 import { Contact } from '../models/contact.model';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-contacts',
@@ -20,19 +21,24 @@ export class ContactsComponent implements OnInit {
     public appStateService: AppStateService,
     public addTaskService: AddTaskService,
     public windowWidthService: WindowWidthService,
-    private changeDetectorRef: ChangeDetectorRef
+    private changeDetectorRef: ChangeDetectorRef,
+    private dataStorageService: DataStorageService
   ) {}
+
+  async ngOnInit() {
+    if (this.appStateService.contacts.length < 1) {
+      this.appStateService.contacts = await this.dataStorageService.getItem('contacts.json');
+    }
+
+    this.windowWidthService.getWindowWidth();
+    this.getEveryFirstLetter();
+  }
 
   updateContacts(contact: Contact) {
     this.firstLetters = [];
     this.changeDetectorRef.detectChanges();
     this.getEveryFirstLetter();
     this.selectedContact = contact;
-  }
-
-  ngOnInit(): void {
-    this.windowWidthService.getWindowWidth();
-    this.getEveryFirstLetter();
   }
 
   /**

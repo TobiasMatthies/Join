@@ -22,8 +22,8 @@ export class SummaryComponent implements OnInit {
     private appStateService: AppStateService
   ) {}
 
-  ngOnInit(): void {
-    this.tasksInfoService.getSummaryInformation();
+  async ngOnInit() {
+    await this.tasksInfoService.getSummaryInformation();
     this.findUrgentTasks();
 
     this.urgentTasksInfo = {
