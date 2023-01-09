@@ -7,6 +7,7 @@ import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,7 @@ export class AddTaskService {
     private appStateService: AppStateService,
     private chooseUrgencyService: ChooseUrgencyService,
     private taskDetailService: TaskDetailService,
+    private dataStorageService: DataStorageService
   ) {}
 
   initAddTaskForm() {
@@ -135,6 +137,7 @@ export class AddTaskService {
       this.getOnlySelectedValues('subtasks');
       let task: Task = this.createTask();
       this.appStateService.tasks.push(task);
+      this.dataStorageService.setItem(this.appStateService.tasks, 'tasks.json');
       this.cleanForm();
     } else {
       this.resetSubmission();
@@ -241,7 +244,7 @@ export class AddTaskService {
       ),
       1
     );
-
+    this.dataStorageService.setItem(this.appStateService.tasks, 'tasks.json');
     this.taskDetailService.closeTaskDetailView();
   }
 
@@ -265,6 +268,7 @@ export class AddTaskService {
         name: this.categoryName,
         color: this.selectedColor,
       });
+      this.dataStorageService.setItem(this.appStateService.categories, 'categories.json');
       this.categoryColors.splice(
         this.categoryColors.indexOf(this.selectedColor),
         1

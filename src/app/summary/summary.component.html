@@ -23,9 +23,11 @@
                 src="assets/img/icon + circle.svg"
                 alt="Tasks urgent"
               />
-              <span class="text-2xl font-semibold lg:text-4xl">{{
-                urgentTasksInfo.amount
-              }}</span>
+              <span
+                *ngIf="urgentTasksInfo"
+                class="text-2xl font-semibold lg:text-4xl"
+                >{{ urgentTasksInfo.amount }}</span
+              >
             </div>
             <h3 class="text-sm lg:text-xl">Tasks Urgent</h3>
           </div>
@@ -36,8 +38,11 @@
           ></div>
 
           <div class="flex flex-col justify-center gap-2">
-            <h2 class="text-xl font-semibold lg:text-3xl">
-              {{ urgentTasksInfo.deadline | date: 'longDate' }}
+            <h2
+              *ngIf="urgentTasksInfo"
+              class="text-xl font-semibold lg:text-3xl"
+            >
+              {{ urgentTasksInfo.deadline | date: "longDate" }}
             </h2>
             <span class="text-sm lg:text-xl">Upcoming Deadline</span>
           </div>
@@ -53,13 +58,17 @@
               src="assets/img/to do 1.svg"
               alt="Tasks Todo"
             />
-            <span class="text-2xl font-semibold lg:text-4xl">{{
-              tasksInfoService.tasksTodoInfo.amount
-            }}</span>
+            <span
+              *ngIf="tasksInfoService.tasksTodoInfo"
+              class="text-2xl font-semibold lg:text-4xl"
+              >{{ tasksInfoService.tasksTodoInfo.amount }}</span
+            >
           </div>
-          <span class="text-sm text-custom-blue lg:text-xl">{{
-            tasksInfoService.tasksTodoInfo.name
-          }}</span>
+          <span
+            *ngIf="tasksInfoService.tasksTodoInfo"
+            class="text-sm text-custom-blue lg:text-xl"
+            >{{ tasksInfoService.tasksTodoInfo.name }}</span
+          >
         </div>
       </div>
 
@@ -77,11 +86,12 @@
               [src]="info.image"
               alt="Tasks Todo"
             />
-            <span class="text-2xl font-semibold lg:text-4xl">{{
+            <span *ngIf="info" class="text-2xl font-semibold lg:text-4xl">{{
               info.amount
             }}</span>
           </div>
           <span
+            *ngIf="info"
             class="text-center text-sm text-custom-blue group-hover:text-white lg:text-xl"
             >{{ info.name }}</span
           >

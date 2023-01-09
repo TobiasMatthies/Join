@@ -6,6 +6,7 @@ import { AppStateService } from '../services/app-state.service';
 import { Task } from '../models/tasks.model';
 import { TaskDetailService } from './task-detail.service';
 import { AddTaskService } from '../add-task/add-task.service';
+import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
   selector: 'app-board',
@@ -13,15 +14,20 @@ import { AddTaskService } from '../add-task/add-task.service';
   styleUrls: ['./board.component.css'],
 })
 export class BoardComponent implements OnInit {
-  filteredTasks: Task[];
+  filteredTasks: Task[] = [];
 
   constructor(
     public appStateService: AppStateService,
     public taskDetailService: TaskDetailService,
-    public addTaskService: AddTaskService
+    public addTaskService: AddTaskService,
+    private dataStorageService: DataStorageService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    if (this.appStateService.tasks.length < 1) {
+      this.appStateService.tasks = await this.dataStorageService.getItem('tasks.json');
+    }
+
     this.filteredTasks = this.appStateService.tasks;
   }
 

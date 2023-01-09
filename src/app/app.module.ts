@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +28,6 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { BoardColumnComponent } from './board/board-column/board-column.component';
 import { AddTaskResponsiveHeaderComponent } from './headers/add-task-responsive-header/add-task-responsive-header.component';
 import { ContactDetailViewComponent } from './contacts/contact-detail-view/contact-detail-view.component';
-import { DataStorageService } from './services/data-storage.service';
 
 @NgModule({
   declarations: [
@@ -65,18 +63,7 @@ import { DataStorageService } from './services/data-storage.service';
     DragDropModule,
     HttpClientModule,
   ],
-  providers: [
-    {
-      provide: APP_INITIALIZER,
-      useFactory: resourceProviderFactory,
-      deps: [DataStorageService],
-      multi: true,
-    },
-  ],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
-
-export function resourceProviderFactory(provider: DataStorageService) {
-  return () => provider.fetchData();
-}
