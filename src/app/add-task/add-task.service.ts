@@ -8,6 +8,7 @@ import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
 import { DataStorageService } from '../services/data-storage.service';
+import { Contact } from '../models/contact.model';
 
 @Injectable({
   providedIn: 'root',
@@ -86,13 +87,15 @@ export class AddTaskService {
     });
   }
 
-  fillContacts() {
+  fillContacts(): Contact[] {
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
       (<FormGroup>this.form.get('contacts')).addControl(
         i.toString(),
         new FormControl()
       );
     }
+
+    return this.appStateService.contacts;
   }
 
   fillEditedContacts() {
@@ -268,7 +271,10 @@ export class AddTaskService {
         name: this.categoryName,
         color: this.selectedColor,
       });
-      this.dataStorageService.setItem(this.appStateService.categories, 'categories.json');
+      this.dataStorageService.setItem(
+        this.appStateService.categories,
+        'categories.json'
+      );
       this.categoryColors.splice(
         this.categoryColors.indexOf(this.selectedColor),
         1
@@ -328,7 +334,6 @@ export class AddTaskService {
       dueDate: this.date,
     });
   }
-
   hideDropdowns() {
     if (this.showContacts) {
       this.toggleContacts();
