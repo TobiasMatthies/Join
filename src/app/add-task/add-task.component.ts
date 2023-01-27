@@ -20,32 +20,13 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   ) {}
 
   async ngOnInit() {
-    await this.fetchData();
-    console.log(this.appStateService.categories, this.appStateService.contacts);
     this.windowWidthService.getWindowWidth();
     this.addTaskService.initAddTaskForm();
-    this.addTaskService.date = new Date().toISOString().split('T')[0];
     this.addTaskService.fillContacts();
+    await this.dataStorageService.fetchData();
+    this.addTaskService.fillContacts();
+    this.addTaskService.date = new Date().toISOString().split('T')[0];
     this.addTaskService.subscribeToAddTaskFormValues();
-  }
-
-  async fetchData() {
-    if (
-      this.appStateService.categories.length < 1 ||
-      this.appStateService.contacts.length < 1
-    ) {
-      if (this.appStateService.categories.length < 1) {
-        this.appStateService.categories = await this.dataStorageService.getItem(
-          'categories.json'
-        );
-      }
-
-      if (this.appStateService.contacts.length < 1) {
-        this.appStateService.contacts = await this.dataStorageService.getItem(
-          'contacts.json'
-        );
-      }
-    }
   }
 
   ngOnDestroy(): void {

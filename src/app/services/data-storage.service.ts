@@ -32,7 +32,6 @@ export class DataStorageService {
         'https://join-12c12-default-rtdb.firebaseio.com/' + endpoint
       )
     );
-
     return item;
   }
 }
