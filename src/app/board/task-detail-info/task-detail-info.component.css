@@ -1,12 +1,11 @@
-
 .blue-filter-hover:hover img {
-    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
+  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
     brightness(98%) contrast(106%) !important;
 }
 
 .absolute_center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
 }
