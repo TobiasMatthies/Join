@@ -7,3 +7,35 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+.absolute-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.task-added-animation {
+  display: flex;
+  top: unset;
+  transform: unset;
+  bottom: 0;
+  animation: up-and-down 1.5s;
+}
+
+@keyframes up-and-down {
+  0% {
+    bottom: 0;
+  }
+
+  15% {
+    bottom: 50%;
+  }
+
+  85% {
+    bottom: 50%;
+  }
+
+  100% {
+    bottom: 0;
+    display: none;
+  }
+}

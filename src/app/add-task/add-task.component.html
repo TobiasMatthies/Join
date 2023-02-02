@@ -10,7 +10,7 @@
       id="input_section"
     >
       <div
-        class="mx-auto flex w-full h-full max-w-[550px] flex-col gap-5 lg:mx-0 lg:w-auto"
+        class="mx-auto flex h-full w-full max-w-[550px] flex-col gap-5 lg:mx-0 lg:w-auto"
       >
         <input
           class="border-b py-2 px-4 text-2xl placeholder-custom-placeholder-gray lg:text-4xl lg:placeholder:font-light"
@@ -30,7 +30,10 @@
         >
 
         <div>
-          <div class="flex items-center justify-between border-b py-2 px-4">
+          <div
+            class="flex items-center justify-between border-b py-2 px-4"
+            (click)="addTaskService.toggleContacts()"
+          >
             <ng-container
               *ngIf="
                 !addTaskService.showInviteNewContact;
@@ -42,7 +45,6 @@
                 class="cursor-pointer"
                 src="assets/img/Vector 2.svg"
                 alt="select"
-                (click)="addTaskService.toggleContacts()"
               />
             </ng-container>
             <ng-template #inviteNewContact>
@@ -80,9 +82,15 @@
             "
             formGroupName="contacts"
           >
-            <ul *ngIf="appStateService.contacts.length > 0" class="flex flex-col max-h-40 overflow-y-auto">
+            <ul
+              *ngIf="appStateService.contacts.length > 0"
+              class="flex max-h-40 flex-col overflow-y-auto"
+            >
               <li
-                *ngFor="let contact of addTaskService.fillContacts(); index as i"
+                *ngFor="
+                  let contact of addTaskService.fillContacts();
+                  index as i
+                "
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
               >
                 <span>{{ contact.name }}</span>
@@ -150,7 +158,10 @@
             <label class="font-bold text-custom-title-gray" for="category"
               >Category</label
             >
-            <div class="flex justify-between border-b py-2 px-4">
+            <div
+              class="flex justify-between border-b py-2 px-4"
+              (click)="addTaskService.toggleCategories()"
+            >
               <ng-container
                 *ngIf="
                   !addTaskService.showCreateNewCategory;
@@ -180,7 +191,6 @@
                   class="cursor-pointer"
                   src="assets/img/Vector 2.svg"
                   alt="select"
-                  (click)="addTaskService.toggleCategories()"
                 />
               </ng-container>
               <ng-template #createNewCategory>
@@ -367,4 +377,16 @@
       </app-button-primary>
     </div>
   </form>
+
+  <div
+    [ngClass]="addTaskService.taskCreated ? 'task-added-animation' : ''"
+    class="absolute-center absolute m-auto hidden gap-5 rounded-2xl bg-custom-blue p-4 text-xl text-white"
+  >
+    <span>Task added to board</span>
+    <img
+      class="brightness-0 invert"
+      src="assets/img/Vector-10.svg"
+      alt="board"
+    />
+  </div>
 </app-layout>

@@ -44,6 +44,8 @@ export class AddTaskService {
   submitted: boolean = false;
   subtasks: Array<{ name: string; completed: boolean }> = [];
 
+  taskCreated: boolean = false;
+
   constructor(
     private appStateService: AppStateService,
     private chooseUrgencyService: ChooseUrgencyService,
@@ -142,6 +144,7 @@ export class AddTaskService {
       this.appStateService.tasks.push(task);
       this.dataStorageService.setItem(this.appStateService.tasks, 'tasks.json');
       this.cleanForm();
+      this.showTaskCreated();
     } else {
       this.resetSubmission();
     }
@@ -205,6 +208,14 @@ export class AddTaskService {
       this.taskStatus = null;
       this.toggleAddTaskOverlay();
     }
+  }
+
+  showTaskCreated() {
+    this.taskCreated = true
+    
+    setTimeout(() => {
+      this.taskCreated = false;
+    }, 1500)
   }
 
   onEditTask() {

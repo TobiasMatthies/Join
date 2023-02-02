@@ -1,7 +1,7 @@
 <form
   [formGroup]="addTaskService.form"
   (ngSubmit)="onEditTask()"
-  class="relative flex max-h-[90vh] min-h-[40vh] w-full flex-col items-center gap-5 rounded-3xl bg-white p-8 text-xl lg:font-light shadow-custom-info-fields"
+  class="relative flex h-full min-h-[40vh] w-full flex-col items-center gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
 >
   <div class="flex w-full justify-end">
     <img
@@ -131,7 +131,7 @@
       <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-white">
         <div class="max-h-[78px] overflow-y-auto">
           <li
-            *ngFor="let contact of appStateService.contacts, index as i"
+            *ngFor="let contact of appStateService.contacts; index as i"
             class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
           >
             <span>{{ contact.name }}</span>
@@ -159,7 +159,7 @@
       class="text-xs text-custom-red-urgent"
       >This field is required</span
     >
-    <div class="flex gap-2 max-w-[150px] overflow-x-auto">
+    <div class="flex max-w-[150px] gap-2 overflow-x-auto">
       <span
         *ngFor="let contact of addTaskService.selectedContacts"
         class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"

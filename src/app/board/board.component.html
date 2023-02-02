@@ -141,10 +141,10 @@
 
 <app-task-detail-info
   *ngIf="taskDetailService.openedTaskDetailView && !taskDetailService.editMode"
-  class="absolute_center w-2/5"
+  class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5"
 ></app-task-detail-info>
 
 <app-task-detail-edit
   *ngIf="taskDetailService.openedTaskDetailView && taskDetailService.editMode"
-  class="absolute_center w-2/5"
+  class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5"
 ></app-task-detail-edit>
