@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
 import { SummaryComponent } from './summary/summary.component';
 import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
@@ -28,11 +27,13 @@ import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { BoardColumnComponent } from './board/board-column/board-column.component';
 import { AddTaskResponsiveHeaderComponent } from './headers/add-task-responsive-header/add-task-responsive-header.component';
 import { ContactDetailViewComponent } from './contacts/contact-detail-view/contact-detail-view.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AuthComponent,
     SummaryComponent,
     AddTaskComponent,
     BoardComponent,
@@ -54,6 +55,9 @@ import { ContactDetailViewComponent } from './contacts/contact-detail-view/conta
     BoardColumnComponent,
     AddTaskResponsiveHeaderComponent,
     ContactDetailViewComponent,
+    LoginComponent,
+    SignupComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
