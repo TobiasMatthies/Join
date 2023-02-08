@@ -1,5 +1,5 @@
 <div
-  class="flex h-screen flex-col items-center justify-center gap-5 px-[5%] transition-all md:gap-0 bg-custom-blue"
+  class="flex h-screen flex-col items-center justify-center gap-5 bg-custom-blue px-[5%] transition-all md:gap-0"
 >
   <div
     class="top-10 left-10 right-10 flex items-start justify-between self-start md:absolute"
@@ -16,7 +16,7 @@
     class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white p-6 md:w-2/5 md:min-w-[576px] md:max-w-none"
   >
     <img
-      class="md:absolute md:left-6 md:top-8 cursor-pointer self-start"
+      class="cursor-pointer self-start md:absolute md:left-6 md:top-8"
       src="assets/img/arrow.svg"
       alt="go back"
       (click)="router.navigate(['login'])"
@@ -24,9 +24,7 @@
 
     <!--Heading Section-->
     <div class="mb-5 flex flex-col items-center gap-5">
-      <h1 class="text-4xl font-semibold text-center">
-        Sign up
-      </h1>
+      <h1 class="text-center text-4xl font-semibold">Sign up</h1>
       <img
         src="assets/img/Vector 5.svg"
         alt="border"
@@ -36,8 +34,8 @@
 
     <!--Input Section-->
     <form
-      class="flex w-full flex-col gap-5 lg:font-light md:w-2/3"
-      (ngSubmit)="onSubmit()"
+      class="flex w-full flex-col gap-5 md:w-2/3 lg:font-light"
+      (ngSubmit)="onSubmit(form)"
       #form="ngForm"
     >
       <div
@@ -48,6 +46,7 @@
           placeholder="Name"
           type="text"
           name="name"
+          required
           ngModel
         />
         <img src="assets/img/Vector-4.svg" alt="name" />
@@ -61,6 +60,8 @@
           placeholder="Email"
           type="text"
           name="email"
+          required
+          email
           ngModel
         />
         <img src="assets/img/Vector-5.svg" alt="email" />
@@ -72,12 +73,16 @@
         <input
           class="bg-transparent"
           placeholder="Password"
-          type="text"
+          type="password"
           name="password"
+          minlength="6"
+          required
           ngModel
         />
         <img src="assets/img/Vector-7.svg" alt="password" />
       </div>
+
+      <span *ngIf="error" class="text-red-500">{{ error }}</span>
 
       <!--Auth Actions Section-->
       <div
@@ -86,8 +91,8 @@
         <app-button-primary class="min-w-[144px] md:w-auto">
           <span class="px-6">Sign up</span>
         </app-button-primary>
-
       </div>
+      
     </form>
   </div>
 </div>

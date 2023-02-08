@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,5 +10,7 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent {
    constructor(public router: Router) {}
 
-   onSubmit() {}
+   onSubmit(form: NgForm) {
+    console.log(form.value);
+   }
 }

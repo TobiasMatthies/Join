@@ -37,7 +37,7 @@
     <!--Input Section-->
     <form
       class="flex w-full flex-col gap-5 md:w-2/3 lg:font-light"
-      (ngSubmit)="onSubmit()"
+      (ngSubmit)="onSubmit(form)"
       #form="ngForm"
     >
 
@@ -60,7 +60,7 @@
         <input
           class="bg-transparent"
           placeholder="Password"
-          type="text"
+          type="password"
           name="password"
           ngModel
         />
