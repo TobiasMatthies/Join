@@ -46,6 +46,7 @@
           placeholder="Name"
           type="text"
           name="name"
+          (focus)="resetErrorMessage()"
           required
           ngModel
         />
@@ -60,6 +61,7 @@
           placeholder="Email"
           type="text"
           name="email"
+          (focus)="resetErrorMessage()"
           required
           email
           ngModel
@@ -76,6 +78,7 @@
           type="password"
           name="password"
           minlength="6"
+          (focus)="resetErrorMessage()"
           required
           ngModel
         />
@@ -92,7 +95,6 @@
           <span class="px-6">Sign up</span>
         </app-button-primary>
       </div>
-      
     </form>
   </div>
 </div>

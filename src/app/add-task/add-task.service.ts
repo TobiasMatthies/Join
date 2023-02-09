@@ -211,11 +211,11 @@ export class AddTaskService {
   }
 
   showTaskCreated() {
-    this.taskCreated = true
-    
+    this.taskCreated = true;
+
     setTimeout(() => {
       this.taskCreated = false;
-    }, 1500)
+    }, 1500);
   }
 
   onEditTask() {
@@ -364,10 +364,12 @@ export class AddTaskService {
   }
 
   toggleContacts() {
+    this.showCategories = false;
     this.showContacts = !this.showContacts;
   }
 
   toggleCategories() {
+    this.showContacts = false;
     this.showCategories = !this.showCategories;
   }
 
