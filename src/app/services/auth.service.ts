@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Subject, tap, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
 import { User } from '../auth/user.model';
+import { DataStorageService } from './data-storage.service';
 
 interface AuthResponseData {
   idToken: string;
@@ -16,9 +18,13 @@ interface AuthResponseData {
   providedIn: 'root',
 })
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User>(null);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private dataStorageService: DataStorageService
+  ) {}
 
   signup(email: string, password: string) {
     return this.httpClient
@@ -98,5 +104,7 @@ export class AuthService {
       expirationDate
     );
     this.user.next(user);
+    this.dataStorageService.fetchData();
+    this.router.navigate(['/summary']);
   }
 }
