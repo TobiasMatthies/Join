@@ -47,6 +47,7 @@
           type="text"
           name="email"
           (focus)="resetErrorMessage()"
+          required
           ngModel
         />
         <img src="assets/img/Vector-5.svg" alt="email" />
@@ -61,6 +62,7 @@
           type="password"
           name="password"
           (focus)="resetErrorMessage()"
+          required
           ngModel
         />
         <img src="assets/img/Vector-7.svg" alt="password" />
@@ -93,6 +95,8 @@
 
         <button
           class="w-36 rounded-lg border py-2 px-6 transition-all hover:shadow-md"
+          type="button"
+          (click)="guestLogin()"
         >
           Guest log in
         </button>

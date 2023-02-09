@@ -32,4 +32,13 @@ export class LoginComponent {
   resetErrorMessage() {
     this.error = null;
   }
+
+  guestLogin() {
+    this.authService.login('test@test.com', 'test1234').subscribe(
+      (resData) => {},
+      (error) => {
+        this.error = error;
+      }
+    );
+  }
 }
