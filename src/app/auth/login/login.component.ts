@@ -9,6 +9,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
+  error: string;
+
   constructor(private authService: AuthService, public router: Router) {}
 
   onSubmit(form: NgForm) {
@@ -20,12 +22,14 @@ export class LoginComponent {
     const password = form.value.password;
 
     this.authService.login(email, password).subscribe(
-      (resData) => {
-        console.log(resData);
-      },
+      (resData) => {},
       (error) => {
-        console.log(error);
+        this.error = error;
       }
     );
+  }
+
+  resetErrorMessage() {
+    this.error = null;
   }
 }

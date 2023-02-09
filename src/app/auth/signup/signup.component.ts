@@ -17,33 +17,24 @@ export class SignupComponent {
     if (!form.valid) {
       return;
     }
-
     const email = form.value.email;
     const password = form.value.password;
-    this.authService.signup(email, password).subscribe(
-      (resData) => {
-        console.log(resData);
-      },
-      (error) => {
-        console.log(error);
-        this.setErrorMessage(error);
-      }
-    );
+    this.signUp(email, password);
     form.reset();
   }
 
-  setErrorMessage(error) {
-    switch (error.error.error.message) {
-      case 'EMAIL_EXISTS':
-        this.error = 'This email already exists!';
-        break;
-      case 'OPERATION_NOT_ALLOWED':
-        this.error = 'Password sign-in is disabled';
-        break;
-      case 'TOO_MANY_ATTEMPTS_TRY_LATER':
-        this.error =
-          'We have blocked all requests from this device due to unusual activity. Try again later.';
-        break;
-    }
+  signUp(email: string, password: string) {
+    this.authService.signup(email, password).subscribe(
+      (resData) => {
+        return;
+      },
+      (errorMessage) => {
+        this.error = errorMessage;
+      }
+    );
+  }
+
+  resetErrorMessage() {
+    this.error = null;
   }
 }
