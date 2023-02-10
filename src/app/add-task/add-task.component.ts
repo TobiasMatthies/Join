@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppStateService } from '../services/app-state.service';
 import { ChooseUrgencyService } from './choose-urgency.service';
-import { AddTaskService } from './add-task.service';
+import { AddTaskService } from '../services/add-task.service';
 import { WindowWidthService } from '../layout/window-width.service';
 import { DataStorageService } from '../services/data-storage.service';
 

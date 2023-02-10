@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, tap, throwError } from 'rxjs';
-import { User } from '../auth/user.model';
+import { User } from '../models/user.model';
 import { DataStorageService } from './data-storage.service';
 
 interface AuthResponseData {
@@ -19,6 +19,7 @@ interface AuthResponseData {
 })
 export class AuthService {
   user = new BehaviorSubject<User>(null);
+  private tokenExpirationTimer;
 
   constructor(
     private httpClient: HttpClient,
@@ -42,6 +43,7 @@ export class AuthService {
         }),
         tap((resData: AuthResponseData) => {
           this.setUser(resData);
+          this.router.navigate(['/summary']);
         })
       );
   }
@@ -62,12 +64,13 @@ export class AuthService {
         }),
         tap((resData: AuthResponseData) => {
           this.setUser(resData);
+          this.router.navigate(['/summary']);
         })
       );
   }
 
   private returnError(errorRes) {
-    let errorMessage;
+    let errorMessage: string;
 
     if (!errorRes.error || !errorRes.error.error) {
       return throwError(errorMessage);
@@ -97,14 +100,65 @@ export class AuthService {
     const expirationDate = new Date(
       new Date().getTime() + +resData.expiresIn * 1000
     );
-    const user = new User(
+    const user = this.createUser(resData, expirationDate);
+    this.userLogin(user, +resData.expiresIn * 1000);
+  }
+
+  createUser(resData: AuthResponseData, expirationDate: Date): User {
+    return new User(
       resData.email,
       resData.localId,
       resData.idToken,
       expirationDate
     );
+  }
+
+  /**
+   *
+   * emit and save the created user, load app data
+   */
+  userLogin(user: User, expirationDate: number) {
+    this.autoLogout(expirationDate);
     this.user.next(user);
+    localStorage.setItem('user', JSON.stringify(user));
     this.dataStorageService.fetchData();
-    this.router.navigate(['/summary']);
+  }
+
+  autoLogin() {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+      return;
+    }
+
+    const loadedUser = this.createUserFromLocalStorage(user);
+    const expirationDuration: number = new Date(user._tokenExpirationDate).getTime() - new Date().getTime();
+    this.userLogin(loadedUser, expirationDuration);
+  }
+
+  createUserFromLocalStorage(user) {
+    return new User(
+      user.email,
+      user.id,
+      user._token,
+      new Date(user._tokenExpirationDate)
+    );
+  }
+
+  logout() {
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+
+    this.user.next(null);
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
   }
 }

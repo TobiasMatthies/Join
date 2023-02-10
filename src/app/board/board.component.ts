@@ -5,7 +5,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { AppStateService } from '../services/app-state.service';
 import { Task } from '../models/tasks.model';
 import { TaskDetailService } from './task-detail.service';
-import { AddTaskService } from '../add-task/add-task.service';
+import { AddTaskService } from '../services/add-task.service';
 import { DataStorageService } from '../services/data-storage.service';
 
 @Component({
@@ -25,7 +25,9 @@ export class BoardComponent implements OnInit {
 
   async ngOnInit() {
     if (this.appStateService.tasks.length < 1) {
-      this.appStateService.tasks = await this.dataStorageService.getItem('tasks.json');
+      this.appStateService.tasks = await this.dataStorageService.getItem(
+        'tasks.json'
+      );
     }
 
     this.filteredTasks = this.appStateService.tasks;
