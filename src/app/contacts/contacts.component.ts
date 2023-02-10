@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AddTaskService } from '../add-task/add-task.service';
+import { AddTaskService } from '../services/add-task.service';
 import { AppStateService } from '../services/app-state.service';
 import { WindowWidthService } from '../layout/window-width.service';
 import { Contact } from '../models/contact.model';
@@ -27,7 +27,9 @@ export class ContactsComponent implements OnInit {
 
   async ngOnInit() {
     if (this.appStateService.contacts.length < 1) {
-      this.appStateService.contacts = await this.dataStorageService.getItem('contacts.json');
+      this.appStateService.contacts = await this.dataStorageService.getItem(
+        'contacts.json'
+      );
     }
 
     this.windowWidthService.getWindowWidth();

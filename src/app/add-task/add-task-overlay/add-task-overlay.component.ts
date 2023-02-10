@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { TaskDetailService } from 'src/app/board/task-detail.service';
 import { WindowWidthService } from 'src/app/layout/window-width.service';
-import { AddTaskService } from '../add-task.service';
+import { AddTaskService } from '../../services/add-task.service';
 
 @Component({
   selector: 'app-add-task-overlay',

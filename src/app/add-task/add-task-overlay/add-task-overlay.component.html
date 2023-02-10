@@ -8,7 +8,7 @@
   </app-add-task-responsive-header>
 
   <div
-    class="w-full bg-white/50"
+    class="h-full w-full bg-white/50"
     (click)="addTaskService.toggleAddTaskOverlay()"
   ></div>
   <form
@@ -118,7 +118,7 @@
             "
             formGroupName="contacts"
           >
-            <ul class="flex flex-col max-h-40 overflow-y-auto">
+            <ul class="flex max-h-40 flex-col overflow-y-auto">
               <li
                 *ngFor="let contact of appStateService.contacts; index as i"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"

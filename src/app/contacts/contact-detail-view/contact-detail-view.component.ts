@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AddTaskService } from 'src/app/add-task/add-task.service';
+import { AddTaskService } from 'src/app/services/add-task.service';
 import { Contact } from 'src/app/models/contact.model';
 
 @Component({
   selector: 'app-contact-detail-view',
   templateUrl: './contact-detail-view.component.html',
-  styleUrls: ['./contact-detail-view.component.css']
+  styleUrls: ['./contact-detail-view.component.css'],
 })
 export class ContactDetailViewComponent {
   @Input() selectedContact: Contact;

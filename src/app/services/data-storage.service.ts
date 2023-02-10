@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, Injector, OnInit } from '@angular/core';
 import { exhaustMap, firstValueFrom, take } from 'rxjs';
-import { User } from '../auth/user.model';
+import { User } from '../models/user.model';
 import { AppStateService } from './app-state.service';
 import { AuthService } from './auth.service';
 
@@ -43,14 +43,16 @@ export class DataStorageService {
 
   setItem(item: Object, endpoint: string) {
     this.httpClient
-      .put('https://join-12c12-default-rtdb.firebaseio.com/' + endpoint, item)
+      .put('https://join-12c12-default-rtdb.firebaseio.com/' + endpoint, item, {
+        params: new HttpParams().set('auth', this.user.token),
+      })
       .subscribe((responseData) => {
         console.log(responseData);
       });
   }
 
   /**
-   * 
+   *
    * @param endpoint the endpoint where the data get's fetched from
    *  get an item at the given endpoint and wait until the promise get's resolved
    * return the result

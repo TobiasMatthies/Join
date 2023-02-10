@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AppStateService } from '../services/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency.service';
-import { atLeastOneCheckboxCheckedValidator } from './contacts.validator';
+import { AppStateService } from './app-state.service';
+import { ChooseUrgencyService } from '../add-task/choose-urgency.service';
+import { atLeastOneCheckboxCheckedValidator } from '../add-task/contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
 import { TaskDetailService } from '../board/task-detail.service';
-import { DataStorageService } from '../services/data-storage.service';
+import { DataStorageService } from './data-storage.service';
 import { Contact } from '../models/contact.model';
 
 @Injectable({
