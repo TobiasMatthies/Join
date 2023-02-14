@@ -4,7 +4,7 @@ import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { AppStateService } from '../services/app-state.service';
 import { Task } from '../models/tasks.model';
-import { TaskDetailService } from './task-detail.service';
+import { TaskDetailService } from '../services/task-detail.service';
 import { AddTaskService } from '../services/add-task.service';
 import { DataStorageService } from '../services/data-storage.service';
 

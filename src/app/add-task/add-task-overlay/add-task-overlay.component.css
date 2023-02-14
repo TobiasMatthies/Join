@@ -9,5 +9,32 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .blue-filter {
-  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
+  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
+    brightness(98%) contrast(106%);
+}
+
+.slide-in {
+  animation: slide-in 0.3s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.3s forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
 }

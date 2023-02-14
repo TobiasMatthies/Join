@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TaskDetailService } from '../task-detail.service';
+import { TaskDetailService } from '../../services/task-detail.service';
 import { ConfirmService } from './confirm.service';
 
 @Component({
@@ -8,5 +8,8 @@ import { ConfirmService } from './confirm.service';
   styleUrls: ['./task-detail-info.component.css'],
 })
 export class TaskDetailInfoComponent {
-  constructor(public taskDetailService: TaskDetailService, public confirmService: ConfirmService) {}
+  constructor(
+    public taskDetailService: TaskDetailService,
+    public confirmService: ConfirmService
+  ) {}
 }

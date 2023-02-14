@@ -1,5 +1,5 @@
 <div
-  class="absolute top-0 right-0 flex h-full w-full flex-col"
+  class="absolute top-0 right-0 flex h-full w-full flex-col overflow-hidden"
   (window:resize)="windowWidthService.getWindowWidth()"
 >
   <app-add-task-responsive-header
@@ -8,11 +8,13 @@
   </app-add-task-responsive-header>
 
   <div
-    class="h-full w-full bg-white/50"
+    class="h-full w-full show-background-animation"
+    [ngClass]="addTaskService.addTaskOverlayCloseAnimation ? 'hide-background-animation' : ''"
     (click)="addTaskService.toggleAddTaskOverlay()"
   ></div>
   <form
-    class="flex h-full w-full flex-col gap-5 bg-white p-8 pt-12 shadow-custom-card md:absolute md:right-0 md:w-2/3 md:max-w-[550px] md:rounded-l-3xl lg:font-light xl:w-1/3"
+    class="flex h-full w-full flex-col gap-5 bg-white p-8 pt-12 shadow-custom-card md:absolute md:right-0 md:w-2/3 md:max-w-[550px] md:rounded-l-3xl lg:font-light xl:w-1/3 slide-in"
+    [ngClass]="addTaskService.addTaskOverlayCloseAnimation ? 'slide-out' : ''"
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
@@ -75,13 +77,17 @@
                 else inviteNewContact
               "
             >
-              <span>Select contacts to assign</span>
-              <img
-                class="cursor-pointer"
-                src="assets/img/Vector 2.svg"
-                alt="select"
+              <div
+                class="flex w-full justify-between"
                 (click)="addTaskService.toggleContacts()"
-              />
+              >
+                <span>Select contacts to assign</span>
+                <img
+                  class="cursor-pointer"
+                  src="assets/img/Vector 2.svg"
+                  alt="select"
+                />
+              </div>
             </ng-container>
             <ng-template #inviteNewContact>
               <input
@@ -118,7 +124,15 @@
             "
             formGroupName="contacts"
           >
-            <ul class="flex max-h-40 flex-col overflow-y-auto">
+             <ul
+              *ngIf="appStateService.contacts.length > 0"
+              class="drop-down-animation flex max-h-40 flex-col overflow-y-auto"
+              [ngClass]="
+                addTaskService.closeContactsAnimation
+                  ? 'pull-up-animation'
+                  : ''
+              "
+            >
               <li
                 *ngFor="let contact of appStateService.contacts; index as i"
                 class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
@@ -195,31 +209,35 @@
                   else createNewCategory
                 "
               >
-                <span *ngIf="!addTaskService.form.controls['category'].value"
-                  >Select task category</span
-                >
-
                 <div
-                  *ngIf="addTaskService.form.controls['category'].value"
-                  class="flex items-center gap-5"
-                >
-                  <span>{{
-                    addTaskService.form.controls["category"].value.name
-                  }}</span>
-                  <div
-                    [ngStyle]="{
-                      'background-color':
-                        addTaskService.form.controls['category'].value.color
-                    }"
-                    class="h-4 w-4 rounded-full"
-                  ></div>
-                </div>
-                <img
-                  class="cursor-pointer"
-                  src="assets/img/Vector 2.svg"
-                  alt="select"
+                  class="flex w-full justify-between"
                   (click)="addTaskService.toggleCategories()"
-                />
+                >
+                  <span *ngIf="!addTaskService.form.controls['category'].value"
+                    >Select task category</span
+                  >
+
+                  <div
+                    *ngIf="addTaskService.form.controls['category'].value"
+                    class="flex items-center gap-5"
+                  >
+                    <span>{{
+                      addTaskService.form.controls["category"].value.name
+                    }}</span>
+                    <div
+                      [ngStyle]="{
+                        'background-color':
+                          addTaskService.form.controls['category'].value.color
+                      }"
+                      class="h-4 w-4 rounded-full"
+                    ></div>
+                  </div>
+                  <img
+                    class="cursor-pointer"
+                    src="assets/img/Vector 2.svg"
+                    alt="select"
+                  />
+                </div>
               </ng-container>
               <ng-template #createNewCategory>
                 <input
@@ -265,7 +283,14 @@
               else categoryColorsContainer
             "
           >
-            <ul class="flex flex-col">
+           <ul
+              class="drop-down-animation flex flex-col overflow-y-auto"
+              [ngClass]="
+                addTaskService.closeCategoriesAnimation
+                  ? 'pull-up-animation'
+                  : ''
+              "
+            >
               <li
                 class="cursor-pointer px-4 py-3 hover:bg-custom-blue-active"
                 (click)="addTaskService.toggleNewCategory()"

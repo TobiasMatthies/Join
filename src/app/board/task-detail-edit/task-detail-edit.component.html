@@ -2,6 +2,7 @@
   [formGroup]="addTaskService.form"
   (ngSubmit)="onEditTask()"
   class="relative flex h-full min-h-[40vh] w-full flex-col items-center gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
+   [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : ''"
 >
   <div class="flex w-full justify-end">
     <img

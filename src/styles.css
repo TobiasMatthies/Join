@@ -52,3 +52,87 @@ body {
   background-color: transparent;
 }
 /*apple style scrollbar end*/
+
+.show-background-animation {
+  animation: show-background 0.3s forwards;
+}
+
+.hide-background-animation {
+  animation: hide-background 0.3s forwards;
+}
+
+.drop-down-animation {
+  animation: drop-down 0.3s forwards;
+}
+
+.pull-up-animation {
+  animation: pull-up 0.3s forwards;
+}
+
+.slide-down-animation {
+  animation: slide-down 0.3s forwards;
+}
+
+@keyframes up-and-down {
+  0% {
+    bottom: 0;
+  }
+
+  15% {
+    bottom: 50%;
+  }
+
+  85% {
+    bottom: 50%;
+  }
+
+  100% {
+    bottom: 0;
+    display: none;
+  }
+}
+
+@keyframes drop-down {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 160px;
+  }
+}
+
+@keyframes pull-up {
+  from {
+    max-height: 160px;
+  }
+  to {
+    max-height: 0;
+  }
+}
+
+@keyframes show-background {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@keyframes hide-background {
+  from {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}

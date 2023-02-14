@@ -20,6 +20,7 @@ export class AddContactComponent implements OnInit {
 
   @Input() editMode: boolean;
   @Input() selectedContact: Contact;
+  @Input() contactOverlayCloseAnimation: boolean;
 
   contact: Contact;
   selectedBackgroundColor: string;
