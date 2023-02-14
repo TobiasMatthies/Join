@@ -4,6 +4,8 @@ import { AppStateService } from '../services/app-state.service';
 import { Task } from '../models/tasks.model';
 import { generalTasksInfo, urgentTasksInfo } from './task-info.models';
 import { TasksInfoService } from './tasks-info.service';
+import { AuthService } from '../services/auth.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-summary',
@@ -13,13 +15,16 @@ import { TasksInfoService } from './tasks-info.service';
 export class SummaryComponent implements OnInit {
   urgentTasks: Task[];
   urgentTasksInfo: urgentTasksInfo;
+  dayTime: string;
+  username: string;
 
   generalInfoFields: generalTasksInfo[] = null;
 
   constructor(
     public tasksInfoService: TasksInfoService,
     private router: Router,
-    private appStateService: AppStateService
+    private appStateService: AppStateService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {
@@ -31,6 +36,8 @@ export class SummaryComponent implements OnInit {
       deadline: this.urgentTasks[0].dueDate,
     };
     this.fillGeneralInfoFieldsArray();
+    this.getDayTime();
+    this.getUserName();
   }
 
   findUrgentTasks() {
@@ -59,5 +66,30 @@ export class SummaryComponent implements OnInit {
 
   navigateToBoard() {
     this.router.navigate(['/board']);
+  }
+
+  getDayTime() {
+    let hours = new Date().getHours();
+    console.log(hours)
+    
+    if (hours < 4 || hours > 17) {
+      this.dayTime = 'evening'
+    }
+    else if (hours < 11) {
+      this.dayTime = 'morning'
+    }
+    else if (hours < 18) {
+      this.dayTime = 'day'
+    }
+  }
+
+  getUserName() {
+    let userEmail: string;
+     this.authService.user.pipe(take(1)).subscribe(resData => {
+       userEmail = resData.email;
+    });
+    
+    this.username = localStorage.getItem(userEmail);
+    console.log(this.username);
   }
 }

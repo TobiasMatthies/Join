@@ -9,22 +9,41 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent {
-  error: string = null;
+  error: string;
+  nameError: boolean;
+  emailError: boolean;
+  passwordError: boolean;
 
   constructor(private authService: AuthService, public router: Router) {}
 
   onSubmit(form: NgForm) {
+    const username = form.form.controls['name'];
+    const email = form.form.controls['email'];
+    const password = form.form.controls['password'];
+
     if (!form.valid) {
+      this.handleInputErrors(username, email, password);
       return;
     }
-    const email = form.value.email;
-    const password = form.value.password;
-    this.signUp(email, password);
+
+    this.signUp(email.value, password.value, username.value);
     form.reset();
   }
 
-  signUp(email: string, password: string) {
-    this.authService.signup(email, password).subscribe(
+  handleInputErrors(username, email, password) {
+    if (username.invalid) {
+      this.nameError = true
+    }
+    if (email.invalid) {
+      this.emailError = true;
+    }
+    if (password.invalid) {
+      this.passwordError = true;
+    }
+  }
+
+  signUp(email: string, password: string, username: string) {
+    this.authService.signup(email, password, username).subscribe(
       (resData) => {
         return;
       },
@@ -34,7 +53,10 @@ export class SignupComponent {
     );
   }
 
-  resetErrorMessage() {
+  resetErrors() {
     this.error = null;
+    this.nameError = false;
+    this.emailError = false;
+    this.passwordError = false;
   }
 }

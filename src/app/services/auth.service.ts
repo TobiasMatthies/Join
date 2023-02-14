@@ -27,7 +27,17 @@ export class AuthService {
     private dataStorageService: DataStorageService
   ) {}
 
-  signup(email: string, password: string) {
+  /**
+   * storing the username under the email in the local storage
+   * returning the post request, catching possible errors and setting the user
+   * @param email user email
+   * @param password user password
+   * @param username user name
+   * @returns http post request to sign a user up
+   */
+  signup(email: string, password: string, username: string) {
+    localStorage.setItem(email, username);
+
     return this.httpClient
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBCYwEO4pmMK6U3htxFbNsyf5RJ3zZMttY',
@@ -48,6 +58,12 @@ export class AuthService {
       );
   }
 
+  /**
+   * returning the login request, catching possible errors and setting the user
+   * @param email user email
+   * @param password user password
+   * @returns http login post request
+   */
   login(email: string, password: string) {
     return this.httpClient
       .post<AuthResponseData>(
@@ -132,7 +148,8 @@ export class AuthService {
     }
 
     const loadedUser = this.createUserFromLocalStorage(user);
-    const expirationDuration: number = new Date(user._tokenExpirationDate).getTime() - new Date().getTime();
+    const expirationDuration: number =
+      new Date(user._tokenExpirationDate).getTime() - new Date().getTime();
     this.userLogin(loadedUser, expirationDuration);
   }
 

@@ -10,18 +10,22 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   error: string;
+  emailError: boolean;
+  passwordError: boolean;
 
   constructor(private authService: AuthService, public router: Router) {}
 
   onSubmit(form: NgForm) {
-    if (!form.valid) {
-      return;
-    }
 
-    const email = form.value.email;
-    const password = form.value.password;
+    const email = form.form.controls['email'];
+    const password = form.form.controls['password'];
 
-    this.authService.login(email, password).subscribe(
+     if (!form.valid) {
+      this.handleInputErrors(email, password);
+       return;
+     }
+
+    this.authService.login(email.value, password.value).subscribe(
       (resData) => {},
       (error) => {
         this.error = error;
@@ -29,8 +33,19 @@ export class LoginComponent {
     );
   }
 
-  resetErrorMessage() {
+  handleInputErrors(email, password) {
+    if (email.invalid) {
+      this.emailError = true;
+    }
+    if (password.invalid) {
+      this.passwordError = true;
+    }
+  }
+
+  resetErrors() {
     this.error = null;
+    this.emailError = false;
+    this.passwordError = false;
   }
 
   guestLogin() {

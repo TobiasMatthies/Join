@@ -11,6 +11,8 @@ import { DataStorageService } from '../services/data-storage.service';
   styleUrls: ['./add-task.component.css'],
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
+  showInviteNewContactInfo: boolean;
+
   constructor(
     public windowWidthService: WindowWidthService,
     public addTaskService: AddTaskService,
