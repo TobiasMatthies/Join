@@ -88,9 +88,10 @@
   ></app-add-task-overlay>
 
   <app-contact-overlay
-    *ngIf="addContactOverlayOpened"
+    *ngIf="contactOverlayOpened"
     [editMode]="editMode"
     [selectedContact]="selectedContact"
+    [contactOverlayCloseAnimation]="contactOverlayCloseAnimation"
     (closeOverlay)="toggleContactOverlay()"
     (createContact)="getEveryFirstLetter()"
     (editContact)="updateContacts($event)"

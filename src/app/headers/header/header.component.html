@@ -32,10 +32,14 @@
       (click)="onLogout()"
       >Log out</span
     >
-    <a routerLink="/help" class="px-8 py-2 hover:bg-custom-blue-active">Help</a>
+    <a
+      routerLink="/help"
+      class="hidden px-8 py-2 hover:bg-custom-blue-active lg:block"
+      >Help</a
+    >
     <a
       routerLink="/legal-notice"
-      class="rounded-bl-2xl px-8 py-2 hover:bg-custom-blue-active"
+      class="hidden rounded-bl-2xl px-8 py-2 hover:bg-custom-blue-active lg:block"
       >Legal notice</a
     >
   </div>

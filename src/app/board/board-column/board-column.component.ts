@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { AddTaskService } from 'src/app/services/add-task.service';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { Task } from 'src/app/models/tasks.model';
-import { TaskDetailService } from '../task-detail.service';
+import { TaskDetailService } from '../../services/task-detail.service';
 
 @Component({
   selector: 'app-board-column',

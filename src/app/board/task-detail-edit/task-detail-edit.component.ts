@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AddTaskService } from 'src/app/services/add-task.service';
 import { ChooseUrgencyService } from 'src/app/add-task/choose-urgency.service';
 import { AppStateService } from 'src/app/services/app-state.service';
-import { TaskDetailService } from '../task-detail.service';
+import { TaskDetailService } from '../../services/task-detail.service';
 
 @Component({
   selector: 'app-task-detail-edit',

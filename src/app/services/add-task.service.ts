@@ -6,7 +6,7 @@ import { ChooseUrgencyService } from '../add-task/choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from '../add-task/contacts.validator';
 
 import { EditedTask, Task } from '../models/tasks.model';
-import { TaskDetailService } from '../board/task-detail.service';
+import { TaskDetailService } from './task-detail.service';
 import { DataStorageService } from './data-storage.service';
 import { Contact } from '../models/contact.model';
 
@@ -31,6 +31,9 @@ export class AddTaskService {
   showInviteNewContact: boolean = false;
   showCreateNewCategory: boolean = false;
   addTaskOverlayOpened: boolean = false;
+  addTaskOverlayCloseAnimation: boolean = false;
+  closeContactsAnimation: boolean = false;
+  closeCategoriesAnimation: boolean = false;
 
   categoryName: string;
   selectedColor: string;
@@ -364,13 +367,37 @@ export class AddTaskService {
   }
 
   toggleContacts() {
-    this.showCategories = false;
-    this.showContacts = !this.showContacts;
+    if (this.showCategories) {
+      this.toggleCategories();
+    }
+
+    if (!this.showContacts) {
+      this.showContacts = true;
+    } else {
+      this.closeContactsAnimation = true;
+
+      setTimeout(() => {
+        this.showContacts = false;
+        this.closeContactsAnimation = false;
+      }, 300);
+    }
   }
 
   toggleCategories() {
-    this.showContacts = false;
-    this.showCategories = !this.showCategories;
+    if (this.showContacts) {
+      this.toggleContacts();
+    }
+
+    if (!this.showCategories) {
+      this.showCategories = true;
+    } else {
+      this.closeCategoriesAnimation = true;
+
+      setTimeout(() => {
+        this.showCategories = false;
+        this.closeCategoriesAnimation = false;
+      }, 300);
+    }
   }
 
   toggleInviteNewContact() {
@@ -393,7 +420,16 @@ export class AddTaskService {
   }
 
   toggleAddTaskOverlay(status?: string) {
-    this.addTaskOverlayOpened = !this.addTaskOverlayOpened;
+    if (!this.addTaskOverlayOpened) {
+      this.addTaskOverlayOpened = true;
+    } else {
+      this.addTaskOverlayCloseAnimation = true;
+
+      setTimeout(() => {
+        this.addTaskOverlayCloseAnimation = false;
+        this.addTaskOverlayOpened = false;
+      }, 300);
+    }
 
     if (status) {
       this.taskStatus = status;

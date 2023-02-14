@@ -95,7 +95,12 @@
           >
             <ul
               *ngIf="appStateService.contacts.length > 0"
-              class="flex max-h-40 flex-col overflow-y-auto"
+              class="drop-down-animation flex max-h-40 flex-col overflow-y-auto"
+              [ngClass]="
+                addTaskService.closeContactsAnimation
+                  ? 'pull-up-animation'
+                  : ''
+              "
             >
               <li
                 *ngFor="
@@ -131,7 +136,7 @@
           >
           <div
             *ngIf="!addTaskService.showContacts"
-            class="mt-5 flex max-w-[150px] gap-2 overflow-x-auto"
+            class="flex max-w-[150px] gap-2 overflow-x-auto"
           >
             <span
               *ngFor="let contact of addTaskService.selectedContacts"
@@ -245,7 +250,14 @@
               else categoryColorsContainer
             "
           >
-            <ul class="flex flex-col">
+            <ul
+              class="drop-down-animation flex flex-col overflow-y-auto"
+              [ngClass]="
+                addTaskService.closeCategoriesAnimation
+                  ? 'pull-up-animation'
+                  : ''
+              "
+            >
               <li
                 class="cursor-pointer px-4 py-3 hover:bg-custom-blue-active"
                 (click)="addTaskService.toggleNewCategory()"

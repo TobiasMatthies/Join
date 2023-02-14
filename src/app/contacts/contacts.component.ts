@@ -12,7 +12,8 @@ import { DataStorageService } from '../services/data-storage.service';
 })
 export class ContactsComponent implements OnInit {
   firstLetters: string[] = [];
-  addContactOverlayOpened: boolean = false;
+  contactOverlayOpened: boolean = false;
+  contactOverlayCloseAnimation: boolean = false;
 
   editMode: boolean;
   selectedContact: Contact = null;
@@ -66,11 +67,21 @@ export class ContactsComponent implements OnInit {
   }
 
   toggleContactOverlay(editMode?: boolean) {
-    if (editMode) {
-      this.editMode = editMode;
+    if (!this.contactOverlayOpened) {
+      this.contactOverlayOpened = true;
     } else {
-      this.editMode = false;
+      this.contactOverlayCloseAnimation = true;
+
+      setTimeout(() => {
+        if (editMode) {
+          this.editMode = editMode;
+        } else {
+          this.editMode = false;
+        }
+
+        this.contactOverlayCloseAnimation = false;
+        this.contactOverlayOpened = false;
+      }, 300);
     }
-    this.addContactOverlayOpened = !this.addContactOverlayOpened;
   }
 }
