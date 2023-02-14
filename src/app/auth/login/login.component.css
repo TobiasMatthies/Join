@@ -1,0 +1,51 @@
+.animate-background-color {
+  animation: background-color-animation 1s ease-in-out;
+  z-index: -10;
+}
+
+.animate-logo {
+  animation: logo-animation 1s forwards;
+}
+
+@keyframes background-color-animation {
+  0% {
+    background-color: rgb(69 136 255);
+    z-index: 10;
+  }
+  60% {
+    background-color: rgb(69 136 255);
+    z-index: 10;
+  }
+  100% {
+    background-color: transparent;
+    z-index: 0;
+  }
+}
+
+@keyframes logo-animation {
+  0% {
+    top: 50vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    filter: unset;
+  }
+  59% {
+    filter: unset;
+  }
+
+  60% {
+    top: 50vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
+      brightness(98%) contrast(106%);
+  }
+
+  100% {
+    top: 0;
+    left: 0;
+    transform: unset;
+    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
+      brightness(98%) contrast(106%);
+  }
+}
