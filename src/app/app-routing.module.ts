@@ -31,6 +31,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'help', component: HelpSectionComponent, canActivate: [AuthGuard] },
+  { path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({

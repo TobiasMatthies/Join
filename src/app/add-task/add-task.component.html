@@ -48,27 +48,38 @@
               />
             </ng-container>
             <ng-template #inviteNewContact>
-              <input
-                class="placeholder-custom-placeholder-gray"
-                type="email"
-                placeholder="Contact Email"
-              />
-              <div class="flex gap-2">
-                <img
-                  class="blue-filter w-5 cursor-pointer"
-                  src="assets/img/cancel.svg"
-                  alt="cancel"
-                  (click)="
-                    addTaskService.toggleInviteNewContact();
-                    addTaskService.toggleContacts()
-                  "
-                />
-                <div class="w-px bg-custom-placeholder-gray"></div>
-                <img
-                  class="w-5 cursor-pointer"
-                  src="assets/img/Vector-3.svg"
-                  alt="invite"
-                />
+              <div class="flex w-full flex-col gap-2">
+                <div class="flex justify-between">
+                  <input
+                    class="placeholder-custom-placeholder-gray"
+                    type="email"
+                    placeholder="Contact Email"
+                  />
+                  <div class="flex gap-2">
+                    <img
+                      class="blue-filter w-5 cursor-pointer"
+                      src="assets/img/cancel.svg"
+                      alt="cancel"
+                      (click)="
+                        addTaskService.toggleInviteNewContact();
+                        addTaskService.toggleContacts();
+                        showInviteNewContactInfo = false
+                      "
+                    />
+                    <div class="w-px bg-custom-placeholder-gray"></div>
+                    <img
+                      class="w-5 cursor-pointer"
+                      src="assets/img/Vector-3.svg"
+                      alt="invite"
+                      (click)="showInviteNewContactInfo = true"
+                    />
+                  </div>
+                </div>
+                <span
+                  *ngIf="showInviteNewContactInfo"
+                  class="text-xs text-red-500"
+                  >Will be implemented in production mode</span
+                >
               </div>
             </ng-template>
           </div>

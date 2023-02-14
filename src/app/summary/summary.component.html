@@ -7,7 +7,8 @@
     >
 
     <h1 class="hidden text-4xl lg:block">
-      Good morning <b class="text-5xl text-custom-blue"></b>
+      Good {{ dayTime }}
+      <b *ngIf="username" class="text-5xl text-custom-blue">{{ username }}</b>
     </h1>
 
     <div class="mt-5 flex flex-col gap-4 sm:mt-10 lg:mt-0 lg:gap-8">

@@ -44,14 +44,14 @@
         <input
           class="bg-transparent"
           placeholder="Name"
-          type="text"
           name="name"
-          (focus)="resetErrorMessage()"
+          (focus)="resetErrors()"
           required
           ngModel
         />
         <img src="assets/img/Vector-4.svg" alt="name" />
       </div>
+      <span *ngIf="nameError" class="text-red-500 text-xs">This field is required</span>
 
       <div
         class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none"
@@ -61,13 +61,14 @@
           placeholder="Email"
           type="text"
           name="email"
-          (focus)="resetErrorMessage()"
+          (focus)="resetErrors()"
           required
           email
           ngModel
         />
         <img src="assets/img/Vector-5.svg" alt="email" />
       </div>
+      <span *ngIf="emailError" class="text-red-500 text-xs">This field is required, must be a valid email address</span>
 
       <div
         class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none"
@@ -78,12 +79,13 @@
           type="password"
           name="password"
           minlength="6"
-          (focus)="resetErrorMessage()"
+          (focus)="resetErrors()"
           required
           ngModel
         />
         <img src="assets/img/Vector-7.svg" alt="password" />
       </div>
+      <span *ngIf="passwordError" class="text-red-500 text-xs">This field is required, must be at least six characters long</span>
 
       <span *ngIf="error" class="text-red-500">{{ error }}</span>
 

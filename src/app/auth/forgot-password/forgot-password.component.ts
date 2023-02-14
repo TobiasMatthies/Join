@@ -8,9 +8,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
+   showWarning: boolean;
+
    constructor(public router: Router) {}
 
-   onSubmit(form: NgForm) {
-    console.log(form.value);
-   }
 }

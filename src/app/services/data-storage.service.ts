@@ -37,7 +37,6 @@ export class DataStorageService {
     this.authService = this.injector.get(AuthService);
     this.authService.user.pipe(take(1)).subscribe((user) => {
       this.user = user;
-      console.log(this.user);
     });
   }
 
@@ -46,9 +45,7 @@ export class DataStorageService {
       .put('https://join-12c12-default-rtdb.firebaseio.com/' + endpoint, item, {
         params: new HttpParams().set('auth', this.user.token),
       })
-      .subscribe((responseData) => {
-        console.log(responseData);
-      });
+      .subscribe();
   }
 
   /**
@@ -66,7 +63,6 @@ export class DataStorageService {
         }
       )
     );
-    console.log(item);
     return item;
   }
 }
