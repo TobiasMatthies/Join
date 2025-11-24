@@ -4,18 +4,17 @@ import { WindowWidthService } from './window-width.service';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { AddTaskResponsiveHeaderComponent } from '../headers/add-task-responsive-header/add-task-responsive-header.component';
 import { HeaderComponent } from '../headers/header/header.component';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.css'],
     imports: [
-        NgIf,
-        HeaderComponent,
-        AddTaskResponsiveHeaderComponent,
-        NavbarComponent,
-    ]
+    HeaderComponent,
+    AddTaskResponsiveHeaderComponent,
+    NavbarComponent
+]
 })
 export class LayoutComponent implements OnInit {
   logoutOpened: boolean = false;

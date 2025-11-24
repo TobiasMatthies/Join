@@ -1,26 +1,26 @@
 <div
   class="flex h-screen flex-col items-center justify-center gap-5 bg-custom-blue px-[5%] transition-all md:gap-0"
->
+  >
   <div
     class="top-10 left-10 right-10 flex items-start justify-between self-start md:absolute"
-  >
+    >
     <img
       class="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
       src="assets/img/icon_white.svg"
       alt="join logo"
-    />
+      />
   </div>
 
   <!--Card-->
   <div
     class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white p-6 md:w-2/5 md:min-w-[576px] md:max-w-none"
-  >
+    >
     <img
       class="cursor-pointer self-start md:absolute md:left-6 md:top-8"
       src="assets/img/arrow.svg"
       alt="go back"
       (click)="router.navigate(['login'])"
-    />
+      />
 
     <!--Heading Section-->
     <div class="mb-5 flex flex-col items-center gap-5">
@@ -29,7 +29,7 @@
         src="assets/img/Vector 5.svg"
         alt="border"
         class="h-1 w-20 object-cover md:w-auto"
-      />
+        />
     </div>
 
     <!--Input Section-->
@@ -37,10 +37,10 @@
       class="flex w-full flex-col gap-5 md:w-2/3 lg:font-light"
       (ngSubmit)="onSubmit(form)"
       #form="ngForm"
-    >
+      >
       <div
         class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:max-w-none"
-      >
+        >
         <input
           class="bg-transparent"
           placeholder="Name"
@@ -48,14 +48,16 @@
           (focus)="resetErrors()"
           required
           ngModel
-        />
+          />
         <img src="assets/img/Vector-4.svg" alt="name" />
       </div>
-      <span *ngIf="nameError" class="text-red-500 text-xs">This field is required</span>
+      @if (nameError) {
+        <span class="text-red-500 text-xs">This field is required</span>
+      }
 
       <div
         class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none"
-      >
+        >
         <input
           class="bg-transparent"
           placeholder="Email"
@@ -65,14 +67,16 @@
           required
           email
           ngModel
-        />
+          />
         <img src="assets/img/Vector-5.svg" alt="email" />
       </div>
-      <span *ngIf="emailError" class="text-red-500 text-xs">This field is required, must be a valid email address</span>
+      @if (emailError) {
+        <span class="text-red-500 text-xs">This field is required, must be a valid email address</span>
+      }
 
       <div
         class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none"
-      >
+        >
         <input
           class="bg-transparent"
           placeholder="Password"
@@ -82,17 +86,21 @@
           (focus)="resetErrors()"
           required
           ngModel
-        />
+          />
         <img src="assets/img/Vector-7.svg" alt="password" />
       </div>
-      <span *ngIf="passwordError" class="text-red-500 text-xs">This field is required, must be at least six characters long</span>
+      @if (passwordError) {
+        <span class="text-red-500 text-xs">This field is required, must be at least six characters long</span>
+      }
 
-      <span *ngIf="error" class="text-red-500">{{ error }}</span>
+      @if (error) {
+        <span class="text-red-500">{{ error }}</span>
+      }
 
       <!--Auth Actions Section-->
       <div
         class="flex flex-col items-center justify-evenly gap-5 md:flex-row md:gap-0"
-      >
+        >
         <app-button-primary class="min-w-[144px] md:w-auto">
           <span class="px-6">Sign up</span>
         </app-button-primary>

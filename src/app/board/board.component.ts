@@ -12,7 +12,7 @@ import { TaskDetailEditComponent } from './task-detail-edit/task-detail-edit.com
 import { TaskDetailInfoComponent } from './task-detail-info/task-detail-info.component';
 import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
 import { BoardColumnComponent } from './board-column/board-column.component';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
 import { LayoutComponent } from '../layout/layout.component';
 
@@ -21,17 +21,16 @@ import { LayoutComponent } from '../layout/layout.component';
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.css'],
     imports: [
-        LayoutComponent,
-        ButtonPrimaryComponent,
-        DragDropModule,
-        NgClass,
-        BoardColumnComponent,
-        NgIf,
-        AddTaskOverlayComponent,
-        TaskDetailInfoComponent,
-        TaskDetailEditComponent,
-        FilterTasksPipe,
-    ]
+    LayoutComponent,
+    ButtonPrimaryComponent,
+    DragDropModule,
+    NgClass,
+    BoardColumnComponent,
+    AddTaskOverlayComponent,
+    TaskDetailInfoComponent,
+    TaskDetailEditComponent,
+    FilterTasksPipe
+]
 })
 export class BoardComponent implements OnInit {
   filteredTasks: Task[] = [];

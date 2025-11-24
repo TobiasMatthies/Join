@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { NgIf } from '@angular/common';
+
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
-    imports: [RouterLink, RouterLinkActive, NgIf]
+    imports: [RouterLink, RouterLinkActive]
 })
 export class HeaderComponent {
   @Input() logoutOpened: boolean = false;

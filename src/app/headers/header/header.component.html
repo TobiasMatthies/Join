@@ -1,46 +1,47 @@
 <div
   class="relative flex items-center justify-between bg-custom-blue p-5 shadow-custom-header"
->
+  >
   <img class="h-12 w-12" src="assets/img/icon_white.svg" alt="logo" />
 
   <div class="flex items-center gap-5">
     <span class="hidden text-white lg:block lg:font-light"
       >Kanban Project Managment Tool</span
-    >
-    <img
-      routerLink="/help"
-      routerLinkActive="hidden"
-      class="hidden h-7 w-7 cursor-pointer brightness-100 invert lg:block"
-      src="assets/img/help.svg"
-      alt="help"
-    />
-    <img
-      class="h-12 w-12 cursor-pointer brightness-100 invert"
-      src="assets/img/user.svg"
-      alt="user"
-      (click)="toggleLogoutOpened()"
-    />
-  </div>
+      >
+      <img
+        routerLink="/help"
+        routerLinkActive="hidden"
+        class="hidden h-7 w-7 cursor-pointer brightness-100 invert lg:block"
+        src="assets/img/help.svg"
+        alt="help"
+        />
+      <img
+        class="h-12 w-12 cursor-pointer brightness-100 invert"
+        src="assets/img/user.svg"
+        alt="user"
+        (click)="toggleLogoutOpened()"
+        />
+    </div>
 
-  <div
-    *ngIf="logoutOpened"
-    class="absolute right-5 -bottom-32 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white text-custom-blue shadow-lg lg:font-light"
-    (click)="toggleLogoutOpened()"
-  >
-    <span
-      class="rounded-tl-2xl px-8 py-2 hover:bg-custom-blue-active"
-      (click)="onLogout()"
-      >Log out</span
-    >
-    <a
-      routerLink="/help"
-      class="hidden px-8 py-2 hover:bg-custom-blue-active lg:block"
-      >Help</a
-    >
-    <a
-      routerLink="/legal-notice"
-      class="hidden rounded-bl-2xl px-8 py-2 hover:bg-custom-blue-active lg:block"
-      >Legal notice</a
-    >
-  </div>
-</div>
+    @if (logoutOpened) {
+      <div
+        class="absolute right-5 -bottom-32 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white text-custom-blue shadow-lg lg:font-light"
+        (click)="toggleLogoutOpened()"
+        >
+        <span
+          class="rounded-tl-2xl px-8 py-2 hover:bg-custom-blue-active"
+          (click)="onLogout()"
+          >Log out</span
+          >
+          <a
+            routerLink="/help"
+            class="hidden px-8 py-2 hover:bg-custom-blue-active lg:block"
+            >Help</a
+            >
+            <a
+              routerLink="/legal-notice"
+              class="hidden rounded-bl-2xl px-8 py-2 hover:bg-custom-blue-active lg:block"
+              >Legal notice</a
+              >
+            </div>
+          }
+        </div>

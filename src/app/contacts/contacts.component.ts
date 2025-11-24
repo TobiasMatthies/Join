@@ -9,7 +9,7 @@ import { AddContactComponent } from './contact-overlay/contact-overlay.component
 import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
 import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
 import { ContactDetailViewComponent } from './contact-detail-view/contact-detail-view.component';
-import { NgIf, NgFor, NgClass, NgStyle, UpperCasePipe } from '@angular/common';
+import { NgClass, NgStyle, UpperCasePipe } from '@angular/common';
 import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
@@ -17,18 +17,16 @@ import { LayoutComponent } from '../layout/layout.component';
     templateUrl: './contacts.component.html',
     styleUrls: ['./contacts.component.css'],
     imports: [
-        LayoutComponent,
-        NgIf,
-        ContactDetailViewComponent,
-        ButtonPrimaryComponent,
-        NgFor,
-        NgClass,
-        NgStyle,
-        AddTaskOverlayComponent,
-        AddContactComponent,
-        UpperCasePipe,
-        FilterPipe,
-    ]
+    LayoutComponent,
+    ContactDetailViewComponent,
+    ButtonPrimaryComponent,
+    NgClass,
+    NgStyle,
+    AddTaskOverlayComponent,
+    AddContactComponent,
+    UpperCasePipe,
+    FilterPipe
+]
 })
 export class ContactsComponent implements OnInit {
   firstLetters: string[] = [];

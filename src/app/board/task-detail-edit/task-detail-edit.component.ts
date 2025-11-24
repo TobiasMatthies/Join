@@ -5,7 +5,7 @@ import { AppStateService } from 'src/app/services/app-state.service';
 import { TaskDetailService } from '../../services/task-detail.service';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 import { ChooseUrgencyComponent } from '../../add-task/choose-urgency/choose-urgency.component';
-import { NgClass, NgIf, NgFor, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -13,15 +13,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     templateUrl: './task-detail-edit.component.html',
     styleUrls: ['./task-detail-edit.component.css'],
     imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgClass,
-        NgIf,
-        ChooseUrgencyComponent,
-        NgFor,
-        NgStyle,
-        ButtonPrimaryComponent,
-    ]
+    FormsModule,
+    ReactiveFormsModule,
+    NgClass,
+    ChooseUrgencyComponent,
+    NgStyle,
+    ButtonPrimaryComponent
+]
 })
 export class TaskDetailEditComponent implements OnInit, OnDestroy {
   constructor(
