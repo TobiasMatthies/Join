@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { AuthGuard } from './auth/auth.guard';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
@@ -11,7 +10,7 @@ import { HelpSectionComponent } from './help-section/help-section.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { SummaryComponent } from './summary/summary.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: SummaryComponent,
@@ -31,11 +30,5 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'help', component: HelpSectionComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login'}
+  { path: '**', redirectTo: 'login' },
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
