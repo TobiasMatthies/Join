@@ -1,11 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AddTaskService } from 'src/app/services/add-task.service';
 import { Contact } from 'src/app/models/contact.model';
+import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
+import { NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-contact-detail-view',
-  templateUrl: './contact-detail-view.component.html',
-  styleUrls: ['./contact-detail-view.component.css'],
+    selector: 'app-contact-detail-view',
+    templateUrl: './contact-detail-view.component.html',
+    styleUrls: ['./contact-detail-view.component.css'],
+    standalone: true,
+    imports: [NgStyle, ButtonPrimaryComponent],
 })
 export class ContactDetailViewComponent {
   @Input() selectedContact: Contact;

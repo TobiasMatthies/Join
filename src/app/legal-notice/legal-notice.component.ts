@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
-  selector: 'app-legal-notice',
-  templateUrl: './legal-notice.component.html',
-  styleUrls: ['./legal-notice.component.css'],
+    selector: 'app-legal-notice',
+    templateUrl: './legal-notice.component.html',
+    styleUrls: ['./legal-notice.component.css'],
+    standalone: true,
+    imports: [LayoutComponent, RouterLink],
 })
 export class LegalNoticeComponent {
   lastRoute: string;

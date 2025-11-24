@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
-  selector: 'app-help-section',
-  templateUrl: './help-section.component.html',
-  styleUrls: ['./help-section.component.css'],
+    selector: 'app-help-section',
+    templateUrl: './help-section.component.html',
+    styleUrls: ['./help-section.component.css'],
+    standalone: true,
+    imports: [LayoutComponent, RouterLink],
 })
 export class HelpSectionComponent {
   lastRoute: string;

@@ -8,8 +8,8 @@ describe('AddTaskResponsiveHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddTaskResponsiveHeaderComponent ]
-    })
+    imports: [AddTaskResponsiveHeaderComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(AddTaskResponsiveHeaderComponent);

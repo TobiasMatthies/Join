@@ -4,11 +4,28 @@ import { ChooseUrgencyService } from './choose-urgency.service';
 import { AddTaskService } from '../services/add-task.service';
 import { WindowWidthService } from '../layout/window-width.service';
 import { DataStorageService } from '../services/data-storage.service';
+import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
+import { ChooseUrgencyComponent } from './choose-urgency/choose-urgency.component';
+import { NgIf, NgClass, NgFor, NgStyle } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
-  selector: 'app-add-task',
-  templateUrl: './add-task.component.html',
-  styleUrls: ['./add-task.component.css'],
+    selector: 'app-add-task',
+    templateUrl: './add-task.component.html',
+    styleUrls: ['./add-task.component.css'],
+    standalone: true,
+    imports: [
+        LayoutComponent,
+        FormsModule,
+        ReactiveFormsModule,
+        NgIf,
+        NgClass,
+        NgFor,
+        NgStyle,
+        ChooseUrgencyComponent,
+        ButtonPrimaryComponent,
+    ],
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
   showInviteNewContactInfo: boolean;
