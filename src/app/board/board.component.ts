@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { AppStateService } from '../services/app-state.service';
@@ -7,11 +7,32 @@ import { Task } from '../models/tasks.model';
 import { TaskDetailService } from '../services/task-detail.service';
 import { AddTaskService } from '../services/add-task.service';
 import { DataStorageService } from '../services/data-storage.service';
+import { FilterTasksPipe } from './filter-tasks.pipe';
+import { TaskDetailEditComponent } from './task-detail-edit/task-detail-edit.component';
+import { TaskDetailInfoComponent } from './task-detail-info/task-detail-info.component';
+import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
+import { BoardColumnComponent } from './board-column/board-column.component';
+import { NgClass, NgIf } from '@angular/common';
+import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
+import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.css'],
+    selector: 'app-board',
+    templateUrl: './board.component.html',
+    styleUrls: ['./board.component.css'],
+    standalone: true,
+    imports: [
+        LayoutComponent,
+        ButtonPrimaryComponent,
+        DragDropModule,
+        NgClass,
+        BoardColumnComponent,
+        NgIf,
+        AddTaskOverlayComponent,
+        TaskDetailInfoComponent,
+        TaskDetailEditComponent,
+        FilterTasksPipe,
+    ],
 })
 export class BoardComponent implements OnInit {
   filteredTasks: Task[] = [];

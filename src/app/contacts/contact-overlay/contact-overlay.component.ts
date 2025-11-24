@@ -6,14 +6,24 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { Contact } from 'src/app/models/contact.model';
+import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 @Component({
-  selector: 'app-contact-overlay',
-  templateUrl: './contact-overlay.component.html',
-  styleUrls: ['./contact-overlay.component.css'],
+    selector: 'app-contact-overlay',
+    templateUrl: './contact-overlay.component.html',
+    styleUrls: ['./contact-overlay.component.css'],
+    standalone: true,
+    imports: [
+        NgClass,
+        NgIf,
+        FormsModule,
+        NgStyle,
+        ButtonPrimaryComponent,
+    ],
 })
 export class AddContactComponent implements OnInit {
   @ViewChild('contactForm', { static: false }) contactForm: NgForm;

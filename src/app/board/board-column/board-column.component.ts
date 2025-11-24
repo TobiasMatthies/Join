@@ -3,11 +3,22 @@ import { AddTaskService } from 'src/app/services/add-task.service';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { Task } from 'src/app/models/tasks.model';
 import { TaskDetailService } from '../../services/task-detail.service';
+import { FilterTasksPipe } from '../filter-tasks.pipe';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { NgFor, NgStyle, NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-board-column',
-  templateUrl: './board-column.component.html',
-  styleUrls: ['./board-column.component.css'],
+    selector: 'app-board-column',
+    templateUrl: './board-column.component.html',
+    styleUrls: ['./board-column.component.css'],
+    standalone: true,
+    imports: [
+        NgFor,
+        DragDropModule,
+        NgStyle,
+        NgIf,
+        FilterTasksPipe,
+    ],
 })
 export class BoardColumnComponent {
   @Input() title: string;

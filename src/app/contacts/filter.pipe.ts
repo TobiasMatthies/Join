@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Contact } from '../models/contact.model';
 
 @Pipe({
-  name: 'filter',
+    name: 'filter',
+    standalone: true,
 })
 export class FilterPipe implements PipeTransform {
   filteredContacts: Contact[] = [];

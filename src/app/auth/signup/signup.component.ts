@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css'],
+    selector: 'app-signup',
+    templateUrl: './signup.component.html',
+    styleUrls: ['./signup.component.css'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        NgIf,
+        ButtonPrimaryComponent,
+    ],
 })
 export class SignupComponent {
   error: string;

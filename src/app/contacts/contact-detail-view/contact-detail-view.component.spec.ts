@@ -8,8 +8,8 @@ describe('ContactDetailViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ContactDetailViewComponent ]
-    })
+    imports: [ContactDetailViewComponent]
+})
     .compileComponents();
 
     fixture = TestBed.createComponent(ContactDetailViewComponent);
