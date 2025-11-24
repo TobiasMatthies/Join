@@ -8,7 +8,6 @@ import { ButtonPrimaryComponent } from '../../customComponents/button-primary/bu
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrls: ['./forgot-password.component.css'],
-    standalone: true,
     imports: [FormsModule, ButtonPrimaryComponent, NgIf]
 })
 export class ForgotPasswordComponent {

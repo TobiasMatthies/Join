@@ -8,13 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     selector: 'app-choose-urgency',
     templateUrl: './choose-urgency.component.html',
     styleUrls: ['./choose-urgency.component.css'],
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,
         NgClass,
         NgIf,
-    ],
+    ]
 })
 export class ChooseUrgencyComponent {
   constructor(

@@ -6,7 +6,6 @@ import { ButtonPrimaryComponent } from '../../../customComponents/button-primary
     selector: 'app-confirm-dialog',
     templateUrl: './confirm-dialog.component.html',
     styleUrls: ['./confirm-dialog.component.css'],
-    standalone: true,
     imports: [ButtonPrimaryComponent]
 })
 export class ConfirmDialogComponent {

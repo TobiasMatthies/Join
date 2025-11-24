@@ -6,8 +6,7 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-help-section',
     templateUrl: './help-section.component.html',
     styleUrls: ['./help-section.component.css'],
-    standalone: true,
-    imports: [LayoutComponent, RouterLink],
+    imports: [LayoutComponent, RouterLink]
 })
 export class HelpSectionComponent {
   lastRoute: string;

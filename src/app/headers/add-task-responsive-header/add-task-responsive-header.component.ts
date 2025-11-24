@@ -6,8 +6,7 @@ import { ButtonPrimaryComponent } from '../../customComponents/button-primary/bu
     selector: 'app-add-task-responsive-header',
     templateUrl: './add-task-responsive-header.component.html',
     styleUrls: ['./add-task-responsive-header.component.css'],
-    standalone: true,
-    imports: [ButtonPrimaryComponent],
+    imports: [ButtonPrimaryComponent]
 })
 export class AddTaskResponsiveHeaderComponent {
   constructor(public addTaskService: AddTaskService) {}

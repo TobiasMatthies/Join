@@ -9,12 +9,11 @@ import { ButtonPrimaryComponent } from '../../customComponents/button-primary/bu
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    standalone: true,
     imports: [
         ButtonPrimaryComponent,
         FormsModule,
         NgIf,
-    ],
+    ]
 })
 export class LoginComponent {
   error: string;

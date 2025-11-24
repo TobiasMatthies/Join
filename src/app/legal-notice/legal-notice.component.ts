@@ -6,8 +6,7 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-legal-notice',
     templateUrl: './legal-notice.component.html',
     styleUrls: ['./legal-notice.component.css'],
-    standalone: true,
-    imports: [LayoutComponent, RouterLink],
+    imports: [LayoutComponent, RouterLink]
 })
 export class LegalNoticeComponent {
   lastRoute: string;

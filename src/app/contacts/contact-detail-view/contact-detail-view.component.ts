@@ -8,8 +8,7 @@ import { NgStyle } from '@angular/common';
     selector: 'app-contact-detail-view',
     templateUrl: './contact-detail-view.component.html',
     styleUrls: ['./contact-detail-view.component.css'],
-    standalone: true,
-    imports: [NgStyle, ButtonPrimaryComponent],
+    imports: [NgStyle, ButtonPrimaryComponent]
 })
 export class ContactDetailViewComponent {
   @Input() selectedContact: Contact;

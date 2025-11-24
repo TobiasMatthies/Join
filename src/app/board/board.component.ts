@@ -20,7 +20,6 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-board',
     templateUrl: './board.component.html',
     styleUrls: ['./board.component.css'],
-    standalone: true,
     imports: [
         LayoutComponent,
         ButtonPrimaryComponent,
@@ -32,7 +31,7 @@ import { LayoutComponent } from '../layout/layout.component';
         TaskDetailInfoComponent,
         TaskDetailEditComponent,
         FilterTasksPipe,
-    ],
+    ]
 })
 export class BoardComponent implements OnInit {
   filteredTasks: Task[] = [];

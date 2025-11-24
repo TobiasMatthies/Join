@@ -9,7 +9,6 @@ import { NgClass, NgStyle, NgIf, NgFor, DatePipe } from '@angular/common';
     selector: 'app-task-detail-info',
     templateUrl: './task-detail-info.component.html',
     styleUrls: ['./task-detail-info.component.css'],
-    standalone: true,
     imports: [
         NgClass,
         NgStyle,
@@ -18,7 +17,7 @@ import { NgClass, NgStyle, NgIf, NgFor, DatePipe } from '@angular/common';
         ButtonPrimaryComponent,
         ConfirmDialogComponent,
         DatePipe,
-    ],
+    ]
 })
 export class TaskDetailInfoComponent {
   constructor(
