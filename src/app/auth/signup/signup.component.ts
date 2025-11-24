@@ -9,12 +9,11 @@ import { NgIf } from '@angular/common';
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.css'],
-    standalone: true,
     imports: [
         FormsModule,
         NgIf,
         ButtonPrimaryComponent,
-    ],
+    ]
 })
 export class SignupComponent {
   error: string;

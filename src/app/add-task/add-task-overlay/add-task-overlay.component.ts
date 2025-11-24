@@ -13,7 +13,6 @@ import { NgIf, NgClass, NgFor, NgStyle } from '@angular/common';
     selector: 'app-add-task-overlay',
     templateUrl: './add-task-overlay.component.html',
     styleUrls: ['./add-task-overlay.component.css'],
-    standalone: true,
     imports: [
         NgIf,
         AddTaskResponsiveHeaderComponent,
@@ -24,7 +23,7 @@ import { NgIf, NgClass, NgFor, NgStyle } from '@angular/common';
         NgFor,
         NgStyle,
         ChooseUrgencyComponent,
-    ],
+    ]
 })
 export class AddTaskOverlayComponent implements OnInit, OnDestroy {
   constructor(

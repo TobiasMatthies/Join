@@ -10,13 +10,12 @@ import { NgIf } from '@angular/common';
     selector: 'app-layout',
     templateUrl: './layout.component.html',
     styleUrls: ['./layout.component.css'],
-    standalone: true,
     imports: [
         NgIf,
         HeaderComponent,
         AddTaskResponsiveHeaderComponent,
         NavbarComponent,
-    ],
+    ]
 })
 export class LayoutComponent implements OnInit {
   logoutOpened: boolean = false;

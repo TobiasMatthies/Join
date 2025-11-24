@@ -12,7 +12,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     selector: 'app-task-detail-edit',
     templateUrl: './task-detail-edit.component.html',
     styleUrls: ['./task-detail-edit.component.css'],
-    standalone: true,
     imports: [
         FormsModule,
         ReactiveFormsModule,
@@ -22,7 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         NgFor,
         NgStyle,
         ButtonPrimaryComponent,
-    ],
+    ]
 })
 export class TaskDetailEditComponent implements OnInit, OnDestroy {
   constructor(

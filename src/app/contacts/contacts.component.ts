@@ -16,7 +16,6 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-contacts',
     templateUrl: './contacts.component.html',
     styleUrls: ['./contacts.component.css'],
-    standalone: true,
     imports: [
         LayoutComponent,
         NgIf,
@@ -29,7 +28,7 @@ import { LayoutComponent } from '../layout/layout.component';
         AddContactComponent,
         UpperCasePipe,
         FilterPipe,
-    ],
+    ]
 })
 export class ContactsComponent implements OnInit {
   firstLetters: string[] = [];

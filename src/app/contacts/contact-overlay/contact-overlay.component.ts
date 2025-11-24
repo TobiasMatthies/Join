@@ -16,14 +16,13 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
     selector: 'app-contact-overlay',
     templateUrl: './contact-overlay.component.html',
     styleUrls: ['./contact-overlay.component.css'],
-    standalone: true,
     imports: [
         NgClass,
         NgIf,
         FormsModule,
         NgStyle,
         ButtonPrimaryComponent,
-    ],
+    ]
 })
 export class AddContactComponent implements OnInit {
   @ViewChild('contactForm', { static: false }) contactForm: NgForm;

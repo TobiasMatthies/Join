@@ -11,14 +11,13 @@ import { NgFor, NgStyle, NgIf } from '@angular/common';
     selector: 'app-board-column',
     templateUrl: './board-column.component.html',
     styleUrls: ['./board-column.component.css'],
-    standalone: true,
     imports: [
         NgFor,
         DragDropModule,
         NgStyle,
         NgIf,
         FilterTasksPipe,
-    ],
+    ]
 })
 export class BoardColumnComponent {
   @Input() title: string;

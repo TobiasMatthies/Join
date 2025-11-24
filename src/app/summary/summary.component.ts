@@ -13,13 +13,12 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-summary',
     templateUrl: './summary.component.html',
     styleUrls: ['./summary.component.css'],
-    standalone: true,
     imports: [
         LayoutComponent,
         NgIf,
         NgFor,
         DatePipe,
-    ],
+    ]
 })
 export class SummaryComponent implements OnInit {
   urgentTasks: Task[];

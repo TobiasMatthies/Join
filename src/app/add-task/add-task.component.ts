@@ -14,7 +14,6 @@ import { LayoutComponent } from '../layout/layout.component';
     selector: 'app-add-task',
     templateUrl: './add-task.component.html',
     styleUrls: ['./add-task.component.css'],
-    standalone: true,
     imports: [
         LayoutComponent,
         FormsModule,
@@ -25,7 +24,7 @@ import { LayoutComponent } from '../layout/layout.component';
         NgStyle,
         ChooseUrgencyComponent,
         ButtonPrimaryComponent,
-    ],
+    ]
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
   showInviteNewContactInfo: boolean;

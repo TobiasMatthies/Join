@@ -7,7 +7,6 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
     selector: 'app-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.css'],
-    standalone: true,
     imports: [RouterLink, RouterLinkActive, NgIf]
 })
 export class HeaderComponent {
