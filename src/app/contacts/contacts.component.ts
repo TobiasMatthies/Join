@@ -1,22 +1,22 @@
+import { NgClass, NgStyle, UpperCasePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AddTaskService } from '../services/add-task.service';
-import { AppStateService } from '../services/app-state.service';
-import { WindowWidthService } from '../layout/window-width.service';
-import { Contact } from '../models/contact.model';
-import { DataStorageService } from '../services/data-storage.service';
-import { FilterPipe } from './filter.pipe';
-import { AddContactComponent } from './contact-overlay/contact-overlay.component';
 import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
 import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
-import { ContactDetailViewComponent } from './contact-detail-view/contact-detail-view.component';
-import { NgClass, NgStyle, UpperCasePipe } from '@angular/common';
 import { LayoutComponent } from '../layout/layout.component';
+import { WindowWidthService } from '../layout/window-width.service';
+import { Contact } from '../models/contact.model';
+import { AddTaskService } from '../services/add-task.service';
+import { AppStateService } from '../services/app-state.service';
+import { DataStorageService } from '../services/data-storage.service';
+import { ContactDetailViewComponent } from './contact-detail-view/contact-detail-view.component';
+import { AddContactComponent } from './contact-overlay/contact-overlay.component';
+import { FilterPipe } from './filter.pipe';
 
 @Component({
-    selector: 'app-contacts',
-    templateUrl: './contacts.component.html',
-    styleUrls: ['./contacts.component.css'],
-    imports: [
+  selector: 'app-contacts',
+  templateUrl: './contacts.component.html',
+  styleUrls: ['./contacts.component.css'],
+  imports: [
     LayoutComponent,
     ContactDetailViewComponent,
     ButtonPrimaryComponent,
@@ -25,8 +25,8 @@ import { LayoutComponent } from '../layout/layout.component';
     AddTaskOverlayComponent,
     AddContactComponent,
     UpperCasePipe,
-    FilterPipe
-]
+    FilterPipe,
+  ],
 })
 export class ContactsComponent implements OnInit {
   firstLetters: string[] = [];
@@ -66,6 +66,7 @@ export class ContactsComponent implements OnInit {
    * function used to find all letters a contact's name starts with
    */
   getEveryFirstLetter() {
+    this.firstLetters = [];
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
       const contact = this.appStateService.contacts[i];
 
