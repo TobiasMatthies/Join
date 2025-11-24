@@ -1,3 +1,4 @@
+import { NgClass, NgStyle } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -6,22 +7,17 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
-import { AppStateService } from 'src/app/services/app-state.service';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Contact } from 'src/app/models/contact.model';
+import { AppStateService } from 'src/app/services/app-state.service';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
-import { NgClass, NgStyle } from '@angular/common';
+import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
-    selector: 'app-contact-overlay',
-    templateUrl: './contact-overlay.component.html',
-    styleUrls: ['./contact-overlay.component.css'],
-    imports: [
-    NgClass,
-    FormsModule,
-    NgStyle,
-    ButtonPrimaryComponent
-]
+  selector: 'app-contact-overlay',
+  templateUrl: './contact-overlay.component.html',
+  styleUrls: ['./contact-overlay.component.css'],
+  imports: [NgClass, FormsModule, NgStyle, ButtonPrimaryComponent],
 })
 export class AddContactComponent implements OnInit {
   @ViewChild('contactForm', { static: false }) contactForm: NgForm;
@@ -37,7 +33,10 @@ export class AddContactComponent implements OnInit {
   @Output() createContact = new EventEmitter<Contact>();
   @Output() editContact = new EventEmitter<Contact>();
 
-  constructor(private appStateService: AppStateService) {}
+  constructor(
+    private appStateService: AppStateService,
+    private dataStorageService: DataStorageService
+  ) {}
 
   ngOnInit(): void {
     if (this.selectedContact)
@@ -57,6 +56,10 @@ export class AddContactComponent implements OnInit {
 
   onCreateContact() {
     this.appStateService.contacts.push(this.contact);
+    this.dataStorageService.setItem(
+      this.appStateService.contacts,
+      'contacts.json'
+    );
     this.createContact.emit();
     this.onCloseOverlay();
   }
