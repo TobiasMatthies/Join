@@ -6,76 +6,74 @@
       src="assets/img/addTaskBoard.svg"
       alt="add Task"
       (click)="addTaskService.toggleAddTaskOverlay()"
-    />
+      />
   </h2>
 
   <div class="flex max-h-full flex-col gap-5 overflow-y-auto p-1">
-    <div
-      *ngFor="let task of filteredTasks | filterTasks: filter"
-      class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
-      [id]="task.id"
-      cdkDrag
-      [cdkDragData]="task.id"
-      (click)="taskDetailService.openTaskDetailView(task)"
-    >
-      <span
-        [ngStyle]="{ 'background-color': task.category.color }"
-        class="w-fit rounded-lg py-1 px-6 text-sm text-white"
-      >
-        {{ task.category.name }}
-      </span>
-
-      <section class="flex flex-col gap-1">
-        <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
-        <span class="text-gray-400 text-overflow">{{ task.description }}</span>
-      </section>
-
+    @for (task of filteredTasks | filterTasks: filter; track task) {
       <div
-        *ngIf="task.subtasks && task.subtasks.length > 0"
-        class="flex w-full items-center gap-5"
-      >
-        <div class="h-2 flex-1 rounded-sm bg-gray-200">
-          <div
-            class="h-full bg-custom-blue"
-            [style.width]="findCompletedSubtasks(task.subtasks, true)"
-          ></div>
-        </div>
-
-        <span class="text-xs">
-          {{ findCompletedSubtasks(task.subtasks, false) }}/{{
-            task.subtasks.length
-          }}
-          done
+        class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card"
+        [id]="task.id"
+        cdkDrag
+        [cdkDragData]="task.id"
+        (click)="taskDetailService.openTaskDetailView(task)"
+        >
+        <span
+          [ngStyle]="{ 'background-color': task.category.color }"
+          class="w-fit rounded-lg py-1 px-6 text-sm text-white"
+          >
+          {{ task.category.name }}
         </span>
-      </div>
-
-      <div class="flex w-full justify-between">
-        <div class="flex">
-          <ng-container *ngFor="let contact of task.assignedTo; index as i">
-            <span
-              *ngIf="i < 2"
-              class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-              [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+        <section class="flex flex-col gap-1">
+          <h3 class="font-semibold text-custom-blue">{{ task.title }}</h3>
+          <span class="text-gray-400 text-overflow">{{ task.description }}</span>
+        </section>
+        @if (task.subtasks && task.subtasks.length > 0) {
+          <div
+            class="flex w-full items-center gap-5"
             >
-              {{ contact.abbrevation }}
+            <div class="h-2 flex-1 rounded-sm bg-gray-200">
+              <div
+                class="h-full bg-custom-blue"
+                [style.width]="findCompletedSubtasks(task.subtasks, true)"
+              ></div>
+            </div>
+            <span class="text-xs">
+              {{ findCompletedSubtasks(task.subtasks, false) }}/{{
+              task.subtasks.length
+              }}
+              done
             </span>
-
-            <span
-              *ngIf="i == 2"
-              class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
-              [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-            >
-              +{{ task.assignedTo.length - 2 }}
-            </span>
-          </ng-container>
+          </div>
+        }
+        <div class="flex w-full justify-between">
+          <div class="flex">
+            @for (contact of task.assignedTo; track contact; let i = $index) {
+              @if (i < 2) {
+                <span
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                  >
+                  {{ contact.abbrevation }}
+                </span>
+              }
+              @if (i == 2) {
+                <span
+                  class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                  >
+                  +{{ task.assignedTo.length - 2 }}
+                </span>
+              }
+            }
+          </div>
+          <img
+            [src]="task.urgency.image"
+            [alt]="task.urgency.name"
+            class="mr-2"
+            />
         </div>
-
-        <img
-          [src]="task.urgency.image"
-          [alt]="task.urgency.name"
-          class="mr-2"
-        />
       </div>
-    </div>
+    }
   </div>
 </div>

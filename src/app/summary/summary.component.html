@@ -1,103 +1,113 @@
 <app-layout>
   <div
     class="relative flex h-full flex-col items-center justify-center px-[5%] lg:gap-20 lg:px-0 lg:font-light"
-  >
+    >
     <span class="mt-5 self-start lg:hidden"
       >Kanban Project Management Tool</span
-    >
-
-    <h1 class="hidden text-4xl lg:block">
-      Good {{ dayTime }}
-      <b *ngIf="username" class="text-5xl text-custom-blue">{{ username }}</b>
-    </h1>
-
-    <div class="mt-5 flex flex-col gap-4 sm:mt-10 lg:mt-0 lg:gap-8">
-      <div class="flex flex-col gap-4 lg:flex-row lg:gap-8">
-        <div
-          class="group flex w-full max-w-xl cursor-pointer justify-center gap-4 rounded-3xl bg-custom-blue py-2 text-white shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue sm:gap-10 sm:py-5 lg:h-40 lg:w-[624px] lg:max-w-none"
-          (click)="navigateToBoard()"
-        >
-          <div class="flex flex-col items-center justify-center gap-2">
-            <div class="flex items-center gap-5">
-              <img
-                class="h-14 w-14 lg:h-16 lg:w-16"
-                src="assets/img/icon + circle.svg"
-                alt="Tasks urgent"
-              />
-              <span
-                *ngIf="urgentTasksInfo"
-                class="text-2xl font-semibold lg:text-4xl"
-                >{{ urgentTasksInfo.amount }}</span
-              >
-            </div>
-            <h3 class="text-sm lg:text-xl">Tasks Urgent</h3>
-          </div>
-
-          <div
-            class="h-full rounded-full bg-white group-hover:bg-custom-blue"
-            style="width: 3px"
-          ></div>
-
-          <div class="flex flex-col justify-center gap-2">
-            <h2
-              *ngIf="urgentTasksInfo"
-              class="text-xl font-semibold lg:text-3xl"
-            >
-              {{ urgentTasksInfo.deadline | date: "longDate" }}
-            </h2>
-            <span class="text-sm lg:text-xl">Upcoming Deadline</span>
-          </div>
-        </div>
-
-        <div
-          class="flex w-full max-w-xl cursor-pointer flex-row items-center justify-center gap-5 rounded-3xl bg-custom-blue-active p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white md:p-8 lg:h-40 lg:w-44 lg:flex-col lg:gap-0"
-          (click)="navigateToBoard()"
-        >
-          <div class="flex items-center gap-5">
-            <img
-              class="h-14 w-14 lg:h-16 lg:w-16"
-              src="assets/img/to do 1.svg"
-              alt="Tasks Todo"
-            />
-            <span
-              *ngIf="tasksInfoService.tasksTodoInfo"
-              class="text-2xl font-semibold lg:text-4xl"
-              >{{ tasksInfoService.tasksTodoInfo.amount }}</span
-            >
-          </div>
-          <span
-            *ngIf="tasksInfoService.tasksTodoInfo"
-            class="text-sm text-custom-blue lg:text-xl"
-            >{{ tasksInfoService.tasksTodoInfo.name }}</span
-          >
-        </div>
-      </div>
-
-      <div
-        class="flex w-full max-w-xl flex-wrap justify-between lg:max-w-none lg:gap-8"
       >
-        <div
-          *ngFor="let info of generalInfoFields"
-          class="group mb-8 flex w-[47.5%] cursor-pointer flex-col items-center rounded-3xl p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark hover:text-white md:p-8 lg:w-44 lg:flex-1"
-          (click)="navigateToBoard()"
-        >
-          <div class="flex items-center gap-5">
-            <img
-              class="h-14 w-14 lg:h-16 lg:w-16"
-              [src]="info.image"
-              alt="Tasks Todo"
-            />
-            <span *ngIf="info" class="text-2xl font-semibold lg:text-4xl">{{
-              info.amount
-            }}</span>
-          </div>
-          <span
-            *ngIf="info"
-            class="text-center text-sm text-custom-blue group-hover:text-white lg:text-xl"
-            >{{ info.name }}</span
-          >
-        </div>
-      </div>
-    </div>
-  </div>
-</app-layout>
+
+      <h1 class="hidden text-4xl lg:block">
+        Good {{ dayTime }}
+        @if (username) {
+          <b class="text-5xl text-custom-blue">{{ username }}</b>
+        }
+      </h1>
+
+      <div class="mt-5 flex flex-col gap-4 sm:mt-10 lg:mt-0 lg:gap-8">
+        <div class="flex flex-col gap-4 lg:flex-row lg:gap-8">
+          <div
+            class="group flex w-full max-w-xl cursor-pointer justify-center gap-4 rounded-3xl bg-custom-blue py-2 text-white shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white hover:text-custom-blue sm:gap-10 sm:py-5 lg:h-40 lg:w-[624px] lg:max-w-none"
+            (click)="navigateToBoard()"
+            >
+            <div class="flex flex-col items-center justify-center gap-2">
+              <div class="flex items-center gap-5">
+                <img
+                  class="h-14 w-14 lg:h-16 lg:w-16"
+                  src="assets/img/icon + circle.svg"
+                  alt="Tasks urgent"
+                  />
+                @if (urgentTasksInfo) {
+                  <span
+                    class="text-2xl font-semibold lg:text-4xl"
+                    >{{ urgentTasksInfo.amount }}</span
+                    >
+                  }
+                </div>
+                <h3 class="text-sm lg:text-xl">Tasks Urgent</h3>
+              </div>
+
+              <div
+                class="h-full rounded-full bg-white group-hover:bg-custom-blue"
+                style="width: 3px"
+              ></div>
+
+              <div class="flex flex-col justify-center gap-2">
+                @if (urgentTasksInfo) {
+                  <h2
+                    class="text-xl font-semibold lg:text-3xl"
+                    >
+                    {{ urgentTasksInfo.deadline | date: "longDate" }}
+                  </h2>
+                }
+                <span class="text-sm lg:text-xl">Upcoming Deadline</span>
+              </div>
+            </div>
+
+            <div
+              class="flex w-full max-w-xl cursor-pointer flex-row items-center justify-center gap-5 rounded-3xl bg-custom-blue-active p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-white md:p-8 lg:h-40 lg:w-44 lg:flex-col lg:gap-0"
+              (click)="navigateToBoard()"
+              >
+              <div class="flex items-center gap-5">
+                <img
+                  class="h-14 w-14 lg:h-16 lg:w-16"
+                  src="assets/img/to do 1.svg"
+                  alt="Tasks Todo"
+                  />
+                @if (tasksInfoService.tasksTodoInfo) {
+                  <span
+                    class="text-2xl font-semibold lg:text-4xl"
+                    >{{ tasksInfoService.tasksTodoInfo.amount }}</span
+                    >
+                  }
+                </div>
+                @if (tasksInfoService.tasksTodoInfo) {
+                  <span
+                    class="text-sm text-custom-blue lg:text-xl"
+                    >{{ tasksInfoService.tasksTodoInfo.name }}</span
+                    >
+                  }
+                </div>
+              </div>
+
+              <div
+                class="flex w-full max-w-xl flex-wrap justify-between lg:max-w-none lg:gap-8"
+                >
+                @for (info of generalInfoFields; track info) {
+                  <div
+                    class="group mb-8 flex w-[47.5%] cursor-pointer flex-col items-center rounded-3xl p-2 shadow-custom-info-fields transition-all hover:scale-110 hover:rounded-tl-none hover:bg-custom-blue-dark hover:text-white md:p-8 lg:w-44 lg:flex-1"
+                    (click)="navigateToBoard()"
+                    >
+                    <div class="flex items-center gap-5">
+                      <img
+                        class="h-14 w-14 lg:h-16 lg:w-16"
+                        [src]="info.image"
+                        alt="Tasks Todo"
+                        />
+                      @if (info) {
+                        <span class="text-2xl font-semibold lg:text-4xl">{{
+                          info.amount
+                        }}</span>
+                      }
+                    </div>
+                    @if (info) {
+                      <span
+                        class="text-center text-sm text-custom-blue group-hover:text-white lg:text-xl"
+                        >{{ info.name }}</span
+                        >
+                      }
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </app-layout>

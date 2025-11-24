@@ -6,7 +6,7 @@ import { generalTasksInfo, urgentTasksInfo } from './task-info.models';
 import { TasksInfoService } from './tasks-info.service';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { LayoutComponent } from '../layout/layout.component';
 
 @Component({
@@ -14,11 +14,9 @@ import { LayoutComponent } from '../layout/layout.component';
     templateUrl: './summary.component.html',
     styleUrls: ['./summary.component.css'],
     imports: [
-        LayoutComponent,
-        NgIf,
-        NgFor,
-        DatePipe,
-    ]
+    LayoutComponent,
+    DatePipe
+]
 })
 export class SummaryComponent implements OnInit {
   urgentTasks: Task[];

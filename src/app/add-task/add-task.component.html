@@ -4,14 +4,14 @@
     id="form"
     [formGroup]="addTaskService.form"
     (ngSubmit)="addTaskService.onCreateTask()"
-  >
+    >
     <div
       class="flex w-full items-center overflow-y-auto lg:w-1/2"
       id="input_section"
-    >
+      >
       <div
         class="mx-auto flex h-full w-full max-w-[550px] flex-col gap-5 lg:mx-0 lg:w-auto"
-      >
+        >
         <input
           class="border-b py-2 px-4 text-2xl placeholder-custom-placeholder-gray lg:text-4xl lg:placeholder:font-light"
           id="title"
@@ -19,397 +19,395 @@
           name="title"
           placeholder="Enter a title"
           formControlName="title"
-        />
+          />
 
-        <span
-          *ngIf="
-            addTaskService.form.get('title').invalid && addTaskService.submitted
-          "
-          class="text-xs text-custom-red-urgent"
-          >This field is required</span
-        >
-
-        <div>
-          <div
-            class="flex items-center justify-between border-b py-2 px-4"
-            (click)="addTaskService.toggleContacts()"
-          >
-            <ng-container
-              *ngIf="
-                !addTaskService.showInviteNewContact;
-                else inviteNewContact
-              "
+        @if (
+          addTaskService.form.get('title').invalid && addTaskService.submitted
+          ) {
+          <span
+            class="text-xs text-custom-red-urgent"
+            >This field is required</span
             >
-              <span>Select contacts to assign</span>
-              <img
-                class="cursor-pointer"
-                src="assets/img/Vector 2.svg"
-                alt="select"
-              />
-            </ng-container>
-            <ng-template #inviteNewContact>
-              <div class="flex w-full flex-col gap-2">
-                <div class="flex justify-between">
-                  <input
-                    class="placeholder-custom-placeholder-gray"
-                    type="email"
-                    placeholder="Contact Email"
+          }
+
+          <div>
+            <div
+              class="flex items-center justify-between border-b py-2 px-4"
+              (click)="addTaskService.toggleContacts()"
+              >
+              @if (
+                !addTaskService.showInviteNewContact) {
+                <span>Select contacts to assign</span>
+                <img
+                  class="cursor-pointer"
+                  src="assets/img/Vector 2.svg"
+                  alt="select"
                   />
-                  <div class="flex gap-2">
-                    <img
-                      class="blue-filter w-5 cursor-pointer"
-                      src="assets/img/cancel.svg"
-                      alt="cancel"
+              } @else {
+                <div class="flex w-full flex-col gap-2">
+                  <div class="flex justify-between">
+                    <input
+                      class="placeholder-custom-placeholder-gray"
+                      type="email"
+                      placeholder="Contact Email"
+                      />
+                    <div class="flex gap-2">
+                      <img
+                        class="blue-filter w-5 cursor-pointer"
+                        src="assets/img/cancel.svg"
+                        alt="cancel"
                       (click)="
                         addTaskService.toggleInviteNewContact();
                         addTaskService.toggleContacts();
                         showInviteNewContactInfo = false
                       "
-                    />
-                    <div class="w-px bg-custom-placeholder-gray"></div>
-                    <img
-                      class="w-5 cursor-pointer"
-                      src="assets/img/Vector-3.svg"
-                      alt="invite"
-                      (click)="showInviteNewContactInfo = true"
-                    />
+                        />
+                      <div class="w-px bg-custom-placeholder-gray"></div>
+                      <img
+                        class="w-5 cursor-pointer"
+                        src="assets/img/Vector-3.svg"
+                        alt="invite"
+                        (click)="showInviteNewContactInfo = true"
+                        />
+                    </div>
                   </div>
-                </div>
-                <span
-                  *ngIf="showInviteNewContactInfo"
-                  class="text-xs text-red-500"
-                  >Will be implemented in production mode</span
-                >
+                  @if (showInviteNewContactInfo) {
+                    <span
+                      class="text-xs text-red-500"
+                      >Will be implemented in production mode</span
+                      >
+                    }
+                  </div>
+                }
               </div>
-            </ng-template>
-          </div>
 
-          <div
+              <div
             [ngClass]="
               addTaskService.showContacts &&
               !addTaskService.showInviteNewContact
                 ? ''
                 : 'hidden'
             "
-            formGroupName="contacts"
-          >
-            <ul
-              *ngIf="appStateService.contacts.length > 0"
-              class="drop-down-animation flex max-h-40 flex-col overflow-y-auto"
+                formGroupName="contacts"
+                >
+                @if (appStateService.contacts.length > 0) {
+                  <ul
+                    class="drop-down-animation flex max-h-40 flex-col overflow-y-auto"
               [ngClass]="
                 addTaskService.closeContactsAnimation
                   ? 'pull-up-animation'
                   : ''
               "
-            >
-              <li
-                *ngFor="
-                  let contact of addTaskService.fillContacts();
-                  index as i
-                "
-                class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
-              >
-                <span>{{ contact.name }}</span>
-                <input
-                  class="cursor-pointer accent-custom-blue"
-                  type="checkbox"
-                  name="contacts"
-                  [formControlName]="i"
-                />
-              </li>
-              <li
-                class="flex cursor-pointer justify-between rounded-b-lg py-3 px-4 hover:bg-custom-blue-active"
-                (click)="addTaskService.toggleInviteNewContact()"
-              >
-                <span>Invite new contact</span>
-                <img src="assets/img/Vector.svg" alt="invite contact" />
-              </li>
-            </ul>
-          </div>
-          <span
-            *ngIf="
-              addTaskService.form.get('contacts').invalid &&
-              addTaskService.submitted
-            "
-            class="text-xs text-custom-red-urgent"
-            >This field is required</span
-          >
-          <div
-            *ngIf="!addTaskService.showContacts"
-            class="flex max-w-[150px] gap-2 overflow-x-auto"
-          >
-            <span
-              *ngFor="let contact of addTaskService.selectedContacts"
-              class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-lg text-white"
-              [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-            >
-              {{ contact.abbrevation }}
-            </span>
-          </div>
-        </div>
-
-        <div class="mb-4 flex flex-col gap-2">
-          <label class="font-bold text-custom-title-gray" for="date"
-            >Due date</label
-          >
-          <input
-            class="flex justify-between border-b py-2 px-4 invalid:text-custom-placeholder-gray"
-            id="date"
-            name="date"
-            type="date"
-            formControlName="dueDate"
-          />
-          <span
-            *ngIf="
-              addTaskService.form.get('dueDate').invalid &&
-              addTaskService.submitted
-            "
-            class="text-xs text-custom-red-urgent"
-            >This field is required</span
-          >
-        </div>
-
-        <div class="mb-4 flex flex-col">
-          <div class="flex flex-col gap-2">
-            <label class="font-bold text-custom-title-gray" for="category"
-              >Category</label
-            >
-            <div
-              class="flex justify-between border-b py-2 px-4"
-              (click)="addTaskService.toggleCategories()"
-            >
-              <ng-container
-                *ngIf="
-                  !addTaskService.showCreateNewCategory;
-                  else createNewCategory
-                "
-              >
-                <span *ngIf="!addTaskService.form.controls['category'].value"
-                  >Select task category</span
-                >
-
-                <div
-                  *ngIf="addTaskService.form.controls['category'].value"
-                  class="flex items-center gap-5"
-                >
-                  <span>{{
-                    addTaskService.form.controls["category"].value.name
-                  }}</span>
+                    >
+                    @for (
+                      contact of addTaskService.fillContacts(); track
+                      contact; let i = $index) {
+                      <li
+                        class="flex cursor-pointer justify-between px-4 py-3 last:rounded-b-lg hover:bg-custom-blue-active"
+                        >
+                        <span>{{ contact.name }}</span>
+                        <input
+                          class="cursor-pointer accent-custom-blue"
+                          type="checkbox"
+                          name="contacts"
+                          [formControlName]="i"
+                          />
+                      </li>
+                    }
+                    <li
+                      class="flex cursor-pointer justify-between rounded-b-lg py-3 px-4 hover:bg-custom-blue-active"
+                      (click)="addTaskService.toggleInviteNewContact()"
+                      >
+                      <span>Invite new contact</span>
+                      <img src="assets/img/Vector.svg" alt="invite contact" />
+                    </li>
+                  </ul>
+                }
+              </div>
+              @if (
+                addTaskService.form.get('contacts').invalid &&
+                addTaskService.submitted
+                ) {
+                <span
+                  class="text-xs text-custom-red-urgent"
+                  >This field is required</span
+                  >
+                }
+                @if (!addTaskService.showContacts) {
                   <div
+                    class="flex max-w-[150px] gap-2 overflow-x-auto"
+                    >
+                    @for (contact of addTaskService.selectedContacts; track contact) {
+                      <span
+                        class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-lg text-white"
+                        [ngStyle]="{ backgroundColor: contact.backgroundColor }"
+                        >
+                        {{ contact.abbrevation }}
+                      </span>
+                    }
+                  </div>
+                }
+              </div>
+
+              <div class="mb-4 flex flex-col gap-2">
+                <label class="font-bold text-custom-title-gray" for="date"
+                  >Due date</label
+                  >
+                  <input
+                    class="flex justify-between border-b py-2 px-4 invalid:text-custom-placeholder-gray"
+                    id="date"
+                    name="date"
+                    type="date"
+                    formControlName="dueDate"
+                    />
+                  @if (
+                    addTaskService.form.get('dueDate').invalid &&
+                    addTaskService.submitted
+                    ) {
+                    <span
+                      class="text-xs text-custom-red-urgent"
+                      >This field is required</span
+                      >
+                    }
+                  </div>
+
+                  <div class="mb-4 flex flex-col">
+                    <div class="flex flex-col gap-2">
+                      <label class="font-bold text-custom-title-gray" for="category"
+                        >Category</label
+                        >
+                        <div
+                          class="flex justify-between border-b py-2 px-4"
+                          (click)="addTaskService.toggleCategories()"
+                          >
+                          @if (
+                            !addTaskService.showCreateNewCategory) {
+                            @if (!addTaskService.form.controls['category'].value) {
+                              <span
+                                >Select task category</span
+                                >
+                              }
+                              @if (addTaskService.form.controls['category'].value) {
+                                <div
+                                  class="flex items-center gap-5"
+                                  >
+                                  <span>{{
+                                    addTaskService.form.controls["category"].value.name
+                                  }}</span>
+                                  <div
                     [ngStyle]="{
                       'background-color':
                         addTaskService.form.controls['category'].value.color
                     }"
-                    class="h-4 w-4 rounded-full"
-                  ></div>
-                </div>
-                <img
-                  class="cursor-pointer"
-                  src="assets/img/Vector 2.svg"
-                  alt="select"
-                />
-              </ng-container>
-              <ng-template #createNewCategory>
-                <input
-                  class="placeholder-custom-placeholder-gray"
-                  type="text"
-                  placeholder="New Category Name"
-                  id="categoryName"
-                />
-                <div class="flex gap-2">
-                  <img
-                    class="blue-filter w-5 cursor-pointer"
-                    src="assets/img/cancel.svg"
-                    alt="cancel"
-                    (click)="addTaskService.toggleNewCategory()"
-                  />
-                  <div class="w-px bg-custom-placeholder-gray"></div>
-                  <img
-                    class="w-5 cursor-pointer"
-                    src="assets/img/Vector-3.svg"
-                    alt="invite"
-                    (click)="addTaskService.onCreateNewTaskCategory()"
-                  />
-                </div>
-              </ng-template>
-            </div>
-            <span
-              *ngIf="
-                addTaskService.form.get('category').invalid &&
-                addTaskService.submitted
-              "
-              class="text-xs text-custom-red-urgent"
-              >This Field is required</span
-            >
-          </div>
+                                    class="h-4 w-4 rounded-full"
+                                  ></div>
+                                </div>
+                              }
+                              <img
+                                class="cursor-pointer"
+                                src="assets/img/Vector 2.svg"
+                                alt="select"
+                                />
+                            } @else {
+                              <input
+                                class="placeholder-custom-placeholder-gray"
+                                type="text"
+                                placeholder="New Category Name"
+                                id="categoryName"
+                                />
+                              <div class="flex gap-2">
+                                <img
+                                  class="blue-filter w-5 cursor-pointer"
+                                  src="assets/img/cancel.svg"
+                                  alt="cancel"
+                                  (click)="addTaskService.toggleNewCategory()"
+                                  />
+                                <div class="w-px bg-custom-placeholder-gray"></div>
+                                <img
+                                  class="w-5 cursor-pointer"
+                                  src="assets/img/Vector-3.svg"
+                                  alt="invite"
+                                  (click)="addTaskService.onCreateNewTaskCategory()"
+                                  />
+                              </div>
+                            }
+                          </div>
+                          @if (
+                            addTaskService.form.get('category').invalid &&
+                            addTaskService.submitted
+                            ) {
+                            <span
+                              class="text-xs text-custom-red-urgent"
+                              >This Field is required</span
+                              >
+                            }
+                          </div>
 
-          <ng-container
-            *ngIf="
-              addTaskService.showCategories &&
-                !addTaskService.showCreateNewCategory;
-              else categoryColorsContainer
-            "
-          >
-            <ul
-              class="drop-down-animation flex flex-col overflow-y-auto"
+                          @if (
+                            addTaskService.showCategories &&
+                            !addTaskService.showCreateNewCategory) {
+                            <ul
+                              class="drop-down-animation flex flex-col overflow-y-auto"
               [ngClass]="
                 addTaskService.closeCategoriesAnimation
                   ? 'pull-up-animation'
                   : ''
               "
-            >
-              <li
-                class="cursor-pointer px-4 py-3 hover:bg-custom-blue-active"
-                (click)="addTaskService.toggleNewCategory()"
-              >
-                New Category
-              </li>
-              <li
-                *ngFor="let category of appStateService.categories"
-                class="cursor-pointer px-4 last:rounded-b-lg hover:bg-custom-blue-active"
-              >
-                <label
-                  class="flex w-full items-center gap-5 py-3"
-                  [htmlFor]="category.name"
-                >
-                  <span>{{ category.name }}</span>
-                  <div
-                    [ngStyle]="{ 'background-color': category.color }"
-                    class="h-4 w-4 rounded-full"
-                  ></div>
-                  <input
-                    [id]="category.name"
-                    type="radio"
-                    [value]="category"
-                    formControlName="category"
-                    class="hidden"
-                  />
-                </label>
-              </li>
-            </ul>
-          </ng-container>
-
-          <ng-template #categoryColorsContainer>
-            <ng-container *ngIf="addTaskService.showCreateNewCategory">
-              <div class="mt-5 flex items-center gap-5 px-4">
-                <div
-                  *ngFor="let color of addTaskService.categoryColors"
+                              >
+                              <li
+                                class="cursor-pointer px-4 py-3 hover:bg-custom-blue-active"
+                                (click)="addTaskService.toggleNewCategory()"
+                                >
+                                New Category
+                              </li>
+                              @for (category of appStateService.categories; track category) {
+                                <li
+                                  class="cursor-pointer px-4 last:rounded-b-lg hover:bg-custom-blue-active"
+                                  >
+                                  <label
+                                    class="flex w-full items-center gap-5 py-3"
+                                    [htmlFor]="category.name"
+                                    >
+                                    <span>{{ category.name }}</span>
+                                    <div
+                                      [ngStyle]="{ 'background-color': category.color }"
+                                      class="h-4 w-4 rounded-full"
+                                    ></div>
+                                    <input
+                                      [id]="category.name"
+                                      type="radio"
+                                      [value]="category"
+                                      formControlName="category"
+                                      class="hidden"
+                                      />
+                                  </label>
+                                </li>
+                              }
+                            </ul>
+                          } @else {
+                            @if (addTaskService.showCreateNewCategory) {
+                              <div class="mt-5 flex items-center gap-5 px-4">
+                                @for (color of addTaskService.categoryColors; track color) {
+                                  <div
                   [ngClass]="
                     addTaskService.selectedColor == color
                       ? 'shadow-custom-category-color'
                       : ''
                   "
-                  [ngStyle]="{ 'background-color': color }"
-                  class="h-4 w-4 cursor-pointer rounded-full border-2 border-white"
-                  (click)="addTaskService.selectColor(color)"
-                ></div>
+                                    [ngStyle]="{ 'background-color': color }"
+                                    class="h-4 w-4 cursor-pointer rounded-full border-2 border-white"
+                                    (click)="addTaskService.selectColor(color)"
+                                  ></div>
+                                }
+                                <label class="colorpicker h-6 w-6">
+                                  <input
+                                    class="h-6 w-6 cursor-pointer opacity-0"
+                                    id="color"
+                                    name="color"
+                                    type="color"
+                                    (blur)="addTaskService.selectColor(colorpicker.value)"
+                                    #colorpicker
+                                    />
+                                </label>
+                              </div>
+                            }
+                          }
 
-                <label class="colorpicker h-6 w-6">
-                  <input
-                    class="h-6 w-6 cursor-pointer opacity-0"
-                    id="color"
-                    name="color"
-                    type="color"
-                    (blur)="addTaskService.selectColor(colorpicker.value)"
-                    #colorpicker
-                  />
-                </label>
-              </div>
-            </ng-container>
-          </ng-template>
-        </div>
+                        </div>
 
-        <app-choose-urgency></app-choose-urgency>
+                        <app-choose-urgency></app-choose-urgency>
 
-        <div class="mb-4 flex flex-col gap-2">
-          <label class="font-bold text-custom-title-gray" for="description"
-            >Description</label
-          >
+                        <div class="mb-4 flex flex-col gap-2">
+                          <label class="font-bold text-custom-title-gray" for="description"
+                            >Description</label
+                            >
 
-          <textarea
-            class="rounded-r-lg rounded-bl-lg border p-4 placeholder-custom-placeholder-gray"
-            name="description"
-            id="description"
-            placeholder="Enter a description"
-            formControlName="description"
-          ></textarea>
+                            <textarea
+                              class="rounded-r-lg rounded-bl-lg border p-4 placeholder-custom-placeholder-gray"
+                              name="description"
+                              id="description"
+                              placeholder="Enter a description"
+                              formControlName="description"
+                            ></textarea>
 
-          <span
-            *ngIf="
-              addTaskService.form.get('description').invalid &&
-              addTaskService.submitted
-            "
-            class="text-xs text-custom-red-urgent"
-            >This field is required</span
-          >
-        </div>
+                            @if (
+                              addTaskService.form.get('description').invalid &&
+                              addTaskService.submitted
+                              ) {
+                              <span
+                                class="text-xs text-custom-red-urgent"
+                                >This field is required</span
+                                >
+                              }
+                            </div>
 
-        <div class="flex flex-col gap-2" formGroupName="subtasks">
-          <label class="font-bold text-custom-title-gray" for="subtask"
-            >Subtasks</label
-          >
+                            <div class="flex flex-col gap-2" formGroupName="subtasks">
+                              <label class="font-bold text-custom-title-gray" for="subtask"
+                                >Subtasks</label
+                                >
 
-          <div class="flex justify-between border-b py-2 px-4">
-            <input
-              class="placeholder-custom-placeholder-gray"
-              id="subtask"
-              placeholder="Add new subtask"
-              type="text"
-            />
-            <img
-              class="cursor-pointer"
-              src="assets/img/Vector-2.svg"
-              alt="add subtask"
-              (click)="addTaskService.onCreateNewSubtask()"
-            />
-          </div>
+                                <div class="flex justify-between border-b py-2 px-4">
+                                  <input
+                                    class="placeholder-custom-placeholder-gray"
+                                    id="subtask"
+                                    placeholder="Add new subtask"
+                                    type="text"
+                                    />
+                                  <img
+                                    class="cursor-pointer"
+                                    src="assets/img/Vector-2.svg"
+                                    alt="add subtask"
+                                    (click)="addTaskService.onCreateNewSubtask()"
+                                    />
+                                </div>
 
-          <div
-            *ngFor="let subtask of addTaskService.subtasks; index as i"
-            class="flex gap-4"
-          >
-            <input
-              class="cursor-pointer"
-              type="checkbox"
-              [formControlName]="i"
-            />
-            <span>{{ subtask.name }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
+                                @for (subtask of addTaskService.subtasks; track subtask; let i = $index) {
+                                  <div
+                                    class="flex gap-4"
+                                    >
+                                    <input
+                                      class="cursor-pointer"
+                                      type="checkbox"
+                                      [formControlName]="i"
+                                      />
+                                    <span>{{ subtask.name }}</span>
+                                  </div>
+                                }
+                              </div>
+                            </div>
+                          </div>
 
-    <div class="hidden w-1/2 items-end justify-center gap-4 lg:flex">
-      <button
-        class="group box-border flex gap-4 rounded-lg py-3 px-4 text-xl outline outline-1 outline-gray-400 transition-all hover:shadow-md hover:outline-2 hover:outline-custom-blue"
-        type="button"
-        (click)="addTaskService.resetForm()"
-      >
-        <span class="text-gray-400 group-hover:text-custom-blue">Clear</span>
-        <span class="text-gray-400 group-hover:text-custom-blue">x</span>
-      </button>
-      <app-button-primary>
-        <div class="flex gap-4 p-1 text-xl">
-          <span>Create Task</span>
-          <img
-            class="brightness-0 invert"
-            src="assets/img/Vector-3.svg"
-            alt="create"
-          />
-        </div>
-      </app-button-primary>
-    </div>
-  </form>
+                          <div class="hidden w-1/2 items-end justify-center gap-4 lg:flex">
+                            <button
+                              class="group box-border flex gap-4 rounded-lg py-3 px-4 text-xl outline outline-1 outline-gray-400 transition-all hover:shadow-md hover:outline-2 hover:outline-custom-blue"
+                              type="button"
+                              (click)="addTaskService.resetForm()"
+                              >
+                              <span class="text-gray-400 group-hover:text-custom-blue">Clear</span>
+                              <span class="text-gray-400 group-hover:text-custom-blue">x</span>
+                            </button>
+                            <app-button-primary>
+                              <div class="flex gap-4 p-1 text-xl">
+                                <span>Create Task</span>
+                                <img
+                                  class="brightness-0 invert"
+                                  src="assets/img/Vector-3.svg"
+                                  alt="create"
+                                  />
+                              </div>
+                            </app-button-primary>
+                          </div>
+                        </form>
 
-  <div
-    [ngClass]="addTaskService.taskCreated ? 'task-added-animation' : ''"
-    class="absolute-center absolute m-auto hidden gap-5 rounded-2xl bg-custom-blue p-4 text-xl text-white"
-  >
-    <span>Task added to board</span>
-    <img
-      class="brightness-0 invert"
-      src="assets/img/Vector-10.svg"
-      alt="board"
-    />
-  </div>
-</app-layout>
+                        <div
+                          [ngClass]="addTaskService.taskCreated ? 'task-added-animation' : ''"
+                          class="absolute-center absolute m-auto hidden gap-5 rounded-2xl bg-custom-blue p-4 text-xl text-white"
+                          >
+                          <span>Task added to board</span>
+                          <img
+                            class="brightness-0 invert"
+                            src="assets/img/Vector-10.svg"
+                            alt="board"
+                            />
+                        </div>
+                      </app-layout>

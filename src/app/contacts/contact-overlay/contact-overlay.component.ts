@@ -10,19 +10,18 @@ import { NgForm, FormsModule } from '@angular/forms';
 import { AppStateService } from 'src/app/services/app-state.service';
 import { Contact } from 'src/app/models/contact.model';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
     selector: 'app-contact-overlay',
     templateUrl: './contact-overlay.component.html',
     styleUrls: ['./contact-overlay.component.css'],
     imports: [
-        NgClass,
-        NgIf,
-        FormsModule,
-        NgStyle,
-        ButtonPrimaryComponent,
-    ]
+    NgClass,
+    FormsModule,
+    NgStyle,
+    ButtonPrimaryComponent
+]
 })
 export class AddContactComponent implements OnInit {
   @ViewChild('contactForm', { static: false }) contactForm: NgForm;

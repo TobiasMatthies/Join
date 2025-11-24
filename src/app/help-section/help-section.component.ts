@@ -12,9 +12,9 @@ export class HelpSectionComponent {
   lastRoute: string;
 
   constructor(private router: Router) {
-    if (this.router.getCurrentNavigation().previousNavigation) {
+    if (this.router.currentNavigation().previousNavigation) {
       this.lastRoute = this.router
-        .getCurrentNavigation()
+        .currentNavigation()
         .previousNavigation.finalUrl.toString();
     } else {
       this.lastRoute = '/summary';

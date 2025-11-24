@@ -7,23 +7,21 @@ import { ChooseUrgencyComponent } from '../choose-urgency/choose-urgency.compone
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskResponsiveHeaderComponent } from '../../headers/add-task-responsive-header/add-task-responsive-header.component';
-import { NgIf, NgClass, NgFor, NgStyle } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
     selector: 'app-add-task-overlay',
     templateUrl: './add-task-overlay.component.html',
     styleUrls: ['./add-task-overlay.component.css'],
     imports: [
-        NgIf,
-        AddTaskResponsiveHeaderComponent,
-        NgClass,
-        FormsModule,
-        ReactiveFormsModule,
-        ButtonPrimaryComponent,
-        NgFor,
-        NgStyle,
-        ChooseUrgencyComponent,
-    ]
+    AddTaskResponsiveHeaderComponent,
+    NgClass,
+    FormsModule,
+    ReactiveFormsModule,
+    ButtonPrimaryComponent,
+    NgStyle,
+    ChooseUrgencyComponent
+]
 })
 export class AddTaskOverlayComponent implements OnInit, OnDestroy {
   constructor(
