@@ -1,4 +1,4 @@
-import { enableProdMode, importProvidersFrom } from '@angular/core';
+import { enableProdMode, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -15,7 +15,7 @@ if (environment.production) {
 
 bootstrapApplication(AppComponent, {
   providers: [
-    importProvidersFrom(
+    provideZoneChangeDetection(),importProvidersFrom(
       BrowserModule,
       FormsModule,
       ReactiveFormsModule,
