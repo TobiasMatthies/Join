@@ -1,28 +1,28 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AppStateService } from '../services/app-state.service';
-import { ChooseUrgencyService } from './choose-urgency.service';
-import { AddTaskService } from '../services/add-task.service';
-import { WindowWidthService } from '../layout/window-width.service';
-import { DataStorageService } from '../services/data-storage.service';
-import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
-import { ChooseUrgencyComponent } from './choose-urgency/choose-urgency.component';
 import { NgClass, NgStyle } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
 import { LayoutComponent } from '../layout/layout.component';
+import { WindowWidthService } from '../layout/window-width.service';
+import { AddTaskService } from '../services/add-task.service';
+import { AppStateService } from '../services/app-state.service';
+import { DataStorageService } from '../services/data-storage.service';
+import { ChooseUrgencyService } from './choose-urgency.service';
+import { ChooseUrgencyComponent } from './choose-urgency/choose-urgency.component';
 
 @Component({
-    selector: 'app-add-task',
-    templateUrl: './add-task.component.html',
-    styleUrls: ['./add-task.component.css'],
-    imports: [
+  selector: 'app-add-task',
+  templateUrl: './add-task.component.html',
+  styleUrls: ['./add-task.component.css'],
+  imports: [
     LayoutComponent,
     FormsModule,
     ReactiveFormsModule,
     NgClass,
     NgStyle,
     ChooseUrgencyComponent,
-    ButtonPrimaryComponent
-]
+    ButtonPrimaryComponent,
+  ],
 })
 export class AddTaskComponent implements OnInit, OnDestroy {
   showInviteNewContactInfo: boolean;
@@ -46,11 +46,13 @@ export class AddTaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.addTaskService.categorySubscription.unsubscribe();
-    this.addTaskService.contactSubscription.unsubscribe();
+    if (this.addTaskService.categorySubscription)
+      this.addTaskService.categorySubscription.unsubscribe();
 
-    if (this.addTaskService.formValueSubscription) {
+    if (this.addTaskService.contactSubscription)
+      this.addTaskService.contactSubscription.unsubscribe();
+
+    if (this.addTaskService.formValueSubscription)
       this.addTaskService.formValueSubscription.unsubscribe();
-    }
   }
 }
