@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { WelcomeComponent } from './auth/welcome/welcome.component';
 import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
 import { HelpSectionComponent } from './help-section/help-section.component';
@@ -17,6 +18,7 @@ export const routes: Routes = [
     pathMatch: 'full',
     canActivate: [AuthGuard],
   },
+  { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
@@ -30,5 +32,5 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'help', component: HelpSectionComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: 'login' },
+  { path: '**', redirectTo: 'welcome' },
 ];
