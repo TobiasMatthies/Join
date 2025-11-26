@@ -1,0 +1,40 @@
+<div class="flex h-screen flex-col items-center justify-center gap-5 bg-custom-blue px-[5%] transition-all md:gap-0">
+    <div
+        class="top-10 left-10 right-10 w-full flex flex-col items-center justify-between self-start md:absolute max-w-[1920px] mx-auto md:flex-row md:items-start">
+        <img class="self-start md:self-auto h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24" src="assets/img/icon_white.svg"
+            alt="join logo" />
+
+        <div class="flex items-center gap-5 text-lg lg:font-light text-white">
+            <span>Not a Join user?</span>
+            <app-button-primary (click)="router.navigate(['/signup'])">Sign up</app-button-primary>
+        </div>
+    </div>
+
+    <!--Card-->
+    <div
+        class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white py-8  px-6 md:py-14 md:px-16 md:w-2/5 md:min-w-xl md:max-w-none">
+        <h1 class="text-3xl border-b-4 border-custom-blue">Welcome</h1>
+        <p class="mt-6">Pick the option that suits your role: create a request as a stakeholder or log in if you’re part
+            of the team.
+        </p>
+
+        <div class="flex flex-col mt-8 md:mt-14 gap-8 md:gap-16 md:flex-row">
+            <div class="flex flex-col items-center md:items-start">
+                <h3 class="mb-6 flex gap-2 text-custom-blue">
+                    <img src="assets/img/work.svg" alt="work">
+                    Are you a stakeholder?
+                </h3>
+                <a class="py-2.5 px-5 rounded-lg text-white bg-custom-blue">Create request</a>
+            </div>
+
+            <div class="flex flex-col items-center md:items-start">
+                <h3 class="mb-6 flex gap-2 text-custom-blue">
+                    <img src="assets/img/Frame 245.svg" alt="work">
+                    Are you a team member?
+                </h3>
+                <a class=" py-2.5 px-5 rounded-lg text-custom-title-gray border-custom-title-gray border-2"
+                    routerLink="/login">Member log in</a>
+            </div>
+        </div>
+    </div>
+</div>
