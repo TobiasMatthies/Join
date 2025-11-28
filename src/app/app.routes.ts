@@ -7,6 +7,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { WelcomeComponent } from './auth/welcome/welcome.component';
 import { BoardComponent } from './board/board.component';
 import { ContactsComponent } from './contacts/contacts.component';
+import { CreateRequestComponent } from './email-requests/create-request/create-request.component';
 import { HelpSectionComponent } from './help-section/help-section.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { SummaryComponent } from './summary/summary.component';
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'create-request', component: CreateRequestComponent },
   { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
   { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
   { path: 'add-task', component: AddTaskComponent, canActivate: [AuthGuard] },
