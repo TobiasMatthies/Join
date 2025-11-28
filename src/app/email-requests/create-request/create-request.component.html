@@ -1,0 +1,24 @@
+<app-header></app-header>
+
+<main class="max-w-[1920px] mx-auto flex flex-col items-center">
+    <nav class="flex justify-between text-custom-blue w-full mt-8">
+        <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
+        <span>x out of 10 requests today</span>
+    </nav>
+
+    <h1 class="text-6xl font-bold mb-12">Good morning</h1>
+    <div class="flex max-w-[1440px]">
+        <div class="flex flex-col gap-4">
+            <h3 class="text-3xl mb-8">Easily create a ticket by sending an email — no extra steps needed.</h3>
+            <p>On this platform, you can submit your feature requests via email. Our AI system will automatically
+                generate a ticket
+                with a deadline and priority level.</p>
+            <p>A total of 10 requests can be created per day. After this limit, emails can still be sent, but they will
+                be manually
+                reviewed by our team instead of generating AI tickets.</p>
+
+            <app-button-primary>Create email request</app-button-primary>
+        </div>
+        <img src="assets/img/Rectangle 11.png" alt="">
+    </div>
+</main>
