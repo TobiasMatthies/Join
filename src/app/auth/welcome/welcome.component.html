@@ -1,6 +1,7 @@
-<div class="flex h-screen flex-col items-center justify-center gap-5 bg-custom-blue px-[5%] transition-all md:gap-0">
+<div
+    class="flex h-screen flex-col items-center justify-between gap-5 bg-custom-blue px-[5%] transition-all pb-8 md:gap-0 relative">
     <div
-        class="top-10 left-10 right-10 w-full flex flex-col items-center justify-between self-start md:absolute max-w-[1920px] mx-auto md:flex-row md:items-start">
+        class="w-full flex flex-col items-center justify-between max-w-[1920px] mx-auto md:flex-row md:items-start p-10">
         <img class="self-start md:self-auto h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24" src="assets/img/icon_white.svg"
             alt="join logo" />
 
@@ -13,7 +14,12 @@
     <!--Card-->
     <div
         class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white py-8  px-6 md:py-14 md:px-16 md:w-2/5 md:min-w-xl md:max-w-none">
-        <h1 class="text-3xl border-b-4 border-custom-blue">Welcome</h1>
+
+        <div class="mb-5 flex flex-col items-center gap-4 self-start">
+            <h1 class="text-center text-4xl font-semibold">Welcome</h1>
+            <img src="assets/img/Vector 5.svg" alt="border" class="h-1 w-20 object-cover md:w-auto" />
+        </div>
+
         <p class="mt-6">Pick the option that suits your role: create a request as a stakeholder or log in if you’re part
             of the team.
         </p>
@@ -37,5 +43,10 @@
                     routerLink="/login">Member log in</a>
             </div>
         </div>
+    </div>
+
+    <div class="flex gap-2 text-white">
+        <a routerLink="/legal-notice">Privacy Policy</a>
+        <a routerLink="/legal-notice">Legal Notice</a>
     </div>
 </div>

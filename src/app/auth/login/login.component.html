@@ -1,10 +1,12 @@
 <div class="animate-background-color absolute h-screen w-full bg-white">
 </div>
 
-<div class="flex h-screen flex-col items-center justify-center gap-5 px-[5%] transition-all md:gap-0 relative">
-  <div class="top-10 left-10 right-10 flex items-start justify-end self-start md:absolute max-w-[1920px] mx-auto">
-    <img class="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 absolute animate-logo z-10" src="assets/img/icon_white.svg"
-      alt="join logo" />
+<div
+  class="flex h-screen flex-col items-center justify-between gap-5 transition-all md:gap-0 relative px-8 py-8 max-w-[1920px] mx-auto">
+  <div class="flex items-start justify-end max-w-[1920px] mx-auto w-full">
+    <a class="animate-logo z-10 absolute" routerLink="/welcome">
+      <img class="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 " src="assets/img/icon_white.svg" alt="join logo" />
+    </a>
 
     <div class="hidden items-center gap-5 text-lg md:flex lg:font-light">
       <span>Not a Join user?</span>
@@ -73,5 +75,10 @@
   <div class="flex items-center gap-5 text-lg md:hidden lg:font-light">
     <span>Not a Join user?</span>
     <app-button-primary (click)="router.navigate(['/signup'])">Sign up</app-button-primary>
+  </div>
+
+  <div class="flex gap-2 text-custom-title-gray">
+    <a routerLink="/legal-notice">Privacy Policy</a>
+    <a routerLink="/legal-notice">Legal Notice</a>
   </div>
 </div>

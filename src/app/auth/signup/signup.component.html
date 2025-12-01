@@ -1,58 +1,67 @@
-<div class="flex h-screen flex-col items-center justify-center gap-5 bg-custom-blue px-[5%] transition-all md:gap-0">
-  <div class="top-10 left-10 right-10 flex items-start justify-between self-start md:absolute max-w-[1920px] mx-auto">
-    <img class="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24" src="assets/img/icon_white.svg" alt="join logo" />
-  </div>
-
-  <!--Card-->
+<div class=" bg-custom-blue">
   <div
-    class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white p-6 md:w-2/5 md:min-w-[576px] md:max-w-none">
-    <img class="cursor-pointer self-start md:absolute md:left-6 md:top-8" src="assets/img/arrow.svg" alt="go back"
-      (click)="router.navigate(['welcome'])" />
-
-    <!--Heading Section-->
-    <div class="mb-5 flex flex-col items-center gap-5">
-      <h1 class="text-center text-4xl font-semibold">Sign up</h1>
-      <img src="assets/img/Vector 5.svg" alt="border" class="h-1 w-20 object-cover md:w-auto" />
+    class="px-8 py-8 max-w-[1920px] mx-auto flex h-screen flex-col items-center justify-between gap-5  transition-all md:gap-0">
+    <div class="flex items-start justify-start w-full max-w-[1920px] mx-auto">
+      <img class="h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24" src="assets/img/icon_white.svg" alt="join logo" />
     </div>
 
-    <!--Input Section-->
-    <form class="flex w-full flex-col gap-5 md:w-2/3 lg:font-light" (ngSubmit)="onSubmit(form)" #form="ngForm">
-      <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:max-w-none">
-        <input class="bg-transparent" placeholder="Name" name="name" (focus)="resetErrors()" required ngModel />
-        <img src="assets/img/Vector-4.svg" alt="name" />
-      </div>
-      @if (nameError) {
-      <span class="text-red-500 text-xs">This field is required</span>
-      }
+    <!--Card-->
+    <div
+      class="container relative flex w-full max-w-lg flex-col items-center justify-between rounded-3xl bg-white p-6 md:w-2/5 md:min-w-[576px] md:max-w-none">
+      <img class="cursor-pointer self-start md:absolute md:left-6 md:top-8" src="assets/img/arrow.svg" alt="go back"
+        (click)="router.navigate(['welcome'])" />
 
-      <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none">
-        <input class="bg-transparent" placeholder="Email" type="text" name="email" (focus)="resetErrors()" required
-          email ngModel />
-        <img src="assets/img/Vector-5.svg" alt="email" />
+      <!--Heading Section-->
+      <div class="mb-5 flex flex-col items-center gap-5">
+        <h1 class="text-center text-4xl font-semibold">Sign up</h1>
+        <img src="assets/img/Vector 5.svg" alt="border" class="h-1 w-20 object-cover md:w-auto" />
       </div>
-      @if (emailError) {
-      <span class="text-red-500 text-xs">This field is required, must be a valid email address</span>
-      }
 
-      <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none">
-        <input class="bg-transparent" placeholder="Password" type="password" name="password" minlength="6"
-          (focus)="resetErrors()" required ngModel />
-        <img src="assets/img/Vector-7.svg" alt="password" />
-      </div>
-      @if (passwordError) {
-      <span class="text-red-500 text-xs">This field is required, must be at least six characters long</span>
-      }
+      <!--Input Section-->
+      <form class="flex w-full flex-col gap-5 md:w-2/3 lg:font-light" (ngSubmit)="onSubmit(form)" #form="ngForm">
+        <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:max-w-none">
+          <input class="bg-transparent" placeholder="Name" name="name" (focus)="resetErrors()" required ngModel />
+          <img src="assets/img/Vector-4.svg" alt="name" />
+        </div>
+        @if (nameError) {
+        <span class="text-red-500 text-xs">This field is required</span>
+        }
 
-      @if (error) {
-      <span class="text-red-500">{{ error }}</span>
-      }
+        <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none">
+          <input class="bg-transparent" placeholder="Email" type="text" name="email" (focus)="resetErrors()" required
+            email ngModel />
+          <img src="assets/img/Vector-5.svg" alt="email" />
+        </div>
+        @if (emailError) {
+        <span class="text-red-500 text-xs">This field is required, must be a valid email address</span>
+        }
 
-      <!--Auth Actions Section-->
-      <div class="flex flex-col items-center justify-evenly gap-5 md:flex-row md:gap-0">
-        <app-button-primary class="min-w-[144px] md:w-auto">
-          <span class="px-6">Sign up</span>
-        </app-button-primary>
-      </div>
-    </form>
+        <div class="mx-auto flex w-full max-w-sm justify-between border-b py-2 px-4 md:mx-0 md:w-auto md:max-w-none">
+          <input class="bg-transparent" placeholder="Password" type="password" name="password" minlength="6"
+            (focus)="resetErrors()" required ngModel />
+          <img src="assets/img/Vector-7.svg" alt="password" />
+        </div>
+        @if (passwordError) {
+        <span class="text-red-500 text-xs">This field is required, must be at least six characters long</span>
+        }
+
+        @if (error) {
+        <span class="text-red-500">{{ error }}</span>
+        }
+
+        <!--Auth Actions Section-->
+        <div class="flex flex-col items-center justify-evenly gap-5 md:flex-row md:gap-0">
+          <app-button-primary class="min-w-[144px] md:w-auto">
+            <span class="px-6">Sign up</span>
+          </app-button-primary>
+        </div>
+      </form>
+    </div>
+
+    <div class="flex gap-2 text-white">
+      <a routerLink="/legal-notice">Privacy Policy</a>
+      <a routerLink="/legal-notice">Legal Notice</a>
+    </div>
   </div>
+
 </div>

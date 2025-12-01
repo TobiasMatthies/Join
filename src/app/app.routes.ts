@@ -31,7 +31,6 @@ export const routes: Routes = [
   {
     path: 'legal-notice',
     component: LegalNoticeComponent,
-    canActivate: [AuthGuard],
   },
   { path: 'help', component: HelpSectionComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'welcome' },
