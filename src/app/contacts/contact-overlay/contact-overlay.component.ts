@@ -35,7 +35,7 @@ export class AddContactComponent implements OnInit {
 
   constructor(
     private appStateService: AppStateService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
   ) {}
 
   ngOnInit(): void {
@@ -55,21 +55,20 @@ export class AddContactComponent implements OnInit {
   }
 
   onCreateContact() {
-    this.appStateService.contacts.push(this.contact);
-    this.dataStorageService.setItem(
-      this.appStateService.contacts,
-      'contacts.json'
-    );
-    this.createContact.emit();
+    this.createContact.emit(this.contact);
     this.onCloseOverlay();
   }
 
   onEditContact() {
-    this.appStateService.contacts[
-      this.appStateService.contacts.indexOf(this.selectedContact)
-    ] = this.contact;
-    this.selectedContact = this.contact;
+    let contactIndex = this.appStateService.contacts.findIndex(
+      (c) =>
+        c.email === this.selectedContact.email &&
+        c.name === this.selectedContact.name &&
+        c.phoneNumber === this.selectedContact.phoneNumber,
+    );
 
+    this.appStateService.contacts[contactIndex] = this.contact;
+    this.selectedContact = this.contact;
     this.editContact.emit(this.selectedContact);
     this.onCloseOverlay();
   }

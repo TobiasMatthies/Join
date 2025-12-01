@@ -1,105 +1,76 @@
 <app-layout (window:resize)="windowWidthService.getWindowWidth()">
   <div
-    class="container relative mx-auto flex h-full w-full max-w-[550px] flex-col gap-2 py-6 px-2 lg:mx-0 lg:max-w-none lg:flex-row lg:p-0"
-    >
-    @if (selectedContact && windowWidthService.getWindowWidth() < 1024) {
-      <app-contact-detail-view
-        class="absolute top-[6px] left-0 right-0 bottom-0"
-        [selectedContact]="selectedContact"
-        (toggleContactOverlay)="toggleContactOverlay($event)"
-        (unselectContact)="selectedContact = null"
-        >
+    class="container relative mx-auto flex h-full w-full max-w-[550px] flex-col gap-2 py-6 px-2 lg:mx-0 lg:max-w-none lg:flex-row lg:p-0">
+    @if (selectedContact && windowWidthService.getWindowWidth() < 1024) { <app-contact-detail-view
+      class="absolute top-[6px] left-0 right-0 bottom-0" [selectedContact]="selectedContact"
+      (toggleContactOverlay)="toggleContactOverlay($event)" (unselectContact)="selectedContact = null">
       </app-contact-detail-view>
-    }
+      }
 
-    <app-button-primary
-      class="self-end lg:hidden"
-      (click)="toggleContactOverlay()"
-      >
-      <div class="flex items-center gap-2">
-        <span>New contact</span>
-        <img src="assets/img/newContact.svg" alt="new contact" />
-      </div>
-    </app-button-primary>
+      <app-button-primary class="self-end lg:hidden" (click)="toggleContactOverlay()">
+        <div class="flex items-center gap-2">
+          <span>New contact</span>
+          <img src="assets/img/newContact.svg" alt="new contact" />
+        </div>
+      </app-button-primary>
 
-    <div
-      class="max-h-full w-full overflow-y-auto px-8 lg:w-2/5 lg:px-16 lg:font-light lg:shadow-custom-contacts-right"
-      id="contacts"
-      >
-      @for (firstLetter of firstLetters; track firstLetter) {
+      <div
+        class="max-h-full w-full overflow-y-auto px-8 lg:w-2/5 lg:px-16 lg:font-light lg:shadow-custom-contacts-right"
+        id="contacts">
+        @for (firstLetter of firstLetters; track firstLetter) {
         <div>
           <h2 class="mb-4 border-b p-4 pb-6">{{ firstLetter | uppercase }}</h2>
           <ul>
             @for (
-              contact of appStateService.contacts | filter: firstLetter
-              ; track
-              contact) {
-              <li
-                class="-mx-4 flex cursor-pointer items-center gap-5 rounded-lg py-2 px-4"
-            [ngClass]="
+            contact of appStateService.contacts | filter: firstLetter
+            ; track
+            contact) {
+            <li class="-mx-4 flex cursor-pointer items-center gap-5 rounded-lg py-2 px-4" [ngClass]="
               selectedContact == contact
                 ? ['bg-custom-blue', 'text-white']
                 : ['hover:bg-custom-blue-active', 'group']
-            "
-                (click)="onSelectContact(contact)"
-                >
-                <div
-                  class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full border border-white group-hover:border-2 group-hover:shadow-custom-contacts"
-                  [ngStyle]="{ backgroundColor: contact.backgroundColor }"
-                  >
-                  <span class="text-white">{{ contact.abbrevation }}</span>
-                </div>
-                <div class="flex flex-col">
-                  <span class="text-lg">{{ contact.name }}</span>
-                  <span
-                    class="text-sm"
-                [ngClass]="
+            " (click)="onSelectContact(contact)">
+              <div
+                class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full border border-white group-hover:border-2 group-hover:shadow-custom-contacts"
+                [ngStyle]="{ backgroundColor: contact.backgroundColor }">
+                <span class="text-white">{{ contact.abbrevation }}</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="text-lg">{{ contact.name }}</span>
+                <span class="text-sm" [ngClass]="
                   selectedContact == contact ? 'text-white' : 'text-custom-blue'
-                "
-                    >{{ contact.email }}</span
-                    >
-                  </div>
-                </li>
-              }
-            </ul>
-          </div>
+                ">{{ contact.email }}</span>
+              </div>
+            </li>
+            }
+          </ul>
+        </div>
         }
       </div>
 
       <div class="relative hidden w-3/5 p-10 lg:block lg:font-light">
         @if (selectedContact) {
-          <app-contact-detail-view
-            [selectedContact]="selectedContact"
-            (toggleContactOverlay)="toggleContactOverlay($event)"
-            >
-          </app-contact-detail-view>
+        <app-contact-detail-view [selectedContact]="selectedContact"
+          (toggleContactOverlay)="toggleContactOverlay($event)" (deleteContact)="deleteContact($event)">
+        </app-contact-detail-view>
         }
 
-        <app-button-primary
-          class="absolute right-10 bottom-20"
-          (click)="toggleContactOverlay()"
-          >
+        <app-button-primary class="absolute right-10 bottom-20" (click)="toggleContactOverlay()">
           <div class="flex items-center gap-2">
             <span class="text-xl">New contact</span>
             <img src="assets/img/newContact.svg" alt="new contact" />
           </div>
         </app-button-primary>
       </div>
-    </div>
+  </div>
 
-    @if (addTaskService.addTaskOverlayOpened) {
-      <app-add-task-overlay
-      ></app-add-task-overlay>
-    }
+  @if (addTaskService.addTaskOverlayOpened) {
+  <app-add-task-overlay></app-add-task-overlay>
+  }
 
-    @if (contactOverlayOpened) {
-      <app-contact-overlay
-        [editMode]="editMode"
-        [selectedContact]="selectedContact"
-        [contactOverlayCloseAnimation]="contactOverlayCloseAnimation"
-        (closeOverlay)="toggleContactOverlay()"
-        (createContact)="getEveryFirstLetter()"
-        (editContact)="updateContacts($event)"
-      ></app-contact-overlay>
-    }
-  </app-layout>
+  @if (contactOverlayOpened) {
+  <app-contact-overlay [editMode]="editMode" [selectedContact]="selectedContact"
+    [contactOverlayCloseAnimation]="contactOverlayCloseAnimation" (closeOverlay)="toggleContactOverlay()"
+    (createContact)="createContact($event)" (editContact)="updateContacts($event)"></app-contact-overlay>
+  }
+</app-layout>

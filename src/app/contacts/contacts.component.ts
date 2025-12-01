@@ -1,5 +1,5 @@
 import { NgClass, NgStyle, UpperCasePipe } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
 import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
 import { LayoutComponent } from '../layout/layout.component';
@@ -40,15 +40,13 @@ export class ContactsComponent implements OnInit {
     public appStateService: AppStateService,
     public addTaskService: AddTaskService,
     public windowWidthService: WindowWidthService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
   ) {}
 
   async ngOnInit() {
     if (this.appStateService.contacts.length < 1) {
-      this.appStateService.contacts = await this.dataStorageService.getItem(
-        'contacts.json'
-      );
+      this.appStateService.contacts =
+        await this.dataStorageService.getItem('contacts.json');
     }
 
     this.windowWidthService.getWindowWidth();
@@ -57,7 +55,10 @@ export class ContactsComponent implements OnInit {
 
   updateContacts(contact: Contact) {
     this.firstLetters = [];
-    this.changeDetectorRef.detectChanges();
+    this.dataStorageService.setItem(
+      this.appStateService.contacts,
+      'contacts.json',
+    );
     this.getEveryFirstLetter();
     this.selectedContact = contact;
   }
@@ -86,21 +87,38 @@ export class ContactsComponent implements OnInit {
   }
 
   toggleContactOverlay(editMode?: boolean) {
+    this.editMode = editMode;
+
     if (!this.contactOverlayOpened) {
       this.contactOverlayOpened = true;
     } else {
       this.contactOverlayCloseAnimation = true;
 
       setTimeout(() => {
-        if (editMode) {
-          this.editMode = editMode;
-        } else {
-          this.editMode = false;
-        }
-
         this.contactOverlayCloseAnimation = false;
         this.contactOverlayOpened = false;
       }, 300);
     }
+  }
+
+  deleteContact(contact: Contact) {
+    this.appStateService.contacts = this.appStateService.contacts.filter(
+      (c) => c.email !== contact.email,
+    );
+    this.dataStorageService.setItem(
+      this.appStateService.contacts,
+      'contacts.json',
+    );
+    this.selectedContact = null;
+    this.getEveryFirstLetter();
+  }
+
+  createContact(contact: Contact) {
+    this.appStateService.contacts = [...this.appStateService.contacts, contact];
+    this.dataStorageService.setItem(
+      this.appStateService.contacts,
+      'contacts.json',
+    );
+    this.getEveryFirstLetter();
   }
 }

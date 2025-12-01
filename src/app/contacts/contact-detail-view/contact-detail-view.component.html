@@ -1,25 +1,16 @@
-<div
-  class="flex h-full w-full flex-col gap-5 bg-white px-[5%] lg:px-0"
->
-  <span class="mt-5 self-start text-custom-blue lg:hidden"
-    >Kanban Project Management Tool</span
-  >
+<div class="flex h-full w-full flex-col gap-5 bg-white px-[5%] lg:px-0">
+  <span class="mt-5 self-start text-custom-blue lg:hidden">Kanban Project Management Tool</span>
 
-  <img
-    src="assets/img/arrow.svg"
-    alt="arrow"
-    class="h-4 w-4 cursor-pointer self-end lg:hidden"
-    (click)="onUnselectContact()"
-  />
+  <img src="assets/img/arrow.svg" alt="arrow" class="h-4 w-4 cursor-pointer self-end lg:hidden"
+    (click)="onUnselectContact()" />
 
   <div class="flex items-center gap-5">
     <div
       class="box-border flex h-20 w-20 items-center justify-center rounded-full border-2 border-white shadow-custom-contacts lg:h-28 lg:w-28"
-      [ngStyle]="{ backgroundColor: selectedContact.backgroundColor }"
-    >
+      [ngStyle]="{ backgroundColor: selectedContact.backgroundColor }">
       <span class="text-3xl text-white lg:text-5xl">{{
         selectedContact.abbrevation
-      }}</span>
+        }}</span>
     </div>
 
     <div class="flex flex-col gap-2">
@@ -27,29 +18,24 @@
         {{ selectedContact.name }}
       </h1>
 
-      <span
-        class="flex cursor-pointer items-center gap-2"
-        (click)="addTaskService.toggleAddTaskOverlay()"
-      >
-        <img
-          class="blue-filter h-4"
-          src="assets/img/addWhite.svg"
-          alt="add task"
-        />
+      <span class="flex cursor-pointer items-center gap-2" (click)="addTaskService.toggleAddTaskOverlay()">
+        <img class="blue-filter h-4" src="assets/img/addWhite.svg" alt="add task" />
         <span class="text-custom-blue">Add Task</span>
       </span>
     </div>
   </div>
 
-  <div class="flex items-center gap-20">
+  <div class="flex items-center gap-6 xl:gap-20">
     <h2 class="text-xl lg:font-semibold">Contact Information</h2>
 
-    <span
-      class="hidden cursor-pointer items-end lg:flex"
-      (click)="onToggleContactOverlay(true)"
-    >
+    <span class="hidden cursor-pointer items-end lg:flex" (click)="onToggleContactOverlay(true)">
       <img class="blue-filter" src="assets/img/editWhite.svg" alt="edit" />
       <span class="text-sm">Edit Contact</span>
+    </span>
+
+    <span class="hidden cursor-pointer items-end lg:flex" (click)="onDeleteContact()">
+      <img class="blue-filter" src="assets/img/delete-blue.svg" alt="edit" />
+      <span class="text-sm">Delete Contact</span>
     </span>
   </div>
 
@@ -63,12 +49,17 @@
     <span>{{ selectedContact.phoneNumber }}</span>
   </div>
 
-  <app-button-primary
-    (click)="onToggleContactOverlay(true)"
-    class="self-end lg:hidden"
-  >
-    <div class="p-1">
-      <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
-    </div>
-  </app-button-primary>
+  <div class="flex gap-2 self-end lg:hidden">
+    <app-button-primary (click)="onToggleContactOverlay(true)">
+      <div class="p-1">
+        <img class="h-6 w-6" src="assets/img/editWhite.svg" alt="edit" />
+      </div>
+    </app-button-primary>
+
+    <app-button-primary (click)="onDeleteContact()">
+      <div class="p-1">
+        <img class="h-6 w-6" src="assets/img/delete-white.svg" alt="edit" />
+      </div>
+    </app-button-primary>
+  </div>
 </div>
