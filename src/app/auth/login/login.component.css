@@ -12,10 +12,12 @@
     background-color: rgb(69 136 255);
     z-index: 10;
   }
+
   60% {
     background-color: rgb(69 136 255);
     z-index: 10;
   }
+
   100% {
     background-color: transparent;
     z-index: 0;
@@ -29,6 +31,7 @@
     transform: translateX(-50%) translateY(-50%);
     filter: unset;
   }
+
   59% {
     filter: unset;
   }
@@ -37,15 +40,13 @@
     top: 50vh;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
-      brightness(98%) contrast(106%);
+    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
   }
 
   100% {
-    top: 0;
-    left: 0;
+    top: 32px;
+    left: 32px;
     transform: unset;
-    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
-      brightness(98%) contrast(106%);
+    filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
   }
 }

@@ -1,18 +1,14 @@
 import { Component } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
-
+import { AuthService } from '../../services/auth.service';
 
 @Component({
-    selector: 'app-signup',
-    templateUrl: './signup.component.html',
-    styleUrls: ['./signup.component.css'],
-    imports: [
-    FormsModule,
-    ButtonPrimaryComponent
-]
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css'],
+  imports: [FormsModule, ButtonPrimaryComponent, RouterModule],
 })
 export class SignupComponent {
   error: string;
@@ -20,7 +16,10 @@ export class SignupComponent {
   emailError: boolean;
   passwordError: boolean;
 
-  constructor(private authService: AuthService, public router: Router) {}
+  constructor(
+    private authService: AuthService,
+    public router: Router,
+  ) {}
 
   onSubmit(form: NgForm) {
     const username = form.form.controls['name'];
@@ -38,7 +37,7 @@ export class SignupComponent {
 
   handleInputErrors(username, email, password) {
     if (username.invalid) {
-      this.nameError = true
+      this.nameError = true;
     }
     if (email.invalid) {
       this.emailError = true;
@@ -55,7 +54,7 @@ export class SignupComponent {
       },
       (errorMessage) => {
         this.error = errorMessage;
-      }
+      },
     );
   }
 

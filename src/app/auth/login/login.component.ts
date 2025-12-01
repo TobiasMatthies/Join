@@ -1,41 +1,40 @@
 import { Component } from '@angular/core';
-import { NgForm, FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    imports: [
-    ButtonPrimaryComponent,
-    FormsModule
-]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  imports: [ButtonPrimaryComponent, FormsModule, RouterModule],
 })
 export class LoginComponent {
   error: string;
   emailError: boolean;
   passwordError: boolean;
 
-  constructor(private authService: AuthService, public router: Router) {}
+  constructor(
+    private authService: AuthService,
+    public router: Router,
+  ) {}
 
   onSubmit(form: NgForm) {
-
     const email = form.form.controls['email'];
     const password = form.form.controls['password'];
 
-     if (!form.valid) {
+    if (!form.valid) {
       this.handleInputErrors(email, password);
-       return;
-     }
+      return;
+    }
 
     this.authService.login(email.value, password.value).subscribe(
       (resData) => {},
       (error) => {
         this.error = error;
-      }
+      },
     );
   }
 
@@ -59,7 +58,7 @@ export class LoginComponent {
       (resData) => {},
       (error) => {
         this.error = error;
-      }
+      },
     );
   }
 }

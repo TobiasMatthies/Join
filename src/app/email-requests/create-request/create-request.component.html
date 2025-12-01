@@ -1,24 +1,41 @@
-<app-header></app-header>
+<div class="min-h-full flex flex-col">
+    <app-header></app-header>
 
-<main class="max-w-[1920px] mx-auto flex flex-col items-center">
-    <nav class="flex justify-between text-custom-blue w-full mt-8">
-        <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
-        <span>x out of 10 requests today</span>
-    </nav>
+    <main class="max-w-[1920px] mx-auto flex flex-col justify-between items-center flex-1 py-8">
+        <nav class="flex justify-between text-custom-blue w-full">
+            <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
+            <span> <span class="font-bold">x</span> out of <span class="font-bold">10</span> requests today</span>
+        </nav>
 
-    <h1 class="text-6xl font-bold mb-12">Good morning</h1>
-    <div class="flex max-w-[1440px]">
-        <div class="flex flex-col gap-4">
-            <h3 class="text-3xl mb-8">Easily create a ticket by sending an email — no extra steps needed.</h3>
-            <p>On this platform, you can submit your feature requests via email. Our AI system will automatically
-                generate a ticket
-                with a deadline and priority level.</p>
-            <p>A total of 10 requests can be created per day. After this limit, emails can still be sent, but they will
-                be manually
-                reviewed by our team instead of generating AI tickets.</p>
+        <div class="text-custom-title-gray">
+            <h1 class="text-6xl font-bold mb-12 text-center">Good morning</h1>
+            <div class="flex max-w-5xl gap-16 mb-10">
+                <div class="flex flex-col gap-4">
+                    <h3 class="text-3xl mb-8">Easily create a ticket by sending an email — no extra steps needed.</h3>
+                    <p>On this platform, you can submit your feature requests via email. Our AI system will
+                        automatically
+                        generate a ticket
+                        with a deadline and priority level.</p>
+                    <p>A total of 10 requests can be created per day. After this limit, emails can still be sent, but
+                        they
+                        will
+                        be manually
+                        reviewed by our team instead of generating AI tickets.</p>
 
-            <app-button-primary>Create email request</app-button-primary>
+                </div>
+                <img src="assets/img/Rectangle 11.png" alt="">
+            </div>
+            <app-button-primary>
+                <div class="flex">
+                    Create email request <img src="assets/img/check.svg" alt="checkmark">
+                </div>
+            </app-button-primary>
         </div>
-        <img src="assets/img/Rectangle 11.png" alt="">
-    </div>
-</main>
+
+        <div class="flex gap-2 text-custom-title-gray">
+            <a routerLink="/legal-notice">Privacy Policy</a>
+            <a routerLink="/legal-notice">Legal Notice</a>
+        </div>
+    </main>
+
+</div>
