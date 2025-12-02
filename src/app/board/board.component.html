@@ -1,155 +1,55 @@
 <app-layout>
   <div class="container flex w-full flex-col items-center px-[5%] lg:h-full">
-    <span class="mt-5 self-start text-custom-blue lg:hidden"
-      >Kanban Project Management Tool</span
-      >
+    <span class="mt-5 self-start text-custom-blue lg:hidden">Kanban Project Management Tool</span>
 
-      <div class="flex w-full gap-5 py-5 lg:py-12">
-        <div
-          class="flex min-w-fit justify-between rounded-lg border border-gray-400 p-2 lg:w-1/5"
-          >
-          <input
-            class="custom-placeholder-custom-gray text-sm lg:font-light"
-            placeholder="Find Task"
-            type="text"
-            id="filter"
-            (keyup)="searchTasks()"
-            />
-          <img src="assets/img/search.svg" alt="search" />
-        </div>
-
-        <app-button-primary
-          class="hidden sm:block"
-          (click)="addTaskService.toggleAddTaskOverlay()"
-          >
-          <div class="flex h-[33px] items-center gap-2">
-            <span class="text-xl lg:font-light">Add Task</span>
-            <img src="assets/img/addWhite.svg" alt="add task" />
-          </div>
-        </app-button-primary>
+    <div class="flex w-full gap-5 py-5 lg:py-12">
+      <div class="flex min-w-fit justify-between rounded-lg border border-gray-400 p-2 lg:w-1/5">
+        <input class="custom-placeholder-custom-gray text-sm lg:font-light" placeholder="Find Task" type="text"
+          id="filter" (keyup)="searchTasks()" />
+        <img src="assets/img/search.svg" alt="search" />
       </div>
 
-      <div
-        class="flex w-full flex-col justify-between gap-5 overflow-y-auto lg:h-full lg:flex-row lg:font-light"
-        >
-        <div
-          class="flex w-full flex-col gap-5 px-1 lg:w-1/5 lg:min-w-[250px]"
-        [ngClass]="
-          (filteredTasks | filterTasks: 'toDo').length > 0
-            ? ''
-            : 'min-h-[220px]'
-        "
-          cdkDropList
-          #todoList="cdkDropList"
-          [cdkDropListData]="appStateService.tasks"
-        [cdkDropListConnectedTo]="[
-          inProgressList,
-          awaitingFeedbackList,
-          doneList
-        ]"
-          (cdkDropListDropped)="onDrop($event, 'toDo')"
-          >
-          <app-board-column
-            class="max-h-full"
-            [filter]="'toDo'"
-            [filteredTasks]="filteredTasks"
-            [title]="'To do'"
-          ></app-board-column>
+      <app-button-primary class="hidden sm:block" (click)="addTaskService.toggleAddTaskOverlay()">
+        <div class="flex h-[33px] items-center gap-2">
+          <span class="text-xl lg:font-light">Add Task</span>
+          <img src="assets/img/addWhite.svg" alt="add task" />
         </div>
-
-        <div
-          class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
-        [ngClass]="
-          (filteredTasks | filterTasks: 'inProgress').length > 0
-            ? ''
-            : 'min-h-[220px]'
-        "
-          cdkDropList
-          #inProgressList="cdkDropList"
-          [cdkDropListData]="appStateService.tasks"
-          [cdkDropListConnectedTo]="[todoList, awaitingFeedbackList, doneList]"
-          (cdkDropListDropped)="onDrop($event, 'inProgress')"
-          >
-          <app-board-column
-            class="max-h-full"
-            [filter]="'inProgress'"
-            [filteredTasks]="filteredTasks"
-            [title]="'In Progress'"
-            >
-          </app-board-column>
-        </div>
-
-        <div
-          class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
-        [ngClass]="
-          (filteredTasks | filterTasks: 'awaitingFeedback').length > 0
-            ? ''
-            : 'min-h-[220px]'
-        "
-          cdkDropList
-          #awaitingFeedbackList="cdkDropList"
-          [cdkDropListData]="appStateService.tasks"
-          [cdkDropListConnectedTo]="[todoList, inProgressList, doneList]"
-          (cdkDropListDropped)="onDrop($event, 'awaitingFeedback')"
-          >
-          <app-board-column
-            class="max-h-full"
-            [filter]="'awaitingFeedback'"
-            [filteredTasks]="filteredTasks"
-            [title]="'Awaiting feedback'"
-          ></app-board-column>
-        </div>
-
-        <div
-          class="flex w-full flex-col gap-5 lg:w-1/5 lg:min-w-[250px]"
-        [ngClass]="
-          (filteredTasks | filterTasks: 'done').length > 0
-            ? ''
-            : 'min-h-[220px]'
-        "
-          cdkDropList
-          #doneList="cdkDropList"
-          [cdkDropListData]="appStateService.tasks"
-        [cdkDropListConnectedTo]="[
-          todoList,
-          inProgressList,
-          awaitingFeedbackList
-        ]"
-          (cdkDropListDropped)="onDrop($event, 'done')"
-          >
-          <app-board-column
-            class="max-h-full"
-            [filter]="'done'"
-            [filteredTasks]="filteredTasks"
-            [title]="'Done'"
-          ></app-board-column>
-        </div>
-      </div>
+      </app-button-primary>
     </div>
 
-    @if (addTaskService.addTaskOverlayOpened) {
-      <app-add-task-overlay
-      ></app-add-task-overlay>
-    }
-  </app-layout>
+    <div class="flex w-full flex-col justify-between gap-5 overflow-y-auto lg:h-full lg:flex-row lg:font-light">
+      @for (column of columns; track column.id) {
+      <div class="flex w-full flex-col gap-5 px-1 lg:w-1/5 lg:min-w-[200px]" [ngClass]="
+              (filteredTasks | filterTasks: column.status).length > 0
+                ? ''
+                : 'min-h-[220px]'
+            " cdkDropList [id]="column.id" [cdkDropListData]="appStateService.tasks"
+        [cdkDropListConnectedTo]="column.connectedTo" (cdkDropListDropped)="onDrop($event, column.status)">
+        <app-board-column class="max-h-full" [filter]="column.status" [filteredTasks]="filteredTasks"
+          [title]="column.title"></app-board-column>
+      </div>
+      }
+    </div>
+  </div>
 
-  <!--overlay-->
-  @if (taskDetailService.openedTaskDetailView) {
-    <div
-      class="absolute top-0 h-full w-full bg-white/50 show-background-animation"
-      [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'hide-background-animation' : ''"
-      (click)="taskDetailService.closeTaskDetailView()"
-    ></div>
+  @if (addTaskService.addTaskOverlayOpened) {
+  <app-add-task-overlay></app-add-task-overlay>
   }
+</app-layout>
 
-  @if (taskDetailService.openedTaskDetailView && !taskDetailService.editMode) {
-    <app-task-detail-info
-      class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5 overflow-y-hidden"
-    ></app-task-detail-info>
-  }
+<!--overlay-->
+@if (taskDetailService.openedTaskDetailView) {
+<div class="absolute top-0 h-full w-full bg-white/50 show-background-animation"
+  [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'hide-background-animation' : ''"
+  (click)="taskDetailService.closeTaskDetailView()"></div>
+}
 
-  @if (taskDetailService.openedTaskDetailView && taskDetailService.editMode) {
-    <app-task-detail-edit
-      class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5 overflow-y-hidden"
-    ></app-task-detail-edit>
-  }
+@if (taskDetailService.openedTaskDetailView && !taskDetailService.editMode) {
+<app-task-detail-info
+  class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5 overflow-y-hidden"></app-task-detail-info>
+}
+
+@if (taskDetailService.openedTaskDetailView && taskDetailService.editMode) {
+<app-task-detail-edit
+  class="absolute_center h-full w-full sm:h-auto sm:w-4/5 md:w-3/5 lg:w-2/5 overflow-y-hidden"></app-task-detail-edit>
+}

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AppStateService } from './app-state.service';
 import { ChooseUrgencyService } from '../add-task/choose-urgency.service';
 import { atLeastOneCheckboxCheckedValidator } from '../add-task/contacts.validator';
+import { AppStateService } from './app-state.service';
 
-import { EditedTask, Task } from '../models/tasks.model';
-import { TaskDetailService } from './task-detail.service';
-import { DataStorageService } from './data-storage.service';
 import { Contact } from '../models/contact.model';
+import { EditedTask, Task } from '../models/tasks.model';
+import { DataStorageService } from './data-storage.service';
+import { TaskDetailService } from './task-detail.service';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +43,7 @@ export class AddTaskService {
   formValueSubscription: Subscription;
   selectedContacts: any[] = []; //Contact array
   selectedSubtasks = [];
-  taskStatus: string;
+  taskStatus: 'triage' | 'toDo' | 'inProgress' | 'awaitingFeedback' | 'done';
   submitted: boolean = false;
   subtasks: Array<{ name: string; completed: boolean }> = [];
 
@@ -53,7 +53,7 @@ export class AddTaskService {
     private appStateService: AppStateService,
     private chooseUrgencyService: ChooseUrgencyService,
     private taskDetailService: TaskDetailService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
   ) {}
 
   initAddTaskForm() {
@@ -74,19 +74,19 @@ export class AddTaskService {
     this.form = new FormGroup({
       title: new FormControl(
         this.taskDetailService.openedTaskDetailView.title,
-        [Validators.required]
+        [Validators.required],
       ),
       description: new FormControl(
         this.taskDetailService.openedTaskDetailView.description,
-        [Validators.required]
+        [Validators.required],
       ),
       dueDate: new FormControl(
         this.taskDetailService.openedTaskDetailView.dueDate,
-        [Validators.required]
+        [Validators.required],
       ),
       urgency: new FormControl(
         this.taskDetailService.openedTaskDetailView.urgency,
-        [Validators.required]
+        [Validators.required],
       ),
       contacts: new FormGroup({}, [atLeastOneCheckboxCheckedValidator()]),
     });
@@ -96,7 +96,7 @@ export class AddTaskService {
     for (let i = 0; i < this.appStateService.contacts.length; i++) {
       (<FormGroup>this.form.get('contacts')).addControl(
         i.toString(),
-        new FormControl()
+        new FormControl(),
       );
     }
 
@@ -112,7 +112,7 @@ export class AddTaskService {
 
       (<FormGroup>this.form.get('contacts')).addControl(
         i.toString(),
-        new FormControl(assigned)
+        new FormControl(assigned),
       );
     }
   }
@@ -162,7 +162,7 @@ export class AddTaskService {
       urgency: this.form.controls['urgency'].value,
       description: this.form.controls['description'].value,
       subtasks: this.selectedSubtasks,
-      status: this.taskStatus ? this.taskStatus : 'toDo',
+      status: this.taskStatus ? this.taskStatus : 'triage',
       id: new Date().getTime(),
     };
   }
@@ -257,9 +257,9 @@ export class AddTaskService {
   onDeleteTask() {
     this.appStateService.tasks.splice(
       this.appStateService.tasks.indexOf(
-        this.taskDetailService.openedTaskDetailView
+        this.taskDetailService.openedTaskDetailView,
       ),
-      1
+      1,
     );
     this.dataStorageService.setItem(this.appStateService.tasks, 'tasks.json');
     this.taskDetailService.closeTaskDetailView();
@@ -287,11 +287,11 @@ export class AddTaskService {
       });
       this.dataStorageService.setItem(
         this.appStateService.categories,
-        'categories.json'
+        'categories.json',
       );
       this.categoryColors.splice(
         this.categoryColors.indexOf(this.selectedColor),
-        1
+        1,
       );
       this.selectCategory();
     }
@@ -324,7 +324,7 @@ export class AddTaskService {
     if (subtask) {
       (<FormGroup>this.form.get('subtasks')).addControl(
         this.subtasks.length.toString(),
-        new FormControl(true)
+        new FormControl(true),
       );
       this.subtasks.push(subtask);
       document.getElementById('subtask')['value'] = '';
@@ -419,7 +419,9 @@ export class AddTaskService {
     this.showCreateNewCategory = !this.showCreateNewCategory;
   }
 
-  toggleAddTaskOverlay(status?: string) {
+  toggleAddTaskOverlay(
+    status?: 'triage' | 'toDo' | 'inProgress' | 'awaitingFeedback' | 'done',
+  ) {
     if (!this.addTaskOverlayOpened) {
       this.addTaskOverlayOpened = true;
     } else {
