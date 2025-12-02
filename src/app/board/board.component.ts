@@ -38,19 +38,70 @@ import { TaskDetailInfoComponent } from './task-detail-info/task-detail-info.com
 })
 export class BoardComponent implements OnInit {
   filteredTasks: Task[] = [];
+  columns = [
+    {
+      title: 'Triage',
+      status: 'triage',
+      id: 'triageList',
+      connectedTo: [
+        'todoList',
+        'inProgressList',
+        'awaitingFeedbackList',
+        'doneList',
+      ],
+    },
+    {
+      title: 'To do',
+      status: 'toDo',
+      id: 'todoList',
+      connectedTo: [
+        'triageList',
+        'inProgressList',
+        'awaitingFeedbackList',
+        'doneList',
+      ],
+    },
+    {
+      title: 'In Progress',
+      status: 'inProgress',
+      id: 'inProgressList',
+      connectedTo: [
+        'triageList',
+        'todoList',
+        'awaitingFeedbackList',
+        'doneList',
+      ],
+    },
+    {
+      title: 'Awaiting feedback',
+      status: 'awaitingFeedback',
+      id: 'awaitingFeedbackList',
+      connectedTo: ['triageList', 'todoList', 'inProgressList', 'doneList'],
+    },
+    {
+      title: 'Done',
+      status: 'done',
+      id: 'doneList',
+      connectedTo: [
+        'triageList',
+        'todoList',
+        'inProgressList',
+        'awaitingFeedbackList',
+      ],
+    },
+  ];
 
   constructor(
     public appStateService: AppStateService,
     public taskDetailService: TaskDetailService,
     public addTaskService: AddTaskService,
-    private dataStorageService: DataStorageService
+    private dataStorageService: DataStorageService,
   ) {}
 
   async ngOnInit() {
     if (this.appStateService.tasks.length < 1) {
-      this.appStateService.tasks = await this.dataStorageService.getItem(
-        'tasks.json'
-      );
+      this.appStateService.tasks =
+        await this.dataStorageService.getItem('tasks.json');
     }
 
     this.filteredTasks = this.appStateService.tasks;
@@ -59,7 +110,7 @@ export class BoardComponent implements OnInit {
   changeStatus(event: CdkDragDrop<any>, status: string) {
     let draggedTask;
     draggedTask = this.appStateService.tasks.find(
-      (task) => task.id == +event.item.data
+      (task) => task.id == +event.item.data,
     );
 
     draggedTask['status'] = status;
@@ -79,7 +130,7 @@ export class BoardComponent implements OnInit {
     moveItemInArray(
       event.container.data,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -88,7 +139,7 @@ export class BoardComponent implements OnInit {
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
   }
 
@@ -101,7 +152,7 @@ export class BoardComponent implements OnInit {
       this.filteredTasks = [
         ...this.appStateService.tasks.filter(
           (task) =>
-            task.title.includes(filter) || task.description.includes(filter)
+            task.title.includes(filter) || task.description.includes(filter),
         ),
       ];
     }
