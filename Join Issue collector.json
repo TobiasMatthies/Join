@@ -1,0 +1,55 @@
+{
+  "name": "Join Issue collector",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "5c14a4e9-275a-4c7c-bbdf-9cca99aa2702",
+      "name": "Email Trigger (IMAP)",
+      "credentials": {
+        "imap": {
+          "id": "bR5jSPKc312jNfH1",
+          "name": "IMAP account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let emailInfo = {\n  date: $input.first().json.date,\n  subject: $input.first().json.subject,\n  sender: {\n    from: $input.first().json.from,\n    id: $input.first().json.attributes.uid,\n  },\n  textPlain: $input.first().json.textPlain,\n  textHTML: $input.first().json.textHtml,\n}\n\nconst newItem = {\n  ...$input.first().json,\n  emailInfo,\n}\n\nconsole.log(newItem);\nreturn newItem;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [208, 0],
+      "id": "93752b07-dfcf-4c09-8d00-8e932bb33bda",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "Email Trigger (IMAP)": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5e7dd614-5d80-473a-b960-bc22f27ddd6d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
+  },
+  "id": "fBaNaxWdWP64UaD6",
+  "tags": []
+}
