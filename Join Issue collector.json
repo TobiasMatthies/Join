@@ -25,16 +25,347 @@
       "typeVersion": 2,
       "position": [208, 0],
       "id": "93752b07-dfcf-4c09-8d00-8e932bb33bda",
+      "name": "Extract Email Info"
+    },
+    {
+      "parameters": {
+        "jsCode": "// erzeugt dayKey = 2025-11-11 im UTC Format\nconst now = new Date();\nconst dayKey = now.toISOString().slice(0, 10); \n// optionaler Grenzwert zentral hier\nconst SYSTEM_LIMIT = 10;\nconst daykey = { dayKey, SYSTEM_LIMIT };\n\n\nconst newItem = {\n  ...$input.first().json,\n  daykey,\n}\n\nconsole.log(newItem);\nreturn newItem;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [416, 0],
+      "id": "3964d9c6-9631-4eb0-9a92-f3590bb3af19",
+      "name": "Generate Day Key"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rdkGUiVf01Ut1K9Q",
+          "mode": "list",
+          "cachedResultName": "Join-Quota",
+          "cachedResultUrl": "/projects/6twtEpL5lX6uOv1x/datatables/rdkGUiVf01Ut1K9Q"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "daykey",
+              "keyValue": "={{ $json.daykey.dayKey }}"
+            }
+          ]
+        },
+        "returnAll": true
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [624, 0],
+      "id": "2198a2f2-9f61-4ed4-8718-83d86483a227",
+      "name": "Get row(s)",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "let rowOutput = $(\"Get row(s)\").first().json;\nlet parsedOutput = 0;\nconsole.log(rowOutput);\n\nif (rowOutput.quota) parsedOutput = Number(rowOutput.quota);\n\n\nconst quota = {\"quota\": parsedOutput}\nconst newItem = {\n  ...$(\"Generate Day Key\").first().json,\n  quota\n}\n\nreturn newItem;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [832, 0],
+      "id": "912fce21-5e18-4e2a-85c0-8ef8e0576bc0",
+      "name": "Get daily quota"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5700720e-50b9-48ee-8702-a2f75a87fff9",
+              "leftValue": "={{ $json.quota.quota }}",
+              "rightValue": "={{ $json.daykey.SYSTEM_LIMIT }}",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [1040, 0],
+      "id": "de52f91b-806d-4f4a-b10f-bcc7e97d87be",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsCode": "console.log(\"Quota exceeded\")"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1216, -128],
+      "id": "3fb3048f-0a62-4ecd-95ca-10ed37f3bf99",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first().json;\n\n// quota um 1 erhöhen\nitem.quota = (item.quota.quota || 0) + 1;\n\n// optional: loggen oder zurückgeben\nreturn [item];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [192, 208],
+      "id": "e89f9af5-35ac-4613-8b08-49cb4300655e",
+      "name": "Update Quota"
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "dataTableId": {
+          "__rl": true,
+          "value": "rdkGUiVf01Ut1K9Q",
+          "mode": "list",
+          "cachedResultName": "Join-Quota",
+          "cachedResultUrl": "/projects/6twtEpL5lX6uOv1x/datatables/rdkGUiVf01Ut1K9Q"
+        },
+        "matchType": "allConditions",
+        "filters": {
+          "conditions": [
+            {
+              "keyName": "daykey",
+              "keyValue": "={{ $json.daykey.dayKey }}"
+            }
+          ]
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "quota": "={{ $json.quota }}",
+            "daykey": "={{ $json.daykey.dayKey }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "daykey",
+              "displayName": "daykey",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "quota",
+              "displayName": "quota",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.dataTable",
+      "typeVersion": 1,
+      "position": [416, 208],
+      "id": "7f9ffa8e-0d62-44cb-b4ed-893a1981dafa",
+      "name": "Upsert row(s)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBCYwEO4pmMK6U3htxFbNsyf5RJ3zZMttY",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "{\n  \"email\": \"email\",\n  \"password\": \"passwort\",\n  \"returnSecureToken\": true\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [624, 208],
+      "id": "9cc80e4b-e713-4895-8213-8e766f27b822",
+      "name": "Authenticate in Firebase"
+    },
+    {
+      "parameters": {
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/categories.json?auth={{ $json.idToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [832, 208],
+      "id": "f0f49663-4bff-4043-bcb5-b9b0dae13111",
+      "name": "Get Categories"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: string;\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: {{ $json.color }} {{ $json.name }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $('Extract Email Info').item.json.emailInfo.date }}\nBetreff: {{ $('Extract Email Info').item.json.emailInfo.subject }}\nAbsender: {{ $('Extract Email Info').item.json.from }}\nText: {{ $('Extract Email Info').item.json.emailInfo.textPlain }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [1040, 208],
+      "id": "53e7dec5-71e9-49a1-af3e-d944a6dd45f4",
+      "name": "AI Agent",
+      "executeOnce": true
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [896, 416],
+      "id": "0d11eb4e-b830-4344-b439-9dcc8d4be2b7",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "4DPdqBRuAYfJMoni",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
     }
   ],
+  "pinData": {},
   "connections": {
     "Email Trigger (IMAP)": {
       "main": [
         [
           {
+            "node": "Extract Email Info",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Email Info": {
+      "main": [
+        [
+          {
+            "node": "Generate Day Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Day Key": {
+      "main": [
+        [
+          {
+            "node": "Get row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s)": {
+      "main": [
+        [
+          {
+            "node": "Get daily quota",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get daily quota": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
             "node": "Code in JavaScript",
             "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Update Quota",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Quota": {
+      "main": [
+        [
+          {
+            "node": "Upsert row(s)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upsert row(s)": {
+      "main": [
+        [
+          {
+            "node": "Authenticate in Firebase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Authenticate in Firebase": {
+      "main": [
+        [
+          {
+            "node": "Get Categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Categories": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
             "index": 0
           }
         ]
@@ -45,7 +376,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "5e7dd614-5d80-473a-b960-bc22f27ddd6d",
+  "versionId": "26457c19-61fe-4588-86d0-fb8b18e37ff4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
