@@ -191,7 +191,7 @@
         "url": "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyBCYwEO4pmMK6U3htxFbNsyf5RJ3zZMttY",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"email\": \"email\",\n  \"password\": \"passwort\",\n  \"returnSecureToken\": true\n}",
+        "jsonBody": "{\n  \"email\": \"email\",\n  \"password\": \"password\",\n  \"returnSecureToken\": true\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -214,7 +214,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: string;\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: {{ $json.color }} {{ $json.name }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $('Extract Email Info').item.json.emailInfo.date }}\nBetreff: {{ $('Extract Email Info').item.json.emailInfo.subject }}\nAbsender: {{ $('Extract Email Info').item.json.from }}\nText: {{ $('Extract Email Info').item.json.emailInfo.textPlain }}",
+        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: string;\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: {{ $json.color }} {{ $json.name }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $('Extract Email Info').item.json.emailInfo.date }}\nBetreff: {{ $('Extract Email Info').item.json.emailInfo.subject }}\nAbsender: {{ $('Extract Email Info').item.json.from }}\nText: {{ $('Extract Email Info').item.json.emailInfo.textPlain }}\n\nGebe mir als Antwort nur den erstellten Task als JSON zurück.",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -376,7 +376,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "26457c19-61fe-4588-86d0-fb8b18e37ff4",
+  "versionId": "0b0aec4d-d4df-4591-aa4d-b39c72b6be58",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
