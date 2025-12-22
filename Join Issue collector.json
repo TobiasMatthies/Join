@@ -122,7 +122,7 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [192, 208],
+      "position": [1296, 16],
       "id": "e89f9af5-35ac-4613-8b08-49cb4300655e",
       "name": "Update Quota"
     },
@@ -181,7 +181,7 @@
       },
       "type": "n8n-nodes-base.dataTable",
       "typeVersion": 1,
-      "position": [416, 208],
+      "position": [1504, 16],
       "id": "7f9ffa8e-0d62-44cb-b4ed-893a1981dafa",
       "name": "Upsert row(s)"
     },
@@ -196,7 +196,7 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
-      "position": [624, 208],
+      "position": [1712, 16],
       "id": "9cc80e4b-e713-4895-8213-8e766f27b822",
       "name": "Authenticate in Firebase"
     },
@@ -207,24 +207,25 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
-      "position": [832, 208],
+      "position": [1920, 16],
       "id": "f0f49663-4bff-4043-bcb5-b9b0dae13111",
       "name": "Get Categories"
     },
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: string[];\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: {{ $json.color }} {{ $json.name }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $('Extract Email Info').item.json.emailInfo.date }}\nBetreff: {{ $('Extract Email Info').item.json.emailInfo.subject }}\nAbsender: {{ $('Extract Email Info').item.json.from }}\nText: {{ $('Extract Email Info').item.json.emailInfo.textPlain }}\n\nGebe mir als Antwort nur den erstellten Task als JSON zurück.",
+        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: Contact[];\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: Mögliche Kategorien:\n{{ $json.categories }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $json.emailInfo.date }}\nBetreff: {{ $json.emailInfo.subject }}\nAbsender: {{ $json.emailInfo.sender?.from }}\nText: {{ $json.emailInfo.textPlain }}\n\nHier sind die Kategorien:\n{{ $json.categories }}\n\nGebe mir als Antwort nur den erstellten Task als JSON zurück.\nDie Antwort muss genau dieses Format erfüllen:\n{\n  \"title\": \"Test\",\n  \"assignedTo\": \"test\",\n  \"dueDate\": \"12-10-2026\",\n  \"category\": \"test\",\n  \"urgency\": \"test\",\n  \"description\": \"test description\",\n  \"status\": \"triage\",\n  \"id\": 1234\n}",
         "hasOutputParser": true,
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3,
-      "position": [1040, 208],
+      "position": [2352, 16],
       "id": "53e7dec5-71e9-49a1-af3e-d944a6dd45f4",
       "name": "AI Agent",
       "executeOnce": true,
-      "retryOnFail": false
+      "retryOnFail": false,
+      "alwaysOutputData": false
     },
     {
       "parameters": {
@@ -232,7 +233,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
-      "position": [896, 416],
+      "position": [2352, 192],
       "id": "0d11eb4e-b830-4344-b439-9dcc8d4be2b7",
       "name": "Google Gemini Chat Model",
       "credentials": {
@@ -244,33 +245,57 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"title\": \"Test\",\n  \"assignedTo\": [],\n  \"dueDate\": \"12-10-2026\",\n  \"category\": {\"name\": \"test\", \"color\": \"red\"},\n  \"urgency\": { \"name\": \"high\", \"image\": \"assets/img.png\", \"imageDetail\": \"assets/img-detail.png\" },\n  \"description\": \"test description\",\n  \"subtasks\": [],\n  \"status\": \"triage\",\n  \"id\": 1234\n}",
-        "autoFix": true
+        "jsonSchemaExample": "{\n  \"title\": \"Test\",\n  \"assignedTo\": \"test\",\n  \"dueDate\": \"12-10-2026\",\n  \"category\": \"test\",\n  \"urgency\": \"test\",\n  \"description\": \"test description\",\n  \"status\": \"triage\",\n  \"id\": 1234\n}"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
-      "position": [1216, 416],
+      "position": [2496, 176],
       "id": "c868c072-c377-41d6-b30a-583b96d27cb2",
       "name": "Structured Output Parser"
     },
     {
       "parameters": {
-        "options": {}
+        "jsCode": "console.log($input.all())"
       },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [1216, 592],
-      "id": "bfe0ae21-2c4b-49d9-be80-9272de30fef0",
-      "name": "Google Gemini Chat Model1",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "4DPdqBRuAYfJMoni",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2704, 16],
+      "id": "60dced8e-b1bf-4b15-90d8-c46f00344907",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const emailSource = $(\"Extract Email Info\").first().json;\n\nconst categoryItems = $(\"Get Categories\").all().map(i => i.json);\n\nconst aiInput = {\n  emailInfo: emailSource.emailInfo ?? emailSource,\n  categories: categoryItems,\n};\n\nreturn [{ json: aiInput }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [2128, 16],
+      "id": "dd26cfe3-f4c8-4e10-8b09-a8ec3b312c59",
+      "name": "Prepare AI Input"
     }
   ],
-  "pinData": {},
+  "pinData": {
+    "Email Trigger (IMAP)": [
+      {
+        "json": {
+          "textHtml": "<div dir=\"auto\"><br><span style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Hallo,</span><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Mir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler kommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss dringend bis zum 18.12.2025 behoben werden.</div><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">VG Tobi</div></div>\r\n",
+          "textPlain": "Hallo,\r\nMir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler\r\nkommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss\r\ndringend bis zum 18.12.2025 behoben werden.\r\nVG Tobi\r\n",
+          "metadata": {
+            "mime-version": "1.0",
+            "message-id": "<CABjJZ298P+XN23t2QFD+y=Sz-GJpTTNykMt2ajtPkD4vOfh-DA@mail.gmail.com>",
+            "content-type": "multipart/alternative; boundary=\"0000000000006f95070645fec7be\""
+          },
+          "attributes": {
+            "uid": 3830
+          },
+          "date": "Mon, 15 Dec 2025 11:53:51 -0300",
+          "subject": "Bug bei Task-Erstellung",
+          "from": "Tobias Matthies <tobias.matthies.ext@developerakademie.com>",
+          "to": "Tobias Matthies <tobias.matthies.ext@developerakademie.com>"
+        }
+      }
+    ]
+  },
   "connections": {
     "Email Trigger (IMAP)": {
       "main": [
@@ -382,7 +407,7 @@
       "main": [
         [
           {
-            "node": "AI Agent",
+            "node": "Prepare AI Input",
             "type": "main",
             "index": 0
           }
@@ -411,12 +436,23 @@
         ]
       ]
     },
-    "Google Gemini Chat Model1": {
-      "ai_languageModel": [
+    "AI Agent": {
+      "main": [
         [
           {
-            "node": "Structured Output Parser",
-            "type": "ai_languageModel",
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare AI Input": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
             "index": 0
           }
         ]
@@ -427,7 +463,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "3d385015-18d9-4567-97d6-3462d2ef5553",
+  "versionId": "c9e5e2c9-0679-4236-91b1-7e487557339e",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
