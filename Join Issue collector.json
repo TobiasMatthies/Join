@@ -214,7 +214,7 @@
     {
       "parameters": {
         "promptType": "define",
-        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: Contact[];\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende: Mögliche Kategorien:\n{{ $json.categories }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $json.emailInfo.date }}\nBetreff: {{ $json.emailInfo.subject }}\nAbsender: {{ $json.emailInfo.sender?.from }}\nText: {{ $json.emailInfo.textPlain }}\n\nHier sind die Kategorien:\n{{ $json.categories }}\n\nGebe mir als Antwort nur den erstellten Task als JSON zurück.\nDie Antwort muss genau dieses Format erfüllen:\n{\n  \"title\": \"Test\",\n  \"assignedTo\": \"test\",\n  \"dueDate\": \"12-10-2026\",\n  \"category\": \"test\",\n  \"urgency\": \"test\",\n  \"description\": \"test description\",\n  \"status\": \"triage\",\n  \"id\": 1234\n}",
+        "text": "=Du bist Teil eines Workflows, der basierend auf eingehenden Emails von Stakeholdern Tickets für ein Kanbanboard erstellen soll. Deine Aufgabe ist es, alle Email-Daten zu analysieren und basierend darauf einen Task zu erstellen.\n\nDies ist die Typescript-Repräsentierung des Tasks: export type Task = {\n  title: string;\n  assignedTo: Contact[];\n  dueDate: Date;\n  category: { name: string; color: string };\n  urgency: { name: string; image: string; imageDetail: string };\n  description: string;\n  subtasks: { name: string; completed: boolean }[];\n  status: 'triage';\n  id: number;\n};\n\nAnalysiere den Inhalt der Email und erstelle basierend darauf einen Task, der EXAKT diesem Type entspricht.\n\n\nDie Optionen für urgency sind die folgenden:\n1.: {name: 'urgent', image: 'assets/img/urgent1.svg', imageDetail: 'assets/img/urgentDetail.svg'}\n2.: {name: 'medium', image: 'assets/img/medium.svg', imageDetail: 'assets/img/mediumDetail.svg'}\n3.: {name: 'low', image: 'assets/img/low.svg', imageDetail: 'assets/img/lowDetail.svg'}\n\n\"urgency\" muss IMMER einen dieser drei Werte haben.\nMögliche Kategorien sind folgende (Name | Farbe):\n{{ $json.categories.map(c => `${c.name} | ${c.color}`).join('\\n') }}. Versuche den Task einer dieser Kategorien zuzuordnen. Falls es keine passenden bestehenden Kategorien gibt erstelle eine neue.\n\nDie Id sollte der aktuelle Timestamp in Millisekunden sein (entspricht in JS \"new Date().getTime()\").\n\nHier sind die Daten der Email:\nDatum: {{ $json.emailInfo.date }}\nBetreff: {{ $json.emailInfo.subject }}\nAbsender: {{ $json.emailInfo.sender?.from }}\nText: {{ $json.emailInfo.textPlain }}\n\nHier sind die Kategorien:\n{{ $json.categories }}\n\nGebe mir als Antwort nur den erstellten Task als gültiges JSON zurück, exakt passend zum JSON Schema",
         "hasOutputParser": true,
         "options": {}
       },
@@ -225,7 +225,8 @@
       "name": "AI Agent",
       "executeOnce": true,
       "retryOnFail": false,
-      "alwaysOutputData": false
+      "alwaysOutputData": false,
+      "maxTries": 2
     },
     {
       "parameters": {
@@ -245,26 +246,6 @@
     },
     {
       "parameters": {
-        "jsonSchemaExample": "{\n  \"title\": \"Test\",\n  \"assignedTo\": \"test\",\n  \"dueDate\": \"12-10-2026\",\n  \"category\": \"test\",\n  \"urgency\": \"test\",\n  \"description\": \"test description\",\n  \"status\": \"triage\",\n  \"id\": 1234\n}"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [2496, 176],
-      "id": "c868c072-c377-41d6-b30a-583b96d27cb2",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "jsCode": "console.log($input.all())"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [2704, 16],
-      "id": "60dced8e-b1bf-4b15-90d8-c46f00344907",
-      "name": "Code in JavaScript1"
-    },
-    {
-      "parameters": {
         "jsCode": "const emailSource = $(\"Extract Email Info\").first().json;\n\nconst categoryItems = $(\"Get Categories\").all().map(i => i.json);\n\nconst aiInput = {\n  emailInfo: emailSource.emailInfo ?? emailSource,\n  categories: categoryItems,\n};\n\nreturn [{ json: aiInput }];"
       },
       "type": "n8n-nodes-base.code",
@@ -272,6 +253,17 @@
       "position": [2128, 16],
       "id": "dd26cfe3-f4c8-4e10-8b09-a8ec3b312c59",
       "name": "Prepare AI Input"
+    },
+    {
+      "parameters": {
+        "schemaType": "manual",
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"title\": { \"type\": \"string\", \"minLength\": 1 },\n    \"assignedTo\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"object\" },\n      \"minItems\": 0\n    },\n    \"dueDate\": { \"type\": \"string\" },\n    \"category\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"name\": { \"type\": \"string\", \"minLength\": 1 },\n        \"color\": { \"type\": \"string\", \"minLength\": 1 }\n      },\n      \"required\": [\"name\", \"color\"]\n    },\n    \"urgency\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"name\": { \"type\": \"string\", \"enum\": [\"urgent\", \"medium\", \"low\"] },\n        \"image\": { \"type\": \"string\", \"minLength\": 1 },\n        \"imageDetail\": { \"type\": \"string\", \"minLength\": 1 }\n      },\n      \"required\": [\"name\", \"image\", \"imageDetail\"]\n    },\n    \"description\": { \"type\": \"string\" },\n    \"subtasks\": {\n      \"type\": \"array\",\n      \"minItems\": 0,\n      \"items\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"properties\": {\n          \"name\": { \"type\": \"string\", \"minLength\": 1 },\n          \"completed\": { \"type\": \"boolean\" }\n        },\n        \"required\": [\"name\", \"completed\"]\n      }\n    },\n    \"status\": { \"type\": \"string\" },\n    \"id\": { \"type\": \"number\" }\n  },\n  \"required\": [\n    \"title\",\n    \"assignedTo\",\n    \"dueDate\",\n    \"category\",\n    \"urgency\",\n    \"description\",\n    \"subtasks\",\n    \"status\",\n    \"id\"\n  ]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [2528, 192],
+      "id": "3421cb82-e0f5-40a7-b8b5-7cad044dea93",
+      "name": "Structured Output Parser"
     }
   ],
   "pinData": {
@@ -290,8 +282,46 @@
           },
           "date": "Mon, 15 Dec 2025 11:53:51 -0300",
           "subject": "Bug bei Task-Erstellung",
-          "from": "Tobias Matthies <tobias.matthies.ext@developerakademie.com>",
-          "to": "Tobias Matthies <tobias.matthies.ext@developerakademie.com>"
+          "from": "Tobias Matthies <test@test.com>",
+          "to": "Tobias Matthies <test@test.com>"
+        }
+      }
+    ],
+    "Prepare AI Input": [
+      {
+        "json": {
+          "emailInfo": {
+            "date": "Mon, 15 Dec 2025 11:53:51 -0300",
+            "subject": "Bug bei Task-Erstellung",
+            "sender": {
+              "from": "Tobias Matthies <test@test.com>",
+              "id": 3830
+            },
+            "textPlain": "Hallo,\r\nMir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler\r\nkommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss\r\ndringend bis zum 18.12.2025 behoben werden.\r\nVG Tobi\r\n",
+            "textHTML": "<div dir=\"auto\"><br><span style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Hallo,</span><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Mir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler kommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss dringend bis zum 18.12.2025 behoben werden.</div><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">VG Tobi</div></div>\r\n"
+          },
+          "categories": [
+            {
+              "color": "rgb(252,113,255)",
+              "name": "Sales"
+            },
+            {
+              "color": "rgb(32,215,192)",
+              "name": "Backoffice"
+            },
+            {
+              "color": "rgb(255,122,1)",
+              "name": "Design"
+            },
+            {
+              "color": "rgb(255,199,3)",
+              "name": "Media"
+            },
+            {
+              "color": "rgb(0,56,255)",
+              "name": "Marketing"
+            }
+          ]
         }
       }
     ]
@@ -425,27 +455,8 @@
         ]
       ]
     },
-    "Structured Output Parser": {
-      "ai_outputParser": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "ai_outputParser",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "AI Agent": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
+      "main": [[]]
     },
     "Prepare AI Input": {
       "main": [
@@ -457,13 +468,24 @@
           }
         ]
       ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "c9e5e2c9-0679-4236-91b1-7e487557339e",
+  "versionId": "251daffe-1516-472e-a9e6-d632ac42157d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
