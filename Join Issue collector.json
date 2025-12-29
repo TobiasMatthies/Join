@@ -33,45 +33,17 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [416, 0],
+      "position": [416, -96],
       "id": "3964d9c6-9631-4eb0-9a92-f3590bb3af19",
       "name": "Generate Day Key"
     },
     {
       "parameters": {
-        "operation": "get",
-        "dataTableId": {
-          "__rl": true,
-          "value": "rdkGUiVf01Ut1K9Q",
-          "mode": "list",
-          "cachedResultName": "Join-Quota",
-          "cachedResultUrl": "/projects/6twtEpL5lX6uOv1x/datatables/rdkGUiVf01Ut1K9Q"
-        },
-        "matchType": "allConditions",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "daykey",
-              "keyValue": "={{ $json.daykey.dayKey }}"
-            }
-          ]
-        },
-        "returnAll": true
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [624, 0],
-      "id": "2198a2f2-9f61-4ed4-8718-83d86483a227",
-      "name": "Get row(s)",
-      "alwaysOutputData": true
-    },
-    {
-      "parameters": {
-        "jsCode": "let rowOutput = $(\"Get row(s)\").first().json;\nlet parsedOutput = 0;\nconsole.log(rowOutput);\n\nif (rowOutput.quota) parsedOutput = Number(rowOutput.quota);\n\n\nconst quota = {\"quota\": parsedOutput}\nconst newItem = {\n  ...$(\"Generate Day Key\").first().json,\n  quota\n}\n\nreturn newItem;"
+        "jsCode": "let firebaseQuota = $(\"Get Quota\").first().json;\n\nlet parsedOutput = firebaseQuota[0] ? firebaseQuota[0] : 0;\nconsole.log(parsedOutput);\n\nconst quota = {\"quota\": parsedOutput}\nconst newItem = {\n  ...$(\"Generate Day Key\").first().json,\n  quota\n}\n\nreturn newItem;"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [832, 0],
+      "position": [1040, -96],
       "id": "912fce21-5e18-4e2a-85c0-8ef8e0576bc0",
       "name": "Get daily quota"
     },
@@ -102,7 +74,7 @@
       },
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.2,
-      "position": [1040, 0],
+      "position": [1248, 0],
       "id": "de52f91b-806d-4f4a-b10f-bcc7e97d87be",
       "name": "If"
     },
@@ -112,7 +84,7 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1216, -128],
+      "position": [1424, -128],
       "id": "3fb3048f-0a62-4ecd-95ca-10ed37f3bf99",
       "name": "Code in JavaScript"
     },
@@ -122,68 +94,9 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [1296, 16],
+      "position": [0, 224],
       "id": "e89f9af5-35ac-4613-8b08-49cb4300655e",
       "name": "Update Quota"
-    },
-    {
-      "parameters": {
-        "operation": "upsert",
-        "dataTableId": {
-          "__rl": true,
-          "value": "rdkGUiVf01Ut1K9Q",
-          "mode": "list",
-          "cachedResultName": "Join-Quota",
-          "cachedResultUrl": "/projects/6twtEpL5lX6uOv1x/datatables/rdkGUiVf01Ut1K9Q"
-        },
-        "matchType": "allConditions",
-        "filters": {
-          "conditions": [
-            {
-              "keyName": "daykey",
-              "keyValue": "={{ $json.daykey.dayKey }}"
-            }
-          ]
-        },
-        "columns": {
-          "mappingMode": "defineBelow",
-          "value": {
-            "quota": "={{ $json.quota }}",
-            "daykey": "={{ $json.daykey.dayKey }}"
-          },
-          "matchingColumns": [],
-          "schema": [
-            {
-              "id": "daykey",
-              "displayName": "daykey",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "string",
-              "readOnly": false,
-              "removed": false
-            },
-            {
-              "id": "quota",
-              "displayName": "quota",
-              "required": false,
-              "defaultMatch": false,
-              "display": true,
-              "type": "number",
-              "readOnly": false,
-              "removed": false
-            }
-          ],
-          "attemptToConvertTypes": false,
-          "convertFieldsToString": false
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.dataTable",
-      "typeVersion": 1,
-      "position": [1504, 16],
-      "id": "7f9ffa8e-0d62-44cb-b4ed-893a1981dafa",
-      "name": "Upsert row(s)"
     },
     {
       "parameters": {
@@ -196,18 +109,18 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
-      "position": [1712, 16],
+      "position": [608, -96],
       "id": "9cc80e4b-e713-4895-8213-8e766f27b822",
       "name": "Authenticate in Firebase"
     },
     {
       "parameters": {
-        "url": "=https://join-12c12-default-rtdb.firebaseio.com/categories.json?auth={{ $json.idToken }}",
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/categories.json?auth={{ $('Authenticate in Firebase').first().json.idToken }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
-      "position": [1920, 16],
+      "position": [384, 224],
       "id": "f0f49663-4bff-4043-bcb5-b9b0dae13111",
       "name": "Get Categories"
     },
@@ -220,7 +133,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3,
-      "position": [2352, 16],
+      "position": [752, 224],
       "id": "53e7dec5-71e9-49a1-af3e-d944a6dd45f4",
       "name": "AI Agent",
       "executeOnce": true,
@@ -234,7 +147,7 @@
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
-      "position": [2352, 192],
+      "position": [752, 368],
       "id": "0d11eb4e-b830-4344-b439-9dcc8d4be2b7",
       "name": "Google Gemini Chat Model",
       "credentials": {
@@ -250,20 +163,89 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [2128, 16],
+      "position": [576, 224],
       "id": "dd26cfe3-f4c8-4e10-8b09-a8ec3b312c59",
       "name": "Prepare AI Input"
     },
     {
       "parameters": {
         "schemaType": "manual",
-        "inputSchema": "{\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"properties\": {\n    \"title\": { \"type\": \"string\", \"minLength\": 1 },\n    \"assignedTo\": {\n      \"type\": \"array\",\n      \"items\": { \"type\": \"object\" },\n      \"minItems\": 0\n    },\n    \"dueDate\": { \"type\": \"string\" },\n    \"category\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"name\": { \"type\": \"string\", \"minLength\": 1 },\n        \"color\": { \"type\": \"string\", \"minLength\": 1 }\n      },\n      \"required\": [\"name\", \"color\"]\n    },\n    \"urgency\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"properties\": {\n        \"name\": { \"type\": \"string\", \"enum\": [\"urgent\", \"medium\", \"low\"] },\n        \"image\": { \"type\": \"string\", \"minLength\": 1 },\n        \"imageDetail\": { \"type\": \"string\", \"minLength\": 1 }\n      },\n      \"required\": [\"name\", \"image\", \"imageDetail\"]\n    },\n    \"description\": { \"type\": \"string\" },\n    \"subtasks\": {\n      \"type\": \"array\",\n      \"minItems\": 0,\n      \"items\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"properties\": {\n          \"name\": { \"type\": \"string\", \"minLength\": 1 },\n          \"completed\": { \"type\": \"boolean\" }\n        },\n        \"required\": [\"name\", \"completed\"]\n      }\n    },\n    \"status\": { \"type\": \"string\" },\n    \"id\": { \"type\": \"number\" }\n  },\n  \"required\": [\n    \"title\",\n    \"assignedTo\",\n    \"dueDate\",\n    \"category\",\n    \"urgency\",\n    \"description\",\n    \"subtasks\",\n    \"status\",\n    \"id\"\n  ]\n}\n"
+        "inputSchema": "{\n  \"type\": \"object\",\n  \"additionalProperties\": false,\n  \"required\": [\n    \"title\",\n    \"assignedTo\",\n    \"dueDate\",\n    \"category\",\n    \"urgency\",\n    \"description\",\n    \"subtasks\",\n    \"status\",\n    \"id\"\n  ],\n  \"properties\": {\n    \"title\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n\n    \"assignedTo\": {\n      \"type\": \"array\",\n      \"minItems\": 0,\n      \"items\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\n          \"email\",\n          \"name\",\n          \"abbrevation\",\n          \"backgroundColor\",\n          \"phoneNumber\"\n        ],\n        \"properties\": {\n          \"email\": {\n            \"type\": \"string\",\n            \"minLength\": 3\n          },\n          \"name\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"abbrevation\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"backgroundColor\": {\n            \"type\": \"string\",\n            \"pattern\": \"^rgb\\\\(\\\\s*\\\\d{1,3}\\\\s*,\\\\s*\\\\d{1,3}\\\\s*,\\\\s*\\\\d{1,3}\\\\s*\\\\)$\",\n            \"description\": \"RGB string wie rgb(255,122,1)\"\n          },\n          \"phoneNumber\": {\n            \"type\": \"number\"\n          }\n        }\n      }\n    },\n\n    \"dueDate\": {\n      \"type\": \"string\",\n      \"pattern\": \"^\\\\d{4}-\\\\d{2}-\\\\d{2}$\",\n      \"description\": \"YYYY-MM-DD, zB 2025-12-29\"\n    },\n\n    \"category\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"required\": [\"name\", \"color\"],\n      \"properties\": {\n        \"name\": {\n          \"type\": \"string\",\n          \"minLength\": 1\n        },\n        \"color\": {\n          \"type\": \"string\",\n          \"pattern\": \"^rgb\\\\(\\\\s*\\\\d{1,3}\\\\s*,\\\\s*\\\\d{1,3}\\\\s*,\\\\s*\\\\d{1,3}\\\\s*\\\\)$\",\n          \"description\": \"RGB string wie rgb(32,215,192)\"\n        }\n      }\n    },\n\n    \"urgency\": {\n      \"type\": \"object\",\n      \"additionalProperties\": false,\n      \"required\": [\"name\", \"image\", \"imageDetail\"],\n      \"properties\": {\n        \"name\": {\n          \"type\": \"string\",\n          \"enum\": [\"urgent\", \"medium\", \"low\"]\n        },\n        \"image\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"assets/img/urgent1.svg\",\n            \"assets/img/medium.svg\",\n            \"assets/img/low.svg\"\n          ]\n        },\n        \"imageDetail\": {\n          \"type\": \"string\",\n          \"enum\": [\n            \"assets/img/urgentDetail.svg\",\n            \"assets/img/mediumDetail.svg\",\n            \"assets/img/lowDetail.svg\"\n          ]\n        }\n      }\n    },\n\n    \"description\": {\n      \"type\": \"string\"\n    },\n\n    \"subtasks\": {\n      \"type\": \"array\",\n      \"minItems\": 0,\n      \"items\": {\n        \"type\": \"object\",\n        \"additionalProperties\": false,\n        \"required\": [\"name\", \"completed\"],\n        \"properties\": {\n          \"name\": {\n            \"type\": \"string\",\n            \"minLength\": 1\n          },\n          \"completed\": {\n            \"type\": \"boolean\"\n          }\n        }\n      }\n    },\n\n    \"status\": {\n      \"type\": \"string\",\n      \"minLength\": 1\n    },\n\n    \"id\": {\n      \"type\": \"number\"\n    }\n  }\n}\n"
       },
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
-      "position": [2528, 192],
+      "position": [896, 368],
       "id": "3421cb82-e0f5-40a7-b8b5-7cad044dea93",
       "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/tasks.json?auth={{ $('Authenticate in Firebase').first().json.idToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [1040, 224],
+      "id": "95d4d1ad-3af5-4b8f-90d8-e52d5edd54ca",
+      "name": "Get all tasks"
+    },
+    {
+      "parameters": {
+        "jsCode": "/**\n * Input 0: bestehende Tasks (Get all tasks)\n * Input 1: neuer Task (AI Agent)\n */\n\n// 1) Bestehende Tasks einsammeln\nconst existingTasks = $input.all(0).map(item => item.json);\n\n// 2) Neuen Task holen\nconst newTask = $('AI Agent').first().json.output;\n\nconsole.log(existingTasks);\n\nif (!newTask) {\n  throw new Error(\"Kein Task vom AI Agent erhalten\");\n}\n\nconsole.log(newTask);\n\n// 3) Zusammenführen\nconst mergedTasks = [...existingTasks, newTask];\nconsole.log(mergedTasks);\n\n// 4) GENAU EIN Item zurückgeben\nreturn [\n  {\n    json: {\n      tasks: mergedTasks\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1248, 224],
+      "id": "18fb1c48-5795-4a69-b474-06f8cba2cb89",
+      "name": "Add Task to Array"
+    },
+    {
+      "parameters": {
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/quotas/{{ $('Generate Day Key').item.json.daykey.dayKey }}.json?auth={{ $('Authenticate in Firebase').first().json.idToken }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [800, -96],
+      "id": "b679cc95-d3c2-4198-8c6f-932a718afcd3",
+      "name": "Get Quota",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/quotas/{{ $('Generate Day Key').item.json.daykey.dayKey }}.json?auth={{ $('Authenticate in Firebase').first().json.idToken }}",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "quota",
+              "value": "={{ $json.quota }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [208, 224],
+      "id": "8729cee9-2522-4574-bbe5-ca3e1602328e",
+      "name": "Update Quota in Firebase"
+    },
+    {
+      "parameters": {
+        "method": "PUT",
+        "url": "=https://join-12c12-default-rtdb.firebaseio.com/tasks.json?auth={{ $('Authenticate in Firebase').first().json.idToken }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.tasks }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [1424, 224],
+      "id": "d1e8732e-a51e-4452-b788-973a0d4fd793",
+      "name": "Update Tasks"
     }
   ],
   "pinData": {
@@ -282,46 +264,40 @@
           },
           "date": "Mon, 15 Dec 2025 11:53:51 -0300",
           "subject": "Bug bei Task-Erstellung",
-          "from": "Tobias Matthies <test@test.com>",
-          "to": "Tobias Matthies <test@test.com>"
+          "from": "Tobias Matthies <tobias@test.com>",
+          "to": "Tobias Matthies <tobias@test.com>"
         }
       }
     ],
-    "Prepare AI Input": [
+    "AI Agent": [
       {
         "json": {
-          "emailInfo": {
-            "date": "Mon, 15 Dec 2025 11:53:51 -0300",
-            "subject": "Bug bei Task-Erstellung",
-            "sender": {
-              "from": "Tobias Matthies <test@test.com>",
-              "id": 3830
+          "output": {
+            "title": "Bug bei Task-Erstellung",
+            "assignedTo": [
+              {
+                "email": "tobias@testcom",
+                "name": "Tobias Matthies",
+                "abbrevation": "TM",
+                "backgroundColor": "rgb(123,45,67)",
+                "phoneNumber": 0
+              }
+            ],
+            "dueDate": "2025-12-18",
+            "category": {
+              "name": "Development",
+              "color": "rgb(255,138,0)"
             },
-            "textPlain": "Hallo,\r\nMir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler\r\nkommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss\r\ndringend bis zum 18.12.2025 behoben werden.\r\nVG Tobi\r\n",
-            "textHTML": "<div dir=\"auto\"><br><span style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Hallo,</span><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">Mir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler kommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss dringend bis zum 18.12.2025 behoben werden.</div><div dir=\"auto\" style=\"font-size:12.8px;background-color:rgb(17,14,8)\">VG Tobi</div></div>\r\n"
-          },
-          "categories": [
-            {
-              "color": "rgb(252,113,255)",
-              "name": "Sales"
+            "urgency": {
+              "name": "urgent",
+              "image": "assets/img/urgent1.svg",
+              "imageDetail": "assets/img/urgentDetail.svg"
             },
-            {
-              "color": "rgb(32,215,192)",
-              "name": "Backoffice"
-            },
-            {
-              "color": "rgb(255,122,1)",
-              "name": "Design"
-            },
-            {
-              "color": "rgb(255,199,3)",
-              "name": "Media"
-            },
-            {
-              "color": "rgb(0,56,255)",
-              "name": "Marketing"
-            }
-          ]
+            "description": "Hallo,\nMir ist aufgefallen, dass es bei der Erstellung eines Tasks zum Fehler\nkommt. Ich kann keine Kontakte zu diesem Task assignen. Dieses Problem muss\ndringend bis zum 18.12.2025 behoben werden.\nVG Tobi",
+            "subtasks": [],
+            "status": "triage",
+            "id": 1734279231000
+          }
         }
       }
     ]
@@ -353,18 +329,7 @@
       "main": [
         [
           {
-            "node": "Get row(s)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Get row(s)": {
-      "main": [
-        [
-          {
-            "node": "Get daily quota",
+            "node": "Authenticate in Firebase",
             "type": "main",
             "index": 0
           }
@@ -404,18 +369,7 @@
       "main": [
         [
           {
-            "node": "Upsert row(s)",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Upsert row(s)": {
-      "main": [
-        [
-          {
-            "node": "Authenticate in Firebase",
+            "node": "Update Quota in Firebase",
             "type": "main",
             "index": 0
           }
@@ -426,7 +380,7 @@
       "main": [
         [
           {
-            "node": "Get Categories",
+            "node": "Get Quota",
             "type": "main",
             "index": 0
           }
@@ -456,7 +410,15 @@
       ]
     },
     "AI Agent": {
-      "main": [[]]
+      "main": [
+        [
+          {
+            "node": "Get all tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare AI Input": {
       "main": [
@@ -479,13 +441,57 @@
           }
         ]
       ]
+    },
+    "Get all tasks": {
+      "main": [
+        [
+          {
+            "node": "Add Task to Array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add Task to Array": {
+      "main": [
+        [
+          {
+            "node": "Update Tasks",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Quota": {
+      "main": [
+        [
+          {
+            "node": "Get daily quota",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Quota in Firebase": {
+      "main": [
+        [
+          {
+            "node": "Get Categories",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "251daffe-1516-472e-a9e6-d632ac42157d",
+  "versionId": "08e2964c-c4b9-4490-9724-f79e68666692",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7c3d82778fe390a8a96b680fce69390d06ef8ca6ee4f3b830ea49e7ddde74fba"
