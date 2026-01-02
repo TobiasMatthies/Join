@@ -4,7 +4,8 @@
     <main class="max-w-[1920px] mx-auto flex flex-col justify-between items-center flex-1 py-8">
         <nav class="flex justify-between text-custom-blue w-full">
             <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
-            <span> <span class="font-bold">x</span> out of <span class="font-bold">10</span> requests today</span>
+            <span> <span class="font-bold">{{dailyQuota}}</span> out of <span class="font-bold">10</span> requests
+                today</span>
         </nav>
 
         <div class="text-custom-title-gray">
