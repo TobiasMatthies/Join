@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable, Injector, OnInit } from '@angular/core';
-import { exhaustMap, firstValueFrom, take } from 'rxjs';
+import { Injectable, Injector } from '@angular/core';
+import { firstValueFrom, take } from 'rxjs';
 import { User } from '../models/user.model';
 import { AppStateService } from './app-state.service';
 import { AuthService } from './auth.service';
@@ -15,7 +15,7 @@ export class DataStorageService {
   constructor(
     private httpClient: HttpClient,
     private appStateService: AppStateService,
-    private injector: Injector
+    private injector: Injector,
   ) {}
 
   /**
@@ -54,14 +54,16 @@ export class DataStorageService {
    *  get an item at the given endpoint and wait until the promise get's resolved
    * return the result
    */
-  async getItem(endpoint: string): Promise<any> {
+  async getItem(endpoint: string, skipAuth: boolean = false): Promise<any> {
     let item = await firstValueFrom(
       this.httpClient.get(
         'https://join-12c12-default-rtdb.firebaseio.com/' + endpoint,
         {
-          params: new HttpParams().set('auth', this.user.token),
-        }
-      )
+          params: skipAuth
+            ? new HttpParams().set('auth', this.user.token)
+            : null,
+        },
+      ),
     );
     return item;
   }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 import { HeaderComponent } from '../../headers/header/header.component';
-import { AuthService } from '../../services/auth.service';
 import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
@@ -15,19 +14,13 @@ export class CreateRequestComponent implements OnInit {
   daykey = {};
   dailyQuota = 0;
 
-  constructor(
-    private dataStorage: DataStorageService,
-    private authService: AuthService,
-  ) {}
+  constructor(private dataStorage: DataStorageService) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.createDayKey();
-    let endpoint = 'quotas/' + this.daykey;
+    let endpoint = 'quotas/' + this.daykey['dayKey'] + '.json';
 
-    //Problem: redirect!
-    this.authService.login('test@test.com', 'test1234').subscribe((resData) => {
-      this.dataStorage.getItem(endpoint);
-    });
+    this.dailyQuota = await this.dataStorage.getItem(endpoint);
   }
 
   createDayKey() {
