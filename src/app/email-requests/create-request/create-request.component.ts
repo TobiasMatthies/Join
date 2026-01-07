@@ -26,7 +26,7 @@ export class CreateRequestComponent implements OnInit {
     this.createDayKey();
     let endpoint = 'quotas/' + this.daykey['dayKey'] + '.json';
 
-    this.dailyQuota.set(await this.dataStorage.getItem(endpoint));
+    this.dailyQuota.set(await this.dataStorage.getItem(endpoint, true));
   }
 
   createDayKey() {
