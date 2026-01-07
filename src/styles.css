@@ -1,6 +1,7 @@
 @import 'tailwindcss';
 
 @theme {
+  --color-custom-grey-blue: rgba(210, 227, 255, 0.40);
   --color-custom-blue: rgb(69, 136, 255);
   --color-custom-blue-dark: rgb(0, 93, 255);
   --color-custom-blue-active: rgb(209, 227, 255);
@@ -51,6 +52,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -69,6 +71,7 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
+
   *,
   ::after,
   ::before,
@@ -88,8 +91,7 @@ body {
 }
 
 .blue-filter {
-  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg)
-    brightness(98%) contrast(106%);
+  filter: invert(56%) sepia(27%) saturate(7460%) hue-rotate(201deg) brightness(98%) contrast(106%);
 }
 
 .colorpicker {
@@ -127,6 +129,7 @@ body {
 ::-webkit-scrollbar-corner {
   background-color: transparent;
 }
+
 /*apple style scrollbar end*/
 
 .show-background-animation {
@@ -172,6 +175,7 @@ body {
   from {
     max-height: 0;
   }
+
   to {
     max-height: 160px;
   }
@@ -181,6 +185,7 @@ body {
   from {
     max-height: 160px;
   }
+
   to {
     max-height: 0;
   }
@@ -190,6 +195,7 @@ body {
   from {
     background-color: transparent;
   }
+
   to {
     background-color: rgba(255, 255, 255, 0.5);
   }
@@ -199,6 +205,7 @@ body {
   from {
     background-color: rgba(255, 255, 255, 0.5);
   }
+
   to {
     background-color: transparent;
   }
@@ -208,6 +215,7 @@ body {
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(100%);
   }
