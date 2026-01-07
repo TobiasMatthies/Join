@@ -1,7 +1,7 @@
 <div class="min-h-full flex flex-col">
     <app-header></app-header>
 
-    <main class="max-w-[1920px] mx-auto flex flex-col justify-between items-center flex-1 py-8">
+    <main class="max-w-[1920px] mx-auto flex flex-col justify-between items-center flex-1 py-8  px-6">
         <nav class="flex justify-between text-custom-blue w-full">
             <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
             <span [class]="dailyQuota() >= daykey['SYSTEM_LIMIT'] ? 'text-custom-red-urgent' : ''"> <span
@@ -9,8 +9,8 @@
                 today</span>
         </nav>
 
-        <div class="text-custom-title-gray">
-            <h1 class="text-6xl font-bold mb-12 text-center">Good morning</h1>
+        <div class="text-custom-title-gray flex flex-col items-center lg:items-start">
+            <h1 class="text-3xl mdtext-5xl lg:text-6xl font-bold mb-12 text-center">Good morning</h1>
             @if (dailyQuota() >= daykey['SYSTEM_LIMIT']) {
             <p class="m-auto max-w-[60%] flex px-6 py-4 mb-12 bg-custom-grey-blue gap-4">
                 <img src="assets/img/Rectangle 10.svg" alt="megaphone">
@@ -18,9 +18,10 @@
                 Check back tomorrow to continue.
             </p>
             }
-            <div class="flex max-w-5xl gap-16 mb-10">
-                <div class="flex flex-col gap-4">
-                    <h3 class="text-3xl mb-8">Easily create a ticket by sending an email — no extra steps needed.</h3>
+            <div class="flex flex-col-reverse items-center lg:flex-row max-w-5xl gap-16 mb-10">
+                <div class="flex flex-col gap-4 max-w-xl lg:max-w-full">
+                    <h3 class="text-2xl md:text-3xl mb-8">Easily create a ticket by sending an email — no extra steps
+                        needed.</h3>
                     @if (dailyQuota() < daykey['SYSTEM_LIMIT']) { <p>On this platform, you can submit your feature
                         requests via email. Our AI system will
                         automatically
@@ -42,10 +43,10 @@
                         }
                 </div>
                 <img [src]="dailyQuota() < daykey['SYSTEM_LIMIT'] ? 'assets/img/Rectangle 11.png' : 'assets/img/Rectangle 12.png'"
-                    alt="">
+                    alt="create request">
             </div>
             <app-button-primary>
-                <div class="flex">
+                <div class="flex m-auto md:m-o">
                     Create email request <img src="assets/img/check.svg" alt="checkmark">
                 </div>
             </app-button-primary>
