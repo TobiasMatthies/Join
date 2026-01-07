@@ -55,14 +55,16 @@ export class DataStorageService {
    * return the result
    */
   async getItem(endpoint: string, skipAuth: boolean = false): Promise<any> {
+    let params = skipAuth
+      ? {}
+      : {
+          params: new HttpParams().set('auth', this.user.token),
+        };
+
     let item = await firstValueFrom(
       this.httpClient.get(
         'https://join-12c12-default-rtdb.firebaseio.com/' + endpoint,
-        {
-          params: skipAuth
-            ? new HttpParams().set('auth', this.user.token)
-            : null,
-        },
+        params,
       ),
     );
     return item;
