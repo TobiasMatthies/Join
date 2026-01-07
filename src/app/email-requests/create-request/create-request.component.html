@@ -4,27 +4,45 @@
     <main class="max-w-[1920px] mx-auto flex flex-col justify-between items-center flex-1 py-8">
         <nav class="flex justify-between text-custom-blue w-full">
             <a routerLink="/welcome"><img src="assets/img/arrow.svg" alt="Arrow back"></a>
-            <span> <span class="font-bold">{{dailyQuota}}</span> out of <span class="font-bold">10</span> requests
+            <span [class]="dailyQuota() >= daykey['SYSTEM_LIMIT'] ? 'text-custom-red-urgent' : ''"> <span
+                    class="font-bold">{{dailyQuota()}}</span> out of <span class="font-bold">10</span> requests
                 today</span>
         </nav>
 
         <div class="text-custom-title-gray">
             <h1 class="text-6xl font-bold mb-12 text-center">Good morning</h1>
+            @if (dailyQuota() >= daykey['SYSTEM_LIMIT']) {
+            <p class="m-auto max-w-[60%] flex px-6 py-4 mb-12 bg-custom-grey-blue gap-4">
+                <img src="assets/img/Rectangle 10.svg" alt="megaphone">
+                That’s all for today! The daily 10-request limit has been reached. Need more?
+                Check back tomorrow to continue.
+            </p>
+            }
             <div class="flex max-w-5xl gap-16 mb-10">
                 <div class="flex flex-col gap-4">
                     <h3 class="text-3xl mb-8">Easily create a ticket by sending an email — no extra steps needed.</h3>
-                    <p>On this platform, you can submit your feature requests via email. Our AI system will
+                    @if (dailyQuota() < daykey['SYSTEM_LIMIT']) { <p>On this platform, you can submit your feature
+                        requests via email. Our AI system will
                         automatically
                         generate a ticket
                         with a deadline and priority level.</p>
-                    <p>A total of 10 requests can be created per day. After this limit, emails can still be sent, but
-                        they
-                        will
-                        be manually
-                        reviewed by our team instead of generating AI tickets.</p>
+                        <p>A total of 10 requests can be created per day. After this limit, emails can still be sent,
+                            but
+                            they
+                            will
+                            be manually
+                            reviewed by our team instead of generating AI tickets.</p>
+                        } @else {
+                        <p>The daily limit of 10 requests has been reached.
+                            No worries — you can still send emails, but our team will review them manually instead of
+                            using
+                            AI to create
+                            tickets.</p>
 
+                        }
                 </div>
-                <img src="assets/img/Rectangle 11.png" alt="">
+                <img [src]="dailyQuota() < daykey['SYSTEM_LIMIT'] ? 'assets/img/Rectangle 11.png' : 'assets/img/Rectangle 12.png'"
+                    alt="">
             </div>
             <app-button-primary>
                 <div class="flex">

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 import { HeaderComponent } from '../../headers/header/header.component';
@@ -6,13 +7,18 @@ import { DataStorageService } from '../../services/data-storage.service';
 
 @Component({
   selector: 'app-create-request',
-  imports: [HeaderComponent, RouterModule, ButtonPrimaryComponent],
+  imports: [
+    HeaderComponent,
+    RouterModule,
+    ButtonPrimaryComponent,
+    CommonModule,
+  ],
   templateUrl: './create-request.component.html',
   styleUrl: './create-request.component.css',
 })
 export class CreateRequestComponent implements OnInit {
   daykey = {};
-  dailyQuota = 0;
+  dailyQuota = signal(0);
 
   constructor(private dataStorage: DataStorageService) {}
 
@@ -20,7 +26,7 @@ export class CreateRequestComponent implements OnInit {
     this.createDayKey();
     let endpoint = 'quotas/' + this.daykey['dayKey'] + '.json';
 
-    this.dailyQuota = await this.dataStorage.getItem(endpoint);
+    this.dailyQuota.set(await this.dataStorage.getItem(endpoint));
   }
 
   createDayKey() {
