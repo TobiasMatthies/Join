@@ -25,8 +25,9 @@ export class CreateRequestComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.createDayKey();
     let endpoint = 'quotas/' + this.daykey['dayKey'] + '.json';
+    let databaseQuota = await this.dataStorage.getItem(endpoint, true);
 
-    this.dailyQuota.set(await this.dataStorage.getItem(endpoint, true));
+    this.dailyQuota.set(databaseQuota ? databaseQuota : 0);
   }
 
   createDayKey() {
