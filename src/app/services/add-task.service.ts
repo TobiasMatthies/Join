@@ -229,6 +229,7 @@ export class AddTaskService {
       this.editTask(editedTask);
       this.submitted = false;
       this.taskDetailService.toggleEditMode();
+      this.dataStorageService.setItem(this.appStateService.tasks, 'tasks.json');
     } else {
       this.resetSubmission();
     }
