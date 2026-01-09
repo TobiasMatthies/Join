@@ -1,24 +1,16 @@
 <div
   class="relative flex h-full min-h-[40vh] w-full flex-col gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
-  [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : 'slide-up-animation'"
-  >
+  [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : 'slide-up-animation'">
   <div class="flex w-full items-center justify-between">
-    <span
-      [ngStyle]="{
+    <span [ngStyle]="{
         'background-color':
           taskDetailService.openedTaskDetailView.category.color
-      }"
-      class="w-fit rounded-lg py-1 px-6 text-white"
-      >
+      }" class="w-fit rounded-lg py-1 px-6 text-white">
       {{ taskDetailService.openedTaskDetailView.category.name }}
     </span>
 
-    <img
-      class="cursor-pointer"
-      src="assets/img/cancel.svg"
-      alt="close"
-      (click)="taskDetailService.closeTaskDetailView()"
-      />
+    <img class="cursor-pointer" src="assets/img/cancel.svg" alt="close"
+      (click)="taskDetailService.closeTaskDetailView()" />
   </div>
 
   <h1 class="text-6xl font-semibold">
@@ -31,73 +23,64 @@
     <span class="font-semibold">Due date:</span>
     <span>{{
       taskDetailService.openedTaskDetailView.dueDate | date: "dd/MM/yyyy"
-    }}</span>
+      }}</span>
   </div>
 
   <div class="flex items-center gap-5">
     <span class="font-semibold">Priority:</span>
-    <img
-      class="h-9"
-      [src]="taskDetailService.openedTaskDetailView.urgency.imageDetail"
-      alt="urgency"
-      />
+    <img class="h-9" [src]="taskDetailService.openedTaskDetailView.urgency.imageDetail" alt="urgency" />
   </div>
 
   @if (taskDetailService.openedTaskDetailView.subtasks) {
-    <div
-      class="flex gap-5"
-      >
-      <span class="font-semibold">Subtasks:</span>
-      <ul>
-        @for (
-          subtask of taskDetailService.openedTaskDetailView.subtasks; track
-          subtask; let i = $index) {
-          <li
-            class="mb-2 flex justify-between gap-5"
-            >
-            <span>{{ subtask.name }}</span>
-            <input
-              type="checkbox"
-              class="cursor-pointer accent-custom-blue"
-              [checked]="subtask.completed"
-              (change)="taskDetailService.toggleSubtask(i)"
-              />
-          </li>
-        }
-      </ul>
-    </div>
+  <div class="flex gap-5">
+    <span class="font-semibold">Subtasks:</span>
+    <ul>
+      @for (
+      subtask of taskDetailService.openedTaskDetailView.subtasks; track
+      subtask; let i = $index) {
+      <li class="mb-2 flex justify-between gap-5">
+        <span>{{ subtask.name }}</span>
+        <input type="checkbox" class="cursor-pointer accent-custom-blue" [checked]="subtask.completed"
+          (change)="taskDetailService.toggleSubtask(i)" />
+      </li>
+      }
+    </ul>
+  </div>
   }
   <ul class="overflow-y-auto">
     @for (assignee of taskDetailService.openedTaskDetailView.assignedTo; track assignee) {
-      <li
-        class="mb-5 flex items-center gap-5"
-        >
-        <div
-          class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"
-          [ngStyle]="{ backgroundColor: assignee.backgroundColor }"
-          >
-          {{ assignee.abbrevation }}
+    <li class="mb-5 flex items-center gap-5">
+      <div class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"
+        [ngStyle]="{ backgroundColor: assignee.backgroundColor }">
+        {{ assignee.abbrevation }}
+      </div>
+      <span class="flex gap-3 text-base">
+        @if (identifyContact(assignee)) {
+        <div class="flex gap-0.5 items-center px-1 rounded-sm" style="background-color: #9EEBBC; color: #0B3681;">
+          <img class="w-3.5" src="assets/img/member.svg" alt="member">
+          <span>member</span>
         </div>
-        <span>{{ assignee.name }}</span>
-      </li>
+        } @else {
+        <div class="flex gap-0.5 items-center px-1 rounded-sm" style="background-color: #EBFC88; color: #0B3681;">
+          <img class="w-3.5" src="assets/img/extern.svg" alt="extern">
+          <span>extern</span>
+        </div>
+        }
+        <span class="text-lg">{{ assignee.name }}</span>
+      </span>
+    </li>
     }
   </ul>
 
   <div class="absolute right-8 bottom-4 flex gap-2">
     <button
       class="blue-filter-hover box-border rounded-lg border border-gray-400 p-2 transition-all hover:border-custom-blue"
-      (click)="confirmService.toggleConfirmDialogOpened()"
-      >
+      (click)="confirmService.toggleConfirmDialogOpened()">
       <div class="p-1">
-        <img
-          style="
+        <img style="
             filter: invert(68%) sepia(11%) saturate(295%) hue-rotate(179deg)
               brightness(95%) contrast(87%);
-          "
-          class="h-6 w-6 transition-all"
-          src="assets/img/delete.svg"
-          alt="delete"
-          />
+          " class="h-6 w-6 transition-all" src="assets/img/delete.svg" alt="delete" />
       </div>
     </button>
 
@@ -110,15 +93,11 @@
 
   <!--overlay-->
   @if (confirmService.confirmDialogOpened) {
-    <div
-      class="absolute top-0 left-0 h-full w-full rounded-3xl bg-white/50"
-      (click)="confirmService.toggleConfirmDialogOpened()"
-    ></div>
+  <div class="absolute top-0 left-0 h-full w-full rounded-3xl bg-white/50"
+    (click)="confirmService.toggleConfirmDialogOpened()"></div>
   }
 
   @if (confirmService.confirmDialogOpened) {
-    <app-confirm-dialog
-      class="absolute absolute-center h-1/3 min-w-[50%]"
-    ></app-confirm-dialog>
+  <app-confirm-dialog class="absolute absolute-center h-1/3 min-w-[50%]"></app-confirm-dialog>
   }
 </div>
