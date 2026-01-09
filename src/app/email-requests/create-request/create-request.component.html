@@ -45,11 +45,13 @@
                 <img [src]="dailyQuota() < daykey['SYSTEM_LIMIT'] ? 'assets/img/Rectangle 11.png' : 'assets/img/Rectangle 12.png'"
                     alt="create request">
             </div>
-            <app-button-primary>
-                <div class="flex m-auto md:m-o">
-                    Create email request <img src="assets/img/check.svg" alt="checkmark">
-                </div>
-            </app-button-primary>
+            <a href="mailto:tbsmatthies@gmail.com">
+                <app-button-primary>
+                    <div class="flex m-auto md:m-o">
+                        Create email request <img src="assets/img/check.svg" alt="checkmark">
+                    </div>
+                </app-button-primary>
+            </a>
         </div>
 
         <div class="flex gap-2 text-custom-title-gray">
