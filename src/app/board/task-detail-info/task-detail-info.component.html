@@ -47,14 +47,14 @@
     </ul>
   </div>
   }
-  <ul class="overflow-y-auto">
+  <ul class="overflow-y-auto w-full">
     @for (assignee of taskDetailService.openedTaskDetailView.assignedTo; track assignee) {
     <li class="mb-5 flex items-center gap-5">
-      <div class="box-border flex h-10 min-w-[40px] items-center justify-center rounded-full text-white"
+      <div class="box-border flex h-10 min-w-10 items-center justify-center rounded-full text-white"
         [ngStyle]="{ backgroundColor: assignee.backgroundColor }">
         {{ assignee.abbrevation }}
       </div>
-      <span class="flex gap-3 text-base">
+      <span class="flex gap-3 text-base items-center flex-1">
         @if (identifyContact(assignee)) {
         <div class="flex gap-0.5 items-center px-1 rounded-sm" style="background-color: #9EEBBC; color: #0B3681;">
           <img class="w-3.5" src="assets/img/member.svg" alt="member">
@@ -67,6 +67,22 @@
         </div>
         }
         <span class="text-lg">{{ assignee.name }}</span>
+        @if (identifyContact(assignee)) {
+        <span class="flex flex-1 justify-end">
+          <a class="flex items-center gap-0.5 size-max" [href]="'mailto:' + assignee.email">
+            <img src="assets/img/person.svg" alt="email logo">
+            Profile
+          </a>
+
+        </span>
+        } @else {
+        <span class="flex flex-1 justify-end">
+          <a class="flex items-center gap-0.5 size-max" [href]="'mailto:' + assignee.email">
+            <img src="assets/img/attach_email.svg" alt="email logo">
+            E-mail
+          </a>
+        </span>
+        }
       </span>
     </li>
     }
