@@ -1,5 +1,6 @@
 import { NgClass, NgStyle, UpperCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AddTaskOverlayComponent } from '../add-task/add-task-overlay/add-task-overlay.component';
 import { ButtonPrimaryComponent } from '../customComponents/button-primary/button-primary.component';
 import { LayoutComponent } from '../layout/layout.component';
@@ -41,6 +42,7 @@ export class ContactsComponent implements OnInit {
     public addTaskService: AddTaskService,
     public windowWidthService: WindowWidthService,
     private dataStorageService: DataStorageService,
+    private route: ActivatedRoute,
   ) {}
 
   async ngOnInit() {
@@ -51,6 +53,13 @@ export class ContactsComponent implements OnInit {
 
     this.windowWidthService.getWindowWidth();
     this.getEveryFirstLetter();
+
+    this.route.queryParamMap.subscribe((params) => {
+      const targetedContact = params.get('selectedContact');
+      this.selectedContact = this.appStateService.contacts.find((c) => {
+        return c.email === targetedContact;
+      });
+    });
   }
 
   updateContacts(contact: Contact) {

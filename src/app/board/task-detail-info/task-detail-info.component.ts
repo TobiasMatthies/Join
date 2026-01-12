@@ -1,5 +1,6 @@
 import { DatePipe, NgClass, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { ButtonPrimaryComponent } from '../../customComponents/button-primary/button-primary.component';
 import { Contact } from '../../models/contact.model';
 import { AppStateService } from '../../services/app-state.service';
@@ -17,6 +18,7 @@ import { ConfirmService } from './confirm.service';
     ButtonPrimaryComponent,
     ConfirmDialogComponent,
     DatePipe,
+    RouterModule,
   ],
 })
 export class TaskDetailInfoComponent {
