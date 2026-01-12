@@ -2,12 +2,18 @@
   class="relative flex h-full min-h-[40vh] w-full flex-col gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
   [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : 'slide-up-animation'">
   <div class="flex w-full items-center justify-between">
-    <span [ngStyle]="{
-        'background-color':
-          taskDetailService.openedTaskDetailView.category.color
-      }" class="w-fit rounded-lg py-1 px-6 text-white">
-      {{ taskDetailService.openedTaskDetailView.category.name }}
-    </span>
+    <div class="flex gap-2 items-center">
+      <span [ngStyle]="{
+            'background-color':
+              taskDetailService.openedTaskDetailView.category.color
+          }" class="w-fit rounded-lg py-1 px-6 text-white">
+        {{ taskDetailService.openedTaskDetailView.category.name }}
+      </span>
+
+      @if (taskDetailService.openedTaskDetailView.aiGenerated) {
+      <img src="assets/img/ai-generated.png" alt="AI generated">
+      }
+    </div>
 
     <img class="cursor-pointer" src="assets/img/cancel.svg" alt="close"
       (click)="taskDetailService.closeTaskDetailView()" />

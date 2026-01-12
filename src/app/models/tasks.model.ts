@@ -10,6 +10,7 @@ export type Task = {
   subtasks: { name: string; completed: boolean }[];
   status: 'triage' | 'toDo' | 'inProgress' | 'awaitingFeedback' | 'done';
   id: number;
+  aiGenerated?: boolean;
 };
 
 export type EditedTask = {
