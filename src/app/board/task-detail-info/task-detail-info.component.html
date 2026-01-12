@@ -69,7 +69,8 @@
         <span class="text-lg">{{ assignee.name }}</span>
         @if (identifyContact(assignee)) {
         <span class="flex flex-1 justify-end">
-          <a class="flex items-center gap-0.5 size-max" [href]="'mailto:' + assignee.email">
+          <a class="flex items-center gap-0.5 size-max" routerLink="/contacts"
+            [queryParams]=" {'selectedContact': assignee.email}">
             <img src="assets/img/person.svg" alt="email logo">
             Profile
           </a>
@@ -88,7 +89,7 @@
     }
   </ul>
 
-  <div class="absolute right-8 bottom-4 flex gap-2">
+  <div class="flex gap-2 justify-end">
     <button
       class="blue-filter-hover box-border rounded-lg border border-gray-400 p-2 transition-all hover:border-custom-blue"
       (click)="confirmService.toggleConfirmDialogOpened()">
