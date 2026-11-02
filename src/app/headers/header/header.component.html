@@ -4,6 +4,7 @@
   <img class="h-12 w-12" src="assets/img/icon_white.svg" alt="logo" />
 
   <div class="flex items-center gap-5">
+    <app-theme-toggle></app-theme-toggle>
     <span class="hidden text-white lg:block lg:font-light"
       >Kanban Project Managment Tool</span
       >
@@ -24,7 +25,7 @@
 
     @if (logoutOpened) {
       <div
-        class="absolute right-5 -bottom-32 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-white text-custom-blue shadow-lg lg:font-light"
+        class="absolute right-5 -bottom-32 z-10 flex cursor-pointer flex-col gap-2 rounded-2xl rounded-tr-none bg-surface text-custom-blue shadow-lg lg:font-light"
         (click)="toggleLogoutOpened()"
         >
         <span

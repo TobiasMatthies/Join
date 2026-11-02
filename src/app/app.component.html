@@ -1,1 +1,5 @@
 <router-outlet></router-outlet>
+
+@if (!(authService.user | async)) {
+  <app-theme-toggle class="fixed right-4 bottom-4 z-50" [solid]="true"></app-theme-toggle>
+}

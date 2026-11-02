@@ -39,7 +39,7 @@
 
 <!--overlay-->
 @if (taskDetailService.openedTaskDetailView) {
-<div class="absolute top-0 h-full w-full bg-white/50 show-background-animation"
+<div class="absolute top-0 h-full w-full bg-overlay show-background-animation"
   [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'hide-background-animation' : ''"
   (click)="taskDetailService.closeTaskDetailView()"></div>
 }

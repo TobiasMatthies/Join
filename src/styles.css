@@ -1,84 +1,122 @@
 @import 'tailwindcss';
 
+/* ---------- Theme tokens ----------
+   Light values are the original design. `html.dark` swaps them for a dark palette
+   derived from the same slate-blue hue (#41526E) and brand blue (#4588FF). */
+:root {
+  color-scheme: light;
+  --c-page: #ffffff;
+  --c-surface: #ffffff;
+  --c-ink: #000000;
+  --c-line: #e5e7eb;
+  --c-track: #e5e7eb;
+  --c-overlay: rgba(255, 255, 255, 0.5);
+  --c-blue: rgb(69, 136, 255);
+  --c-blue-dark: rgb(0, 93, 255);
+  --c-blue-text-strong: rgb(0, 93, 255);
+  --c-blue-active: rgb(209, 227, 255);
+  --c-grey-blue: rgba(210, 227, 255, 0.4);
+  --c-placeholder-gray: rgb(209, 209, 209);
+  --c-title-gray: rgb(65, 82, 110);
+  --c-scroll-thumb: rgba(0, 0, 0, 0.4);
+
+  --s-card: 0px 0px 5px 3px rgba(204, 204, 204, 0.3);
+  --s-contacts-right: 3px 0px 5px 0px rgba(204, 204, 204, 0.3);
+  --s-header: 0px 4px 4px 0px rgba(204, 204, 204, 0.75);
+  --s-navbar: 1px 0px 0px 0px rgba(232, 232, 232, 0.75);
+  --s-info-fields: 0px 0px 1px 1px rgba(232, 232, 232, 0.75);
+  --s-contacts: 0px 0px 3px 3px rgba(232, 232, 232, 0.75);
+  --s-category-color: 0px 3px 5px 0px rgba(110, 110, 110, 0.75);
+}
+
+:root.dark {
+  color-scheme: dark;
+  --c-page: #0d1522;
+  --c-surface: #162133;
+  --c-ink: #e6ecf5;
+  --c-line: #2a3a54;
+  --c-track: #2a3a54;
+  --c-overlay: rgba(6, 11, 20, 0.65);
+  --c-blue: rgb(69, 136, 255);
+  --c-blue-dark: rgb(0, 93, 255);
+  --c-blue-text-strong: rgb(120, 168, 255);
+  --c-blue-active: rgb(31, 52, 94);
+  --c-grey-blue: rgba(69, 136, 255, 0.16);
+  --c-placeholder-gray: rgb(96, 111, 137);
+  --c-title-gray: rgb(176, 192, 219);
+  --c-scroll-thumb: rgba(255, 255, 255, 0.28);
+
+  --s-card: 0px 0px 6px 2px rgba(0, 0, 0, 0.45);
+  --s-contacts-right: 3px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  --s-header: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
+  --s-navbar: 1px 0px 0px 0px rgba(42, 58, 84, 0.9);
+  --s-info-fields: 0px 0px 1px 1px rgba(42, 58, 84, 0.9);
+  --s-contacts: 0px 0px 3px 3px rgba(0, 0, 0, 0.35);
+  --s-category-color: 0px 3px 5px 0px rgba(0, 0, 0, 0.6);
+}
+
 @theme {
-  --color-custom-grey-blue: rgba(210, 227, 255, 0.40);
-  --color-custom-blue: rgb(69, 136, 255);
-  --color-custom-blue-dark: rgb(0, 93, 255);
-  --color-custom-blue-active: rgb(209, 227, 255);
-  --color-custom-placeholder-gray: rgb(209, 209, 209);
-  --color-custom-title-gray: rgb(65, 82, 110);
+  --color-page: var(--c-page);
+  --color-surface: var(--c-surface);
+  --color-ink: var(--c-ink);
+  --color-line: var(--c-line);
+  --color-track: var(--c-track);
+  --color-overlay: var(--c-overlay);
+
+  --color-custom-grey-blue: var(--c-grey-blue);
+  --color-custom-blue: var(--c-blue);
+  --color-custom-blue-dark: var(--c-blue-dark);
+  --color-custom-blue-active: var(--c-blue-active);
+  --color-custom-placeholder-gray: var(--c-placeholder-gray);
+  --color-custom-title-gray: var(--c-title-gray);
   --color-custom-red-urgent: rgb(255, 61, 0);
   --color-custom-orange-medium: rgb(255, 168, 0);
   --color-custom-green-low: rgb(122, 226, 40);
 
-  --shadow-custom-card: 0px 0px 5px 3px rgba(204, 204, 204, 0.3);
-  --shadow-custom-contacts-right: 3px 0px 5px 0px rgba(204, 204, 204, 0.3);
-  --shadow-custom-header: 0px 4px 4px 0px rgba(204, 204, 204, 0.75);
-  --shadow-custom-navbar: 1px 0px 0px 0px rgba(232, 232, 232, 0.75);
-  --shadow-custom-info-fields: 0px 0px 1px 1px rgba(232, 232, 232, 0.75);
-  --shadow-custom-contacts: 0px 0px 3px 3px rgba(232, 232, 232, 0.75);
-  --shadow-custom-category-color: 0px 3px 5px 0px rgba(110, 110, 110, 0.75);
+  --shadow-custom-card: var(--s-card);
+  --shadow-custom-contacts-right: var(--s-contacts-right);
+  --shadow-custom-header: var(--s-header);
+  --shadow-custom-navbar: var(--s-navbar);
+  --shadow-custom-info-fields: var(--s-info-fields);
+  --shadow-custom-contacts: var(--s-contacts);
+  --shadow-custom-category-color: var(--s-category-color);
 
-  --border-color-custom-blue: rgb(69, 136, 255);
+  --border-color-custom-blue: var(--c-blue);
 }
 
-@theme {
-  --color-custom-blue: rgb(69, 136, 255);
-  --color-custom-blue-dark: rgb(0, 93, 255);
-  --color-custom-blue-active: rgb(209, 227, 255);
-  --color-custom-placeholder-gray: rgb(209, 209, 209);
-  --color-custom-title-gray: rgb(65, 82, 110);
-  --color-custom-red-urgent: rgb(255, 61, 0);
-  --color-custom-orange-medium: rgb(255, 168, 0);
-  --color-custom-green-low: rgb(122, 226, 40);
-
-  --shadow-custom-card: 0px 0px 5px 3px rgba(204, 204, 204, 0.3);
-  --shadow-custom-contacts-right: 3px 0px 5px 0px rgba(204, 204, 204, 0.3);
-  --shadow-custom-header: 0px 4px 4px 0px rgba(204, 204, 204, 0.75);
-  --shadow-custom-navbar: 1px 0px 0px 0px rgba(232, 232, 232, 0.75);
-  --shadow-custom-info-fields: 0px 0px 1px 1px rgba(232, 232, 232, 0.75);
-  --shadow-custom-contacts: 0px 0px 3px 3px rgba(232, 232, 232, 0.75);
-  --shadow-custom-category-color: 0px 3px 5px 0px rgba(110, 110, 110, 0.75);
-
-  --border-color-custom-blue: rgb(69, 136, 255);
-}
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+/* Tailwind v4 defaults borders to currentcolor; keep the v3 look, themed. */
 @layer base {
-
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--c-line);
   }
 }
 
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+body {
+  background-color: var(--c-page);
+  color: var(--c-ink);
+  transition: background-color 0.2s, color 0.2s;
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
+/* Strong blue text (links/labels on white) needs a lighter tone on dark */
+.dark .text-custom-blue-dark,
+.dark .hover\:text-custom-blue-dark:hover {
+  color: var(--c-blue-text-strong);
+}
 
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
+/* Dark-coloured icons (#42526E / #2A3647 / black) become light on dark */
+.dark img[src$="Vector-9.svg"],
+.dark img[src$="Vector-10.svg"],
+.dark img[src$="Vector-12.svg"],
+.dark img[src$="Group 1.svg"],
+.dark img[src$="cancel.svg"],
+.dark img[src$="info.svg"],
+.dark img[src$="Vector-13.svg"],
+.dark img[src$="delete.svg"] {
+  filter: brightness(0) invert(0.85);
 }
 
 input:focus,
@@ -86,7 +124,7 @@ textarea:focus {
   outline: none;
 }
 
-body {
+html body {
   height: 100vh;
 }
 
@@ -111,7 +149,7 @@ body {
   height: 6px;
   border: 4px solid rgba(0, 0, 0, 0) !important;
   background-clip: padding-box;
-  background-color: rgba(0, 0, 0, 0.4) !important;
+  background-color: var(--c-scroll-thumb) !important;
   border-radius: 20px !important;
   box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
     inset 1px 1px 0px rgba(0, 0, 0, 0.05) !important;
@@ -197,13 +235,13 @@ body {
   }
 
   to {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--c-overlay);
   }
 }
 
 @keyframes hide-background {
   from {
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: var(--c-overlay);
   }
 
   to {

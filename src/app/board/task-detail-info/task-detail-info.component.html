@@ -1,5 +1,5 @@
 <div
-  class="relative flex h-full min-h-[40vh] w-full flex-col gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
+  class="relative flex h-full min-h-[40vh] w-full flex-col gap-5 sm:rounded-3xl bg-surface p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
   [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : 'slide-up-animation'">
   <div class="flex w-full items-center justify-between">
     <div class="flex gap-2 items-center">
@@ -116,7 +116,7 @@
 
   <!--overlay-->
   @if (confirmService.confirmDialogOpened) {
-  <div class="absolute top-0 left-0 h-full w-full rounded-3xl bg-white/50"
+  <div class="absolute top-0 left-0 h-full w-full rounded-3xl bg-overlay"
     (click)="confirmService.toggleConfirmDialogOpened()"></div>
   }
 

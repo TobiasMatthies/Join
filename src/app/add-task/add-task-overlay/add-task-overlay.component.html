@@ -14,7 +14,7 @@
     (click)="addTaskService.toggleAddTaskOverlay()"
   ></div>
   <form
-    class="flex h-full w-full flex-col gap-5 bg-white p-8 pt-12 shadow-custom-card md:absolute md:right-0 md:w-2/3 md:max-w-[550px] md:rounded-l-3xl lg:font-light xl:w-1/3 slide-in"
+    class="flex h-full w-full flex-col gap-5 bg-surface p-8 pt-12 shadow-custom-card md:absolute md:right-0 md:w-2/3 md:max-w-[550px] md:rounded-l-3xl lg:font-light xl:w-1/3 slide-in"
     [ngClass]="addTaskService.addTaskOverlayCloseAnimation ? 'slide-out' : ''"
     id="form"
     [formGroup]="addTaskService.form"
@@ -329,7 +329,7 @@
                       : ''
                   "
                                   [ngStyle]="{ 'background-color': color }"
-                                  class="h-4 w-4 cursor-pointer rounded-full border-2 border-white"
+                                  class="h-4 w-4 cursor-pointer rounded-full border-2 border-surface"
                                   (click)="addTaskService.selectColor(color)"
                                 ></div>
                               }

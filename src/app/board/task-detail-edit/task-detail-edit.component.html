@@ -1,7 +1,7 @@
 <form
   [formGroup]="addTaskService.form"
   (ngSubmit)="onEditTask()"
-  class="relative flex h-full min-h-[40vh] w-full flex-col items-center gap-5 sm:rounded-3xl bg-white p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
+  class="relative flex h-full min-h-[40vh] w-full flex-col items-center gap-5 sm:rounded-3xl bg-surface p-8 text-xl shadow-custom-info-fields sm:max-h-[90vh] lg:font-light"
   [ngClass]="taskDetailService.closeTaskDetailViewAnimation ? 'slide-down-animation' : ''"
   >
   <div class="flex w-full justify-end">
@@ -129,7 +129,7 @@
               class="relative"
               formGroupName="contacts"
               >
-              <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-white">
+              <ul class="absolute top-0 left-0 right-0 z-10 flex flex-col bg-surface">
                 <div class="max-h-[78px] overflow-y-auto">
                   @for (contact of appStateService.contacts; track contact; let i = $index) {
                     <li

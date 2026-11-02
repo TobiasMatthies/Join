@@ -19,7 +19,7 @@
       </section>
       @if (task.subtasks && task.subtasks.length > 0) {
       <div class="flex w-full items-center gap-5">
-        <div class="h-2 flex-1 rounded-xs bg-gray-200">
+        <div class="h-2 flex-1 rounded-xs bg-track">
           <div class="h-full bg-custom-blue rounded-3xl" [style.width]="findCompletedSubtasks(task.subtasks, true)">
           </div>
         </div>
@@ -35,14 +35,14 @@
         <div class="flex">
           @for (contact of task.assignedTo; track contact; let i = $index) {
           @if (i < 2) { <span
-            class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+            class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-surface text-xs text-white"
             [ngStyle]="{ backgroundColor: contact.backgroundColor }">
             {{ contact.abbrevation }}
             </span>
             }
             @if (i == 2) {
             <span
-              class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-white text-xs text-white"
+              class="-mr-1 box-border flex h-8 min-w-[32px] items-center justify-center rounded-full border border-surface text-xs text-white"
               [ngStyle]="{ backgroundColor: contact.backgroundColor }">
               +{{ task.assignedTo.length - 2 }}
             </span>
