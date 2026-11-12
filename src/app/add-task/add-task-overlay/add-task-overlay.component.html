@@ -209,7 +209,7 @@
                         @if (
                           !addTaskService.showCreateNewCategory) {
                           <div
-                            class="flex w-full justify-between"
+                            class="flex w-full items-center justify-between"
                             (click)="addTaskService.toggleCategories()"
                             >
                             @if (!addTaskService.form.controls['category'].value) {

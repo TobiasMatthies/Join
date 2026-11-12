@@ -7,6 +7,8 @@
   color-scheme: light;
   --c-page: #ffffff;
   --c-surface: #ffffff;
+  --c-raised: #ffffff;
+  --c-field: #9ca3af;
   --c-ink: #000000;
   --c-line: #e5e7eb;
   --c-track: #e5e7eb;
@@ -30,34 +32,41 @@
 }
 
 :root.dark {
+  /* Midnight-navy ramp (hue ~220), built around the brand blue #4588FF.
+     page -> surface -> raised climbs in lightness so layers read without heavy shadows. */
   color-scheme: dark;
-  --c-page: #0d1522;
-  --c-surface: #162133;
-  --c-ink: #e6ecf5;
-  --c-line: #2a3a54;
-  --c-track: #2a3a54;
-  --c-overlay: rgba(6, 11, 20, 0.65);
+  --c-page: #0a111f;
+  --c-surface: #111b2e;
+  --c-raised: #1a2a46;
+  --c-field: #3a4f77;
+  --c-ink: #e8eef9;
+  --c-line: #243552;
+  --c-track: #2a3d60;
+  --c-overlay: rgba(4, 8, 16, 0.7);
   --c-blue: rgb(69, 136, 255);
   --c-blue-dark: rgb(0, 93, 255);
-  --c-blue-text-strong: rgb(120, 168, 255);
-  --c-blue-active: rgb(31, 52, 94);
-  --c-grey-blue: rgba(69, 136, 255, 0.16);
-  --c-placeholder-gray: rgb(96, 111, 137);
-  --c-title-gray: rgb(176, 192, 219);
-  --c-scroll-thumb: rgba(255, 255, 255, 0.28);
+  --c-blue-text-strong: rgb(124, 172, 255);
+  --c-blue-active: rgb(28, 52, 98);
+  --c-grey-blue: rgba(69, 136, 255, 0.14);
+  --c-placeholder-gray: rgb(107, 125, 156);
+  --c-title-gray: rgb(168, 187, 217);
+  --c-scroll-thumb: rgba(143, 171, 222, 0.32);
 
-  --s-card: 0px 0px 6px 2px rgba(0, 0, 0, 0.45);
-  --s-contacts-right: 3px 0px 5px 0px rgba(0, 0, 0, 0.4);
-  --s-header: 0px 4px 4px 0px rgba(0, 0, 0, 0.5);
-  --s-navbar: 1px 0px 0px 0px rgba(42, 58, 84, 0.9);
-  --s-info-fields: 0px 0px 1px 1px rgba(42, 58, 84, 0.9);
-  --s-contacts: 0px 0px 3px 3px rgba(0, 0, 0, 0.35);
-  --s-category-color: 0px 3px 5px 0px rgba(0, 0, 0, 0.6);
+  /* Depth in dark mode comes from a 1px lit edge plus a soft drop, not a grey glow */
+  --s-card: 0 0 0 1px rgba(95, 130, 190, 0.22), 0 8px 18px -6px rgba(0, 0, 0, 0.6);
+  --s-contacts-right: 1px 0 0 0 rgba(36, 53, 82, 1);
+  --s-header: 0 4px 12px 0 rgba(0, 0, 0, 0.45);
+  --s-navbar: 1px 0 0 0 rgba(36, 53, 82, 1);
+  --s-info-fields: 0 0 0 1px rgba(95, 130, 190, 0.2), 0 16px 40px -8px rgba(0, 0, 0, 0.7);
+  --s-contacts: 0 0 0 1px rgba(95, 130, 190, 0.25);
+  --s-category-color: 0 3px 5px 0 rgba(0, 0, 0, 0.6);
 }
 
 @theme {
   --color-page: var(--c-page);
   --color-surface: var(--c-surface);
+  --color-raised: var(--c-raised);
+  --color-field: var(--c-field);
   --color-ink: var(--c-ink);
   --color-line: var(--c-line);
   --color-track: var(--c-track);
@@ -82,6 +91,7 @@
   --shadow-custom-category-color: var(--s-category-color);
 
   --border-color-custom-blue: var(--c-blue);
+  --border-color-field: var(--c-field);
 }
 
 /* Tailwind v4 defaults borders to currentcolor; keep the v3 look, themed. */
@@ -115,8 +125,14 @@ body {
 .dark img[src$="cancel.svg"],
 .dark img[src$="info.svg"],
 .dark img[src$="Vector-13.svg"],
-.dark img[src$="delete.svg"] {
+.dark img[src$="delete.svg"],
+.dark img[src$="search.svg"] {
   filter: brightness(0) invert(0.85);
+}
+
+/* Placeholder text: keep it legible but quieter than input text */
+.dark ::placeholder {
+  color: var(--c-placeholder-gray);
 }
 
 input:focus,
@@ -135,6 +151,21 @@ html body {
 .colorpicker {
   background-image: url(./assets/img/colorize.svg);
   background-size: cover;
+}
+
+/* The picker icon is a CSS background (black), so recolour it with a mask in dark mode */
+.dark .colorpicker {
+  background-image: none;
+}
+
+.dark .colorpicker::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-color: var(--c-ink);
+  -webkit-mask: url(./assets/img/colorize.svg) center / cover no-repeat;
+  mask: url(./assets/img/colorize.svg) center / cover no-repeat;
 }
 
 /*Border radius*/
@@ -257,4 +288,19 @@ html body {
   to {
     transform: translateY(100%);
   }
+}
+
+/* Interactive elements should always signal that they are clickable */
+button,
+[role='button'],
+a[href],
+summary,
+select,
+input[type='checkbox'],
+input[type='color'] {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

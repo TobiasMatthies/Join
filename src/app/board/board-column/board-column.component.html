@@ -7,7 +7,7 @@
 
   <div class="flex max-h-full flex-col gap-5 overflow-y-auto p-1">
     @for (task of filteredTasks | filterTasks: filter; track task) {
-    <div class="flex cursor-pointer flex-col gap-5 rounded-3xl p-4 shadow-custom-card" [id]="task.id" cdkDrag
+    <div class="flex cursor-pointer flex-col gap-5 rounded-3xl bg-raised p-4 shadow-custom-card" [id]="task.id" cdkDrag
       [cdkDragData]="task.id" (click)="taskDetailService.openTaskDetailView(task)">
       <span [ngStyle]="{ 'background-color': task.category.color }"
         class="w-fit rounded-lg py-1 px-6 text-sm text-white">

@@ -170,7 +170,7 @@ export class AuthService {
 
     this.user.next(null);
     localStorage.removeItem('user');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/welcome']);
   }
 
   autoLogout(expirationDuration: number) {
